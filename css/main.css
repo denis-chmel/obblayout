@@ -21,7 +21,7 @@ html, body {
     float: none; /* not needed, just for clarification */
     height: 100%;
     padding: 20px;
-    background: url(../img/cell.svg) -1px -1px;
+    /*background: url(../img/cell.svg) -1px -1px;*/
     /* the next props are meant to keep this block independent from the other floated one */
     width: auto;
     overflow: hidden;
@@ -29,14 +29,21 @@ html, body {
 
 .right > .container {
     width: 100%;
+    max-width: 1200px;
 }
 
-.right header,
-.right footer,
-.right main {
-    border: 1px dotted #000;
-    margin: 1ex auto;
-    padding: 1ex;
+.row > .sortable {
+    margin: 0;
+}
+
+.sortable {
+    box-sizing: border-box;
+    border: 1px dotted #AAA;
+    /*border-radius: 5px;*/
+    margin: 10px auto;
+    padding: 10px;
+    min-height: 40px;
+    /*background: #F9F9F9;*/
 }
 
 .hint {
@@ -46,9 +53,67 @@ html, body {
     font-weight: bold;
 }
 
-.draggable:hover {
+.draggable {
+    cursor: move;
+    margin: 5px auto !important;
+}
+.draggable-hovered {
     outline: 2px solid #7ac1d5;
+}
+.draggable-hovered.ui-sortable-helper {
+    outline: none;
 }
 .draggable.selected {
     outline: 2px solid #68a2b1;
+}
+
+.task-sortable-placeholder {
+    /*margin: 0;*/
+    /*box-sizing: content-box;*/
+    /*border-radius: 10px;*/
+    /*height: 5px;*/
+    /*background: #6dbbfe;*/
+}
+
+.ui-sortable-placeholder {
+    border: 1px dotted #AAA !important;
+    visibility: visible !important;
+    outline: none !important;
+    background: #FFF !important;
+}
+
+.draggable-ghost {
+    /*opacity: 0.5;*/
+}
+
+.ui-sortable-helper {
+    /*display: none !important;*/
+    opacity: 0.7;
+    width: 100%;
+}
+
+header:empty,
+footer:empty,
+main:empty {
+    background: center center no-repeat;
+}
+header:empty {
+    background-image: url(../img/label.php?text=header+section);
+}
+main:empty {
+    background-image: url(../img/label.php?text=main+section);
+}
+footer:empty {
+    background-image: url(../img/label.php?text=footer+section);
+}
+
+.shop-logo {
+    height: 100px;
+    width: 100%;
+    background: #EEE;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 5px;
+    color: #CCC;
+    font-size: 18px;
 }

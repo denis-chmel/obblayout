@@ -1,18 +1,12 @@
 var changesHistory = [];
-var sortables = "main, header, footer";
-sortables = "main, header, footer";
-
-function updateHints() {
-    $.each(["main", "header", "footer"], function(i, name) {
-        if ($(name + " .hint").length == 0) {
-            $(name).append("<div class=\"hint\">" + name + "</div>");
-        }
-        $(name + " .hint").toggle($(name + " > *").length == 1);
-    });
-}
+var sortables = ".sortable";
 
 function historySave() {
-    changesHistory.push($("#sandbox").html());
+    var currentHtml = $("#sandbox").html();
+    if (changesHistory[changesHistory.length - 1] == currentHtml) {
+        return;
+    }
+    changesHistory.push(currentHtml);
 }
 
 function historyEmpty() {
@@ -20,18 +14,39 @@ function historyEmpty() {
 }
 
 function initDrag() {
+
     $(sortables).sortable({
         connectWith: sortables,
-        out: updateHints,
-        over: updateHints,
-        stop: function() {
+        helper: "clone",
+//        placeholder: "task-sortable-placeholder",
+        tolerance: "pointer",
+        over: function(event, ui){
+//            console.log(ui.placeholder);
+            $(ui.helper).width($(this).width());
+            console.log($(ui.helper).width());
+            alignColumnsInRow();
+        },
+//        cursorAt: { left: 10, top: 10 },
+        delay: 100,
+        start: function(e, ui) {
+            /*
+            $(".row").each(function(){
+                $(this).children().css("min-height", $(this).height()).height("auto");
+            });
+            */
+//            $(ui.item).show().addClass("draggable-ghost");
+        },
+        stop: function(e, ui) {
+//            $(ui.item).removeClass("draggable-ghost");
+
             onAfterChange();
         }
     });
 
     $( "#draggable-blocks > *" ).draggable({
         connectToSortable: sortables,
-        appendTo: "body",
+//        appendTo: "#sandbox .container",
+        tolerance: "pointer",
         helper: "clone",
         stop: function(){
             onAfterChange();
@@ -55,13 +70,33 @@ function historyGo(direction) {
     }
 }
 
+function alignColumnsInRow(where) {
+    $(".row", where).each(function(){
+        var maxHeight = 0;
+        $(this).children().height("auto").each(function(){
+            maxHeight = Math.max(maxHeight, $(this).height());
+        }).height(maxHeight);
+
+    });
+
+}
+
 function onAfterChange(skipHistory) {
-    updateHints();
+    $(".sortable > *").addClass("draggable");
+    setTimeout(function(){
+        alignColumnsInRow();
+    }, 1);
+
     if (!skipHistory) {
         historySave();
     }
     $("#btn-undo").toggleClass("disabled", historyEmpty());
     initDrag();
+    $("main, footer, header").each(function(){
+        if (!$(this).children().length) {
+            $(this).empty();
+        }
+    });
 }
 
 $(function() {
@@ -99,6 +134,14 @@ $(function() {
                     break;
             }
 
+        }).on("mouseover", ".draggable", function(e){
+            if ($(".task-sortable-placeholder:visible").length) {
+                return;
+            }
+            $(this).addClass("draggable-hovered");
+            e.stopPropagation();
+        }).on("mouseout", ".draggable", function(){
+            $(this).removeClass("draggable-hovered");
         });
 
 });

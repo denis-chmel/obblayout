@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap-3.1.1-dist/css/bootstrap.css"/>
     <script src="js/jquery-2.1.0.js"></script>
     <script src="vendor/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
 
-    <link rel="stylesheet" href="/js/jquery-ui/themes/smoothness/jquery-ui.css?v=version-1">
-    <script src="/js/jquery-ui/ui/jquery-ui.js?v=version-1"></script>
+    <link rel="stylesheet" href="/js/jquery-ui/themes/smoothness/jquery-ui.css">
+    <script src="/js/jquery-ui/ui/jquery-ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
 
 </head>
 <body>
@@ -40,7 +41,7 @@
 
         <div id="draggable-blocks">
 
-            <div class="progress draggable">
+            <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                     <span class="sr-only">60% Complete</span>
                 </div>
@@ -54,11 +55,41 @@
 
         <div class="container">
 
-            <header class="sortable"></header>
+            <header class="sortable">
+
+                <div class="shop-logo">
+                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                </div>
+
+                <div class="row">
+                    <div class="sortable col-md-3">
+
+                        <div class="shop-logo">
+                            <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
+                        </div>
+
+                    </div>
+                    <div class="sortable col-md-9">
+
+                        <h2>Shop Title</h2>
+
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Library</a></li>
+                            <li class="active">Data</li>
+                        </ol>
+
+
+                    </div>
+                </div>
+
+
+            </header>
 
             <main class="sortable">
-                <div class="jumbotron draggable">
-                    <h1>Scrollable banner</h1>
+
+                <div class="jumbotron">
+                    <h1>Gallery</h1>
 
                     <p>This is your home page, you are able to remove and add any block. Each block has such hint</p>
 
@@ -66,9 +97,9 @@
 
                 </div>
 
-                <div class="progress draggable">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                        <span class="sr-only">60% Complete</span>
+                <div class="progress progress-striped active">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                        <span class="sr-only">45% Complete</span>
                     </div>
                 </div>
             </main>
