@@ -53,6 +53,18 @@ html, body {
     font-weight: bold;
 }
 
+.draggable-block {
+    border-bottom: 1px solid #FFF;
+    padding: 5px;
+}
+.draggable-block > * {
+    margin: 0;
+}
+.draggable-block input,
+.draggable-block button {
+    pointer-events: none;
+}
+.draggable-block,
 .draggable {
     cursor: move;
     margin: 5px auto !important;
@@ -89,7 +101,7 @@ html, body {
 .ui-sortable-helper {
     /*display: none !important;*/
     opacity: 0.7;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 header:empty,

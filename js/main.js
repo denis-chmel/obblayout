@@ -22,12 +22,14 @@ function initDrag() {
         tolerance: "pointer",
         over: function(event, ui){
 //            console.log(ui.placeholder);
-            $(ui.helper).width($(this).width());
-            console.log($(ui.helper).width());
+//            console.log($(ui.helper).css("width"));
+            $(ui.helper).width($(ui.placeholder).width());
             alignColumnsInRow();
         },
-//        cursorAt: { left: 10, top: 10 },
+        cursorAt: { left: 10, top: 10 },
+        distance: 0,
         delay: 100,
+
         start: function(e, ui) {
             /*
             $(".row").each(function(){
@@ -43,7 +45,7 @@ function initDrag() {
         }
     });
 
-    $( "#draggable-blocks > *" ).draggable({
+    $( ".draggable-block > *" ).draggable({
         connectToSortable: sortables,
 //        appendTo: "#sandbox .container",
         tolerance: "pointer",

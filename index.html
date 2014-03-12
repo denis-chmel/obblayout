@@ -22,31 +22,66 @@
             Openbizbox Layout Constructor
         </h1>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-success">Success</button>
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-        </div>
+        <!--<div class="btn-group">-->
+        <!--<button type="button" class="btn btn-success">Success</button>-->
+        <!--<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">-->
+        <!--<span class="caret"></span>-->
+        <!--<span class="sr-only">Toggle Dropdown</span>-->
+        <!--</button>-->
+        <!--<ul class="dropdown-menu" role="menu">-->
+        <!--<li><a href="#">Action</a></li>-->
+        <!--<li><a href="#">Another action</a></li>-->
+        <!--<li><a href="#">Something else here</a></li>-->
+        <!--<li class="divider"></li>-->
+        <!--<li><a href="#">Separated link</a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
 
-        <button type="button" class="btn disabled" id="btn-undo">Undo</button>
+        <button type="button" class="btn btn-primary disabled" id="btn-undo">Undo</button>
 
+        <hr>
+        Items to drag:
         <div id="draggable-blocks">
 
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    <span class="sr-only">60% Complete</span>
+            <div class="draggable-block">
+                <div class="btn btn-danger">Checkout</div>
+            </div>
+
+            <div class="draggable-block">
+                <div class="progress progress-striped active">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                        <span class="sr-only">85% Complete</span>
+                    </div>
                 </div>
             </div>
 
+            <div class="draggable-block">
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Messages</a></li>
+                    <li><a href="#">Friends</a></li>
+                    <li><a href="#">Photos</a></li>
+                    <li><a href="#">Calendar</a></li>
+                </ul>
+            </div>
+
+            <div class="draggable-block">
+                <div class="shop-logo">
+                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                </div>
+            </div>
+
+            <div class="draggable-block">
+                <div class="input-group" style="padding: 1ex;">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
 
         </div>
 
@@ -56,10 +91,6 @@
         <div class="container">
 
             <header class="sortable">
-
-                <div class="shop-logo">
-                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
-                </div>
 
                 <div class="row">
                     <div class="sortable col-md-3">
@@ -97,11 +128,6 @@
 
                 </div>
 
-                <div class="progress progress-striped active">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                        <span class="sr-only">45% Complete</span>
-                    </div>
-                </div>
             </main>
 
             <footer class="sortable"></footer>
