@@ -1,11 +1,9 @@
 html, body {
     height: 100%;
     margin: 0;
-    font-family: sans-serif;
-    font-size: 13px;
 }
 
-.container {
+.layout-constructor {
     height: 100%;
     overflow: hidden;
 }
@@ -22,8 +20,35 @@ html, body {
 .right {
     float: none; /* not needed, just for clarification */
     height: 100%;
+    padding: 20px;
     background: url(../img/cell.svg) -1px -1px;
     /* the next props are meant to keep this block independent from the other floated one */
     width: auto;
     overflow: hidden;
+}
+
+.right > .container {
+    width: 100%;
+}
+
+.right header,
+.right footer,
+.right main {
+    border: 1px dotted #000;
+    margin: 1ex auto;
+    padding: 1ex;
+}
+
+.hint {
+    color: #DDD;
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.draggable:hover {
+    outline: 2px solid #7ac1d5;
+}
+.draggable.selected {
+    outline: 2px solid #68a2b1;
 }
