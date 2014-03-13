@@ -15,6 +15,12 @@
 <body>
 
 <div class="layout-constructor">
+
+    <div id="settings">
+        <a data-toggle="modal" data-target="#myModal" class="settings"><span class="glyphicon glyphicon-cog"></span></a>
+        <a class="delete"><span class="glyphicon glyphicon-remove"></span></a>
+    </div>
+
     <div class="left">
 
         <h1 style="font-size: 14px">
@@ -37,74 +43,102 @@
         <!--</ul>-->
         <!--</div>-->
 
+        <button type="button" class="btn btn-primary" id="btn-toggle-grid">Show grid</button>
         <button type="button" class="btn btn-primary disabled" id="btn-undo">Undo</button>
 
+
         <hr>
-        Items to drag:
+        <span style="color: #888">Items to drag:</span>
         <div id="draggable-blocks">
 
             <div class="draggable-block">
-                <div class="btn btn-danger">Checkout</div>
+                <div class="block-label">
+                    Checkout button
+                </div>
+                <div class="block-code">
+                    <div class="btn btn-danger">Checkout</div>
+                </div>
             </div>
 
             <div class="draggable-block">
-                <div class="progress progress-striped active">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
-                        <span class="sr-only">85% Complete</span>
+                <div class="block-label">Progress bar</div>
+                <div class="block-code">
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                            <span class="sr-only">85% Complete</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="draggable-block">
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Messages</a></li>
-                    <li><a href="#">Friends</a></li>
-                    <li><a href="#">Photos</a></li>
-                    <li><a href="#">Calendar</a></li>
-                </ul>
-            </div>
-
-            <div class="draggable-block">
-                <div class="shop-logo">
-                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                <div class="block-label">Menu</div>
+                <div class="block-code">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Messages</a></li>
+                        <li><a href="#">Friends</a></li>
+                        <li><a href="#">Photos</a></li>
+                        <li><a href="#">Calendar</a></li>
+                    </ul>
                 </div>
             </div>
 
             <div class="draggable-block">
-                <div class="input-group" style="padding: 1ex;">
-                    <input type="text" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
+                <div class="block-label">Banner/Image</div>
+                <div class="block-code">
+                    <div class="shop-logo">
+                        <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                    </div>
                 </div>
             </div>
 
             <div class="draggable-block">
-                <div class="row">
-                    <div class="sortable col-md-4"></div>
-                    <div class="sortable col-md-4"></div>
-                    <div class="sortable col-md-4"></div>
+                <div class="block-label">Search</div>
+                <div class="block-code">
+                    <div class="input-group" style="padding: 1ex;">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
 
             <div class="draggable-block">
-                <div class="row">
-                    <div class="sortable col-md-3"></div>
-                    <div class="sortable col-md-3"></div>
-                    <div class="sortable col-md-3"></div>
-                    <div class="sortable col-md-3"></div>
+                <div class="block-label">Grid 4-4-4</div>
+                <div class="block-code">
+                    <div class="row">
+                        <div class="sortable col-md-4"></div>
+                        <div class="sortable col-md-4"></div>
+                        <div class="sortable col-md-4"></div>
+                    </div>
                 </div>
             </div>
 
             <div class="draggable-block">
-                <div class="row">
-                    <div class="sortable col-md-2"></div>
-                    <div class="sortable col-md-8"></div>
-                    <div class="sortable col-md-2"></div>
+                <div class="block-label">Grid 3-3-3-3</div>
+                <div class="block-code">
+                    <div class="row">
+                        <div class="sortable col-md-3"></div>
+                        <div class="sortable col-md-3"></div>
+                        <div class="sortable col-md-3"></div>
+                        <div class="sortable col-md-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="draggable-block">
+                <div class="block-label">Grid 2-8-2</div>
+                <div class="block-code">
+                    <div class="row">
+                        <div class="sortable col-md-2"></div>
+                        <div class="sortable col-md-8"></div>
+                        <div class="sortable col-md-2"></div>
+                    </div>
                 </div>
             </div>
 
@@ -161,6 +195,44 @@
 
     </div>
 </div>
+
+<div class="modal fade" id="row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Grid settings</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="shop-logo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Shop logo settings</h4>
+            </div>
+            <div class="modal-body">
+                ...<br>...<br>...<br>...<br>...<br>...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

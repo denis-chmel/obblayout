@@ -1,11 +1,8 @@
 html, body {
     height: 100%;
     margin: 0;
-}
-
-.layout-constructor {
-    height: 100%;
-    overflow: hidden;
+    background: #EEE;
+    background: url(../img/cell.svg) -1px -1px;
 }
 
 .left {
@@ -15,17 +12,22 @@ html, body {
     background: #444;
     color: #FFF;
     padding: 1ex;
+
+    position: fixed;
+    top: 0;
+    height: 100%;
+    overflow: auto;
+    z-index: 2;
 }
 
 .right {
+    margin-left: 240px;
     float: none; /* not needed, just for clarification */
-    height: 100%;
     padding: 20px;
     /*background: url(../img/cell.svg) -1px -1px;*/
     /* the next props are meant to keep this block independent from the other floated one */
     width: auto;
     overflow: hidden;
-    background: #EEE;
 }
 
 .right > .container {
@@ -53,6 +55,7 @@ html, body {
     border: 1px solid #CCC;
 }
 
+.show-grid .sortable,
 .draggable-hovered .sortable,
 .selected .sortable,
 #sandbox.while-dragging .sortable {
@@ -70,10 +73,6 @@ main.sortable {
     font-weight: bold;
 }
 
-.draggable-block {
-    border-bottom: 1px solid #FFF;
-    padding: 5px;
-}
 .draggable-block > * {
     margin: 0;
 }
@@ -91,6 +90,9 @@ main.sortable {
 }
 .draggable-hovered.ui-sortable-helper {
     outline: none;
+}
+.draggable {
+    position: relative;
 }
 .draggable.selected {
     outline: 2px solid #68a2b1;
@@ -121,10 +123,10 @@ main.sortable {
     /*width: 100%;*/
 }
 
-header:empty {
+header {
     border-bottom: 1px dotted #CCC;
 }
-footer:empty {
+footer {
     border-top: 1px dotted #CCC;
 }
 header:empty,
@@ -151,4 +153,50 @@ footer:empty {
     border-radius: 5px;
     color: #CCC;
     font-size: 18px;
+}
+
+#settings {
+    display: none;
+    border-radius: 3px;
+    background: #26b3f7;
+    color: #FFF;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 24px;
+    line-height: 1;
+    z-index: 2;
+    height: 30px;
+    padding: 1px;
+    opacity: 0.5;
+    transition: opacity 200ms;
+}
+#settings,
+#settings a {
+    color: #FFF;
+    cursor: pointer;
+}
+
+.draggable.selected #settings:hover {
+    opacity: 1;
+
+}
+.draggable.selected #settings {
+    display: block;
+}
+
+.modal-dialog {
+    padding-top: 10%;
+}
+
+.block-label {
+    display: none;
+}
+
+.left .draggable-block .block-code {
+    display: none;
+}
+
+.left .block-label {
+    display: block;
 }
