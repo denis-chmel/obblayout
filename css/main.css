@@ -25,11 +25,15 @@ html, body {
     /* the next props are meant to keep this block independent from the other floated one */
     width: auto;
     overflow: hidden;
+    background: #EEE;
 }
 
 .right > .container {
     width: 100%;
     max-width: 1200px;
+    background: #FFF;
+    border-radius: 5px;
+    box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
 }
 
 .row > .sortable {
@@ -38,12 +42,25 @@ html, body {
 
 .sortable {
     box-sizing: border-box;
-    border: 1px dotted #AAA;
     /*border-radius: 5px;*/
     margin: 10px auto;
     padding: 10px;
     min-height: 40px;
     /*background: #F9F9F9;*/
+}
+
+.draggable-block .sortable {
+    border: 1px solid #CCC;
+}
+
+.draggable-hovered .sortable,
+.selected .sortable,
+#sandbox.while-dragging .sortable {
+    outline: 1px dotted #AAA;
+}
+
+main.sortable {
+    min-height: 600px;
 }
 
 .hint {
@@ -104,6 +121,12 @@ html, body {
     /*width: 100%;*/
 }
 
+header:empty {
+    border-bottom: 1px dotted #CCC;
+}
+footer:empty {
+    border-top: 1px dotted #CCC;
+}
 header:empty,
 footer:empty,
 main:empty {

@@ -37,9 +37,11 @@ function initDrag() {
             });
             */
 //            $(ui.item).show().addClass("draggable-ghost");
+            $("#sandbox").addClass("while-dragging");
         },
         stop: function(e, ui) {
 //            $(ui.item).removeClass("draggable-ghost");
+            $("#sandbox").removeClass("while-dragging");
 
             onAfterChange();
         }
@@ -50,7 +52,11 @@ function initDrag() {
 //        appendTo: "#sandbox .container",
         tolerance: "pointer",
         helper: "clone",
+        start: function(){
+            $("#sandbox").addClass("while-dragging");
+        },
         stop: function(){
+            $("#sandbox").removeClass("while-dragging");
             onAfterChange();
         }
     });
