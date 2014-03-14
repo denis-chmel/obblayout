@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
 
+    <script src="vendor/tinymce/js/tinymce/tinymce.min.js"></script>
+
 </head>
 <body>
 
@@ -18,7 +20,7 @@
 
     <div id="settings-teplate">
         <div class="block-controls">
-            <a data-toggle="modal" data-target="#myModal" class="settings"><span class="glyphicon glyphicon-cog"></span></a>
+            <a class="settings"><span class="glyphicon glyphicon-cog"></span></a>
             <a class="delete"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>
@@ -108,10 +110,10 @@
 
             <div class="draggable-block">
                 <div class="block-label">
-                    <span class="glyphicon glyphicon glyphicon-align-justify"></span> Text / HTML
+                    <span class="glyphicon glyphicon glyphicon-align-justify"></span> Custom text / HTML
                 </div>
                 <div class="block-code">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt tellus eget tortor elementum pellentesque. Vivamus a ornare turpis. Curabitur quis urna in erat elementum dapibus et et sem. Morbi congue sem vitae urna adipiscing laoreet. Ut lectus elit, vulputate ac metus vitae, cursus malesuada purus. Pellentesque tristique egestas elit, vitae rhoncus est sagittis vitae. Morbi lobortis condimentum massa eget vehicula. Duis nec massa vel mauris dignissim fermentum eget vel nulla. Pellentesque quis nunc mattis, mollis nibh vel, ornare sapien.</p>
+                    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt tellus eget tortor elementum pellentesque. Vivamus a ornare turpis. Curabitur quis urna in erat elementum dapibus et et sem. Morbi congue sem vitae urna adipiscing laoreet. Ut lectus elit, vulputate ac metus vitae, cursus malesuada purus. Pellentesque tristique egestas elit, vitae rhoncus est sagittis vitae. Morbi lobortis condimentum massa eget vehicula. Duis nec massa vel mauris dignissim fermentum eget vel nulla. Pellentesque quis nunc mattis, mollis nibh vel, ornare sapien.</div>
                 </div>
             </div>
 
@@ -187,6 +189,17 @@
 
             <div class="draggable-block">
                 <div class="block-label">
+                    <span class="glyphicon glyphicon glyphicon-picture"></span> Custom Banner / Image
+                </div>
+                <div class="block-code">
+                    <div class="shop-logo">
+                        <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                    </div>
+                </div>
+            </div>
+
+            <div class="draggable-block">
+                <div class="block-label">
 
                     <span class="glyphicon glyphicon glyphicon-th-list"></span> Menu
                 </div>
@@ -205,21 +218,10 @@
 
             <div class="draggable-block">
                 <div class="block-label">
-                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner/Image
-                </div>
-                <div class="block-code">
-                    <div class="shop-logo">
-                        <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
-                    </div>
-                </div>
-            </div>
-
-            <div class="draggable-block">
-                <div class="block-label">
                     <span class="glyphicon glyphicon glyphicon-search"></span> Search
                 </div>
                 <div class="block-code">
-                    <div class="input-group" style="padding: 1ex;">
+                    <div class="input-group" style="padding: 5px;">
                         <input type="text" class="form-control">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
@@ -283,6 +285,13 @@
 
             <main class="sortable">
 
+                <div class="text">
+                    <h1>Welcome!</h1>
+                    <p>Congratulations with your new web shop. The Quick Guide helps you get started easily. It will start up automatically the first time you log onto the online admin system. Later, you can always find it under the 'General' menu.</p>
+
+                    <p>Good luck with your new OpenBizBox web shop; we hope it will be very profitable. Should you need any professional support or help with getting started, please don't hesitate to contact us.</p>
+                </div>
+
                 <div class="jumbotron">
                     <h1>Slider</h1>
 
@@ -341,6 +350,28 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="text-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Text / Custom HTML</h4>
+            </div>
+            <div class="modal-body">
+
+                <form method="post" action="somepage">
+                    <textarea name="content" style="width:100%"></textarea>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>

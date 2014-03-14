@@ -144,7 +144,6 @@ function onAfterChange(skipHistory) {
 function addControls(block) {
     var $controls = $(block).children(".block-controls");
     if (!$controls.length) {
-        console.log(block);
         $(block).append($("#settings-teplate").html());
         $controls = $(block).find(".block-controls");
         var firstClass = $(block).attr("class").split(' ')[0];
@@ -166,6 +165,9 @@ $(function() {
 
     $(document)
         .on("click", function(e) {
+            if ($(e.target).closest(".modal").length) {
+                return;
+            }
             var closestDraggable = $(e.target).closest(".draggable");
             $(".selected").not(closestDraggable).removeClass("selected");
             if (closestDraggable.length) {
@@ -173,8 +175,21 @@ $(function() {
             }
         })
         .on("click", ".block-controls .delete", function(){
-            console.log($(this).closest(".draggable"));
             removeElement($(this).closest(".draggable"));
+        })
+        .on("click", ".block-controls .settings", function(){
+//            console.log($(this).closest(".draggable"));
+//            removeElement($(this).closest(".draggable"));
+            var popupId = $(this).attr("data-target");
+            var $popup = $(popupId);
+            var closestDraggable = $(this).closest(".draggable");
+
+            var $copy = closestDraggable.clone();
+            $copy.find(".block-controls").remove();
+
+            tinyMCE.activeEditor.setContent($copy.html());
+
+            $popup.modal("show");
         })
         .on("keyup", function(e){
             var hotkey = String.fromCharCode(e.keyCode).toLowerCase();
@@ -208,6 +223,27 @@ $(function() {
     $("#btn-toggle-grid").click(function(){
         $("#sandbox").toggleClass("show-grid");
         $(this).html($("#sandbox").hasClass("show-grid") ? "Hide grid" : "Show grid");
+    });
+
+    $("#text-modal .btn-save").click(function(){
+        var $block = $(".selected");
+        setTimeout(function(){
+            $block.html(tinyMCE.activeEditor.getContent());
+            $block.effect("highlight");
+            addControls($block);
+        }, 500);
+    });
+
+    tinymce.init({
+        selector: "textarea",
+        height: 300,
+        content_css : "/vendor/bootstrap-3.1.1-dist/css/bootstrap.css",
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
     });
 
 });
