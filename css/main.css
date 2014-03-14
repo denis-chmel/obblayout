@@ -198,6 +198,10 @@ footer:empty {
     display: block;
 }
 
+.ui-sortable-placeholder .block-controls {
+    display: none !important;
+}
+
 .modal-dialog {
     padding-top: 10%;
 }
@@ -216,4 +220,8 @@ footer:empty {
 
 .ui-sortable-helper {
     transition: width 100ms, height 100ms;
+}
+
+.todo {
+    opacity: 0.5;
 }
