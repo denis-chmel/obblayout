@@ -46,7 +46,7 @@ html, body {
     box-sizing: border-box;
     /*border-radius: 5px;*/
     margin: 10px auto;
-    padding: 10px;
+    padding: 0 5px;
     min-height: 40px;
     /*background: #F9F9F9;*/
 }
@@ -91,7 +91,7 @@ main.sortable {
 .draggable-block,
 .draggable {
     cursor: move;
-    margin: 5px auto !important;
+    margin: 10px auto !important;
 }
 .draggable-hovered {
     outline: 2px solid #7ac1d5;
