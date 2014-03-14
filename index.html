@@ -50,12 +50,55 @@
 
 
         <hr>
-        <span style="color: #888">Items to drag:</span>
+        <span style="color: #888">Grids:</span>
+
+        <div class="draggable-block">
+            <div class="block-label">
+                <span class="glyphicon glyphicon glyphicon-th"></span> Grid 4-4-4
+            </div>
+            <div class="block-code">
+                <div class="row">
+                    <div class="sortable col-md-4"></div>
+                    <div class="sortable col-md-4"></div>
+                    <div class="sortable col-md-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="draggable-block">
+            <div class="block-label">
+                <span class="glyphicon glyphicon glyphicon-th"></span> Grid 3-3-3-3
+            </div>
+            <div class="block-code">
+                <div class="row">
+                    <div class="sortable col-md-3"></div>
+                    <div class="sortable col-md-3"></div>
+                    <div class="sortable col-md-3"></div>
+                    <div class="sortable col-md-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="draggable-block">
+            <div class="block-label">
+                <span class="glyphicon glyphicon glyphicon-th"></span> Grid 2-8-2
+            </div>
+            <div class="block-code">
+                <div class="row">
+                    <div class="sortable col-md-2"></div>
+                    <div class="sortable col-md-8"></div>
+                    <div class="sortable col-md-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <span style="color: #888">Blocks:</span>
         <div id="draggable-blocks">
 
             <div class="draggable-block">
                 <div class="block-label">
-                    Checkout button
+                    <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Checkout button
                 </div>
                 <div class="block-code">
                     <div class="btn btn-danger">Checkout</div>
@@ -63,18 +106,22 @@
             </div>
 
             <div class="draggable-block">
-                <div class="block-label">Progress bar</div>
+                <div class="block-label">
+                    <span class="glyphicon glyphicon glyphicon-picture"></span> Shop logo
+                </div>
                 <div class="block-code">
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
-                            <span class="sr-only">85% Complete</span>
-                        </div>
+                    <div class="shop-logo">
+                        <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
                     </div>
                 </div>
             </div>
 
             <div class="draggable-block">
-                <div class="block-label">Menu</div>
+                <div class="block-label">
+
+                    <span class="glyphicon glyphicon glyphicon-th-list"></span> Menu
+                </div>
+
                 <div class="block-code">
                     <ul class="nav nav-pills">
                         <li class="active"><a href="#">Home</a></li>
@@ -88,7 +135,9 @@
             </div>
 
             <div class="draggable-block">
-                <div class="block-label">Banner/Image</div>
+                <div class="block-label">
+                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner/Image
+                </div>
                 <div class="block-code">
                     <div class="shop-logo">
                         <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
@@ -97,7 +146,9 @@
             </div>
 
             <div class="draggable-block">
-                <div class="block-label">Search</div>
+                <div class="block-label">
+                    <span class="glyphicon glyphicon glyphicon-search"></span> Search
+                </div>
                 <div class="block-code">
                     <div class="input-group" style="padding: 1ex;">
                         <input type="text" class="form-control">
@@ -110,39 +161,23 @@
                 </div>
             </div>
 
+
             <div class="draggable-block">
-                <div class="block-label">Grid 4-4-4</div>
+                <div class="block-label">
+                    <span class="glyphicon glyphicon glyphicon-film"></span> Slider
+                </div>
                 <div class="block-code">
-                    <div class="row">
-                        <div class="sortable col-md-4"></div>
-                        <div class="sortable col-md-4"></div>
-                        <div class="sortable col-md-4"></div>
+                    <div class="jumbotron">
+                        <h1>Slider</h1>
+
+                        <p>This is your home page, you are able to remove and add any block. Each block has such hint</p>
+
+                        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
                     </div>
                 </div>
             </div>
 
-            <div class="draggable-block">
-                <div class="block-label">Grid 3-3-3-3</div>
-                <div class="block-code">
-                    <div class="row">
-                        <div class="sortable col-md-3"></div>
-                        <div class="sortable col-md-3"></div>
-                        <div class="sortable col-md-3"></div>
-                        <div class="sortable col-md-3"></div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="draggable-block">
-                <div class="block-label">Grid 2-8-2</div>
-                <div class="block-code">
-                    <div class="row">
-                        <div class="sortable col-md-2"></div>
-                        <div class="sortable col-md-8"></div>
-                        <div class="sortable col-md-2"></div>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
@@ -181,7 +216,7 @@
             <main class="sortable">
 
                 <div class="jumbotron">
-                    <h1>Gallery</h1>
+                    <h1>Slider</h1>
 
                     <p>This is your home page, you are able to remove and add any block. Each block has such hint</p>
 
