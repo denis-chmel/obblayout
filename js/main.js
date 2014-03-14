@@ -149,6 +149,8 @@ function addControls(block) {
         var firstClass = $(block).attr("class").split(' ')[0];
         var modalId = "#" + firstClass + "-modal";
         var $settingsIcon = $controls.find(".settings");
+        var blockType = firstClass == "draggable" ? $(block).prop("tagName").toLowerCase() : firstClass;
+        $controls.find(".block-name").text(blockType);
         if ($(modalId).length) {
             $settingsIcon.show().attr("data-target", modalId);
         } else {
@@ -174,12 +176,14 @@ $(function() {
                 closestDraggable.addClass("selected");
             }
         })
+        .on("dblclick", ".draggable", function(e) {
+            $(this).find(".block-controls:last .settings").click();
+            e.stopPropagation();
+        })
         .on("click", ".block-controls .delete", function(){
             removeElement($(this).closest(".draggable"));
         })
         .on("click", ".block-controls .settings", function(){
-//            console.log($(this).closest(".draggable"));
-//            removeElement($(this).closest(".draggable"));
             var popupId = $(this).attr("data-target");
             var $popup = $(popupId);
             var closestDraggable = $(this).closest(".draggable");
@@ -247,3 +251,5 @@ $(function() {
     });
 
 });
+
+// TODO: resize after delay
