@@ -24,37 +24,55 @@ function removeElement($draggable) {
     }
 }
 
+/**
+ * Use to delay reaction on e.g. keyup during search. Or whatever
+ */
+var delay = (function() {
+    var timers = {
+        default: 0
+    };
+    return function(callback, ms, context) {
+        context = context || 'default';
+        clearTimeout(timers[context]);
+        timers[context] = setTimeout(callback, ms);
+    };
+})();
+
 function initDrag() {
 
     $(sortables).sortable({
         connectWith: sortables,
         helper: "clone",
-//        placeholder: "task-sortable-placeholder",
+        revert: 100,
         tolerance: "pointer",
         over: function(event, ui){
-//            console.log(ui.placeholder);
-//            console.log($(ui.helper).css("width"));
-            $(ui.helper).width($(ui.placeholder).width());
-            alignColumnsInRow();
+
+            delay(function(){
+                $(ui.helper).height("auto");
+                $(ui.helper).width($(ui.placeholder).width());
+                setTimeout(function(){
+                    $(ui.placeholder).height($(ui.helper).height());
+                    alignColumnsInRow();
+                }, 150); // to exec after "transition width/height 100ms"
+            }, 200); // to not resize too often (sometimes overdoing this when moving)
+
         },
         cursorAt: { left: 10, top: 10 },
         distance: 0,
         delay: 100,
 
         start: function(e, ui) {
-            /*
-            $(".row").each(function(){
-                $(this).children().css("min-height", $(this).height()).height("auto");
-            });
-            */
-//            $(ui.item).show().addClass("draggable-ghost");
             $("#sandbox").addClass("while-dragging");
         },
         stop: function(e, ui) {
-//            $(ui.item).removeClass("draggable-ghost");
+
             $("#sandbox").removeClass("while-dragging");
             if ($(ui.item).is(".draggable-block")) {
-                $(ui.item).replaceWith($(ui.item).find(".block-code").html());
+                $(ui.item).find(".block-code > *").addClass("draggable").click();
+                var htmlCode = $(ui.item).find(".block-code").html();
+                $(ui.item).replaceWith(htmlCode);
+            } else {
+                $(ui.item).click();
             }
 
             onAfterChange();
@@ -66,9 +84,9 @@ function initDrag() {
         appendTo: "#sandbox .container",
         tolerance: "pointer",
         helper: "clone",
-//        stack: ".block-code",
-        create: function(e, ui){
-//            console.log(ui);
+        drag: function(event, ui){
+            delay(alignColumnsInRow, 50);
+//            alignColumnsInRow();
         },
         start: function(e, ui){
 //            $(ui.helper).find(".block-label").remove();
@@ -76,9 +94,9 @@ function initDrag() {
             $("#sandbox").addClass("while-dragging");
         },
         stop: function(e, ui){
-            console.log(ui);
 //            $(ui.helper).html($(ui.helper).find(".block-code").children());
             $("#sandbox").removeClass("while-dragging");
+//            $(ui.item).click();
             onAfterChange();
         }
     });
@@ -149,9 +167,11 @@ $(function() {
                     $("#settings .settings").hide();
                 }
                 closestDraggable.append($("#settings"));
-
-
             }
+        })
+        .on("click", "#settings .delete", function(){
+            console.log($(this).closest(".draggable"));
+            removeElement($(this).closest(".draggable"));
         })
         .on("keyup", function(e){
             var hotkey = String.fromCharCode(e.keyCode).toLowerCase();
@@ -179,10 +199,6 @@ $(function() {
         }).on("mouseout", ".draggable", function(){
             $(this).removeClass("draggable-hovered");
         });
-
-    $("#settings .delete").on("click", function(){
-        removeElement($(this).closest(".draggable"));
-    });
 
     $("#btn-toggle-grid").click(function(){
         $("#sandbox").toggleClass("show-grid");

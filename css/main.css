@@ -55,12 +55,20 @@ html, body {
     border: 1px solid #CCC;
 }
 
+.sortable {
+    border: 1px dotted transparent;
+}
 .show-grid .sortable,
 .draggable-hovered .sortable,
 .selected .sortable,
 #sandbox.while-dragging .sortable {
-    outline: 1px dotted #AAA;
+    border-color: #AAA;
 }
+
+.row .sortable + .sortable {
+    border-left-color: transparent !important;
+}
+
 
 main.sortable {
     min-height: 600px;
@@ -199,4 +207,8 @@ footer:empty {
 
 .left .block-label {
     display: block;
+}
+
+.ui-sortable-helper {
+    transition: width 100ms, height 100ms;
 }
