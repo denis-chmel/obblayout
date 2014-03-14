@@ -61,6 +61,7 @@ function initDrag() {
         delay: 100,
 
         start: function(e, ui) {
+            $(ui.helper).click(); // to make it active selectable
             $("#sandbox").addClass("while-dragging");
         },
         stop: function(e, ui) {
@@ -70,8 +71,6 @@ function initDrag() {
                 $(ui.item).find(".block-code > *").addClass("draggable").click();
                 var htmlCode = $(ui.item).find(".block-code").html();
                 $(ui.item).replaceWith(htmlCode);
-            } else {
-                $(ui.item).click();
             }
 
             onAfterChange();
