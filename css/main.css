@@ -1,8 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    background: #EEE;
-    background: url(../img/cell.svg) -1px -1px;
+    background: #F6F6F6 url(../img/cell.svg) -1px -1px;
 }
 
 .left {
@@ -115,10 +114,12 @@ main.sortable {
 }
 
 .ui-sortable-placeholder {
-    border: 1px dotted #AAA !important;
     visibility: visible !important;
     outline: none !important;
     background: #FFF !important;
+    transition: height 200ms;
+    border: 2px solid #26b3f7 !important;
+    border-radius: 5px;
 }
 
 .draggable-ghost {
@@ -127,8 +128,14 @@ main.sortable {
 
 .ui-sortable-helper {
     /*display: none !important;*/
-    opacity: 0.7;
+    opacity: 0.8;
+    outline: none !important;
+
+
     /*width: 100%;*/
+}
+.ui-sortable-helper .block-controls {
+    display: none !important;
 }
 
 header.sortable {
@@ -230,9 +237,18 @@ footer:empty {
 }
 
 .ui-sortable-helper {
-    transition: width 100ms, height 100ms;
+    t1ransition: width 100ms, height 100ms;
 }
 
 .todo {
     opacity: 0.5;
+}
+
+.placeholder-line {
+    padding: 0;
+    height: 0px !important;
+    border: none !important;
+    background: #26b3f7 !important;
+    outline: 2px solid #26b3f7 !important;
+    z-index: 100;
 }

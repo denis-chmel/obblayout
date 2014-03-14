@@ -15,7 +15,7 @@ function historyEmpty() {
 
 function removeElement($draggable) {
     if ($draggable.length) {
-        $draggable.fadeOut(200, function(){
+        $draggable.fadeOut(200, function() {
             $(this).parent().closest(".draggable").click();
             $(this).remove();
             onAfterChange();
@@ -44,22 +44,29 @@ function initDrag() {
         helper: "clone",
         revert: 100,
         tolerance: "pointer",
-        over: function(event, ui){
+        change: function(event, ui) {
 
-            delay(function(){
+            var lineDelay = $("#blue-line-delay").val();
+            if (lineDelay > 0) {
+                $(ui.placeholder).addClass("placeholder-line");
+            }
+            delay(function() {
+
                 $(ui.helper).height("auto");
                 $(ui.helper).width($(ui.placeholder).width());
-                setTimeout(function(){
-                    $(ui.placeholder).height($(ui.helper).height());
+                $(ui.placeholder).height($(ui.helper).height());
+                setTimeout(function() {
                     alignColumnsInRow();
-                }, 150); // to exec after "transition width/height 100ms"
-            }, 200); // to not resize too often (sometimes overdoing this when moving)
+                }, 200); // to exec after "transition height 200ms"
+
+                $(ui.placeholder).removeClass("placeholder-line");
+
+            }, lineDelay, "drag-placeholder-show")
 
         },
         cursorAt: { left: 10, top: 10 },
         distance: 0,
         delay: 100,
-
         start: function(e, ui) {
             $(ui.helper).click(); // to make it active selectable
             $("#sandbox").addClass("while-dragging");
@@ -77,18 +84,18 @@ function initDrag() {
         }
     });
 
-    $( ".draggable-block" ).draggable({
+    $(".draggable-block").draggable({
         connectToSortable: sortables,
         appendTo: "#sandbox .container",
         tolerance: "pointer",
         helper: "clone",
-        drag: function(event, ui){
+        drag: function(event, ui) {
             delay(alignColumnsInRow, 50);
         },
-        start: function(e, ui){
+        start: function(e, ui) {
             $("#sandbox").addClass("while-dragging");
         },
-        stop: function(e, ui){
+        stop: function(e, ui) {
             $("#sandbox").removeClass("while-dragging");
             onAfterChange();
         }
@@ -112,9 +119,9 @@ function historyGo(direction) {
 }
 
 function alignColumnsInRow(where) {
-    $(".row", where).each(function(){
+    $(".row", where).each(function() {
         var maxHeight = 0;
-        $(this).children(".sortable").height("auto").each(function(){
+        $(this).children(".sortable").height("auto").each(function() {
             maxHeight = Math.max(maxHeight, $(this).height());
         }).height(maxHeight);
 
@@ -124,7 +131,7 @@ function alignColumnsInRow(where) {
 
 function onAfterChange(skipHistory) {
     $(".sortable > *").addClass("draggable");
-    setTimeout(function(){
+    setTimeout(function() {
         alignColumnsInRow();
     }, 1);
 
@@ -133,7 +140,7 @@ function onAfterChange(skipHistory) {
     }
     $("#btn-undo").toggleClass("disabled", historyEmpty());
     initDrag();
-    $("main, footer, header").each(function(){
+    $("main, footer, header").each(function() {
         if (!$(this).children().length) {
             $(this).empty();
         }
@@ -179,10 +186,10 @@ $(function() {
             $(this).find(".block-controls:last .settings").click();
             e.stopPropagation();
         })
-        .on("click", ".block-controls .delete", function(){
+        .on("click", ".block-controls .delete", function() {
             removeElement($(this).closest(".draggable"));
         })
-        .on("click", ".block-controls .settings", function(){
+        .on("click", ".block-controls .settings", function() {
             var popupId = $(this).attr("data-target");
             var $popup = $(popupId);
             var closestDraggable = $(this).closest(".draggable");
@@ -194,7 +201,7 @@ $(function() {
 
             $popup.modal("show");
         })
-        .on("keyup", function(e){
+        .on("keyup",function(e) {
             var hotkey = String.fromCharCode(e.keyCode).toLowerCase();
             if (e.ctrlKey) {
                 hotkey = 'Ctrl+' + hotkey;
@@ -211,7 +218,7 @@ $(function() {
                     break;
             }
 
-        }).on("mouseover", ".draggable", function(e){
+        }).on("mouseover", ".draggable",function(e) {
             if ($(".task-sortable-placeholder:visible").length) {
                 return;
             }
@@ -219,18 +226,18 @@ $(function() {
             addControls(this);
 
             e.stopPropagation();
-        }).on("mouseout", ".draggable", function(){
+        }).on("mouseout", ".draggable", function() {
             $(this).removeClass("draggable-hovered");
         });
 
-    $("#btn-toggle-grid").click(function(){
+    $("#btn-toggle-grid").click(function() {
         $("#sandbox").toggleClass("show-grid");
         $(this).html($("#sandbox").hasClass("show-grid") ? "Hide grid" : "Show grid");
     });
 
-    $("#text-modal .btn-save").click(function(){
+    $("#text-modal .btn-save").click(function() {
         var $block = $(".selected");
-        setTimeout(function(){
+        setTimeout(function() {
             $block.html(tinyMCE.activeEditor.getContent());
             $block.effect("highlight");
             addControls($block);
@@ -240,7 +247,7 @@ $(function() {
     tinymce.init({
         selector: "textarea",
         height: 300,
-        content_css : "/vendor/bootstrap-3.1.1-dist/css/bootstrap.css",
+        content_css: "/vendor/bootstrap-3.1.1-dist/css/bootstrap.css",
         plugins: [
             "advlist autolink lists link image charmap print preview anchor",
             "searchreplace visualblocks code fullscreen",
@@ -250,5 +257,3 @@ $(function() {
     });
 
 });
-
-// TODO: resize after delay
