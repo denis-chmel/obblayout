@@ -131,10 +131,10 @@ main.sortable {
     /*width: 100%;*/
 }
 
-header {
+header.sortable {
     border-bottom: 1px dotted #CCC;
 }
-footer {
+footer.sortable {
     border-top: 1px dotted #CCC;
 }
 header:empty,
@@ -163,7 +163,11 @@ footer:empty {
     font-size: 18px;
 }
 
-#settings {
+#settings-teplate {
+    display: none;
+}
+
+.block-controls {
     display: none;
     border-radius: 3px;
     background: #26b3f7;
@@ -179,17 +183,18 @@ footer:empty {
     opacity: 0.5;
     transition: opacity 200ms;
 }
-#settings,
-#settings a {
+.block-controls,
+.block-controls a {
     color: #FFF;
     cursor: pointer;
 }
 
-.draggable.selected #settings:hover {
+.block-controls:hover {
     opacity: 1;
 
 }
-.draggable.selected #settings {
+.draggable-hovered > .block-controls,
+.draggable.selected > .block-controls {
     display: block;
 }
 

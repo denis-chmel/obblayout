@@ -15,8 +15,7 @@ function historyEmpty() {
 
 function removeElement($draggable) {
     if ($draggable.length) {
-        $("#settings").appendTo($("body"));
-        $draggable.fadeOut(function(){
+        $draggable.fadeOut(200, function(){
             $(this).parent().closest(".draggable").click();
             $(this).remove();
             onAfterChange();
@@ -86,17 +85,12 @@ function initDrag() {
         helper: "clone",
         drag: function(event, ui){
             delay(alignColumnsInRow, 50);
-//            alignColumnsInRow();
         },
         start: function(e, ui){
-//            $(ui.helper).find(".block-label").remove();
-//            console.log(ui);
             $("#sandbox").addClass("while-dragging");
         },
         stop: function(e, ui){
-//            $(ui.helper).html($(ui.helper).find(".block-code").children());
             $("#sandbox").removeClass("while-dragging");
-//            $(ui.item).click();
             onAfterChange();
         }
     });
@@ -147,6 +141,23 @@ function onAfterChange(skipHistory) {
     });
 }
 
+function addControls(block) {
+    var $controls = $(block).children(".block-controls");
+    if (!$controls.length) {
+        console.log(block);
+        $(block).append($("#settings-teplate").html());
+        $controls = $(block).find(".block-controls");
+        var firstClass = $(block).attr("class").split(' ')[0];
+        var modalId = "#" + firstClass + "-modal";
+        var $settingsIcon = $controls.find(".settings");
+        if ($(modalId).length) {
+            $settingsIcon.show().attr("data-target", modalId);
+        } else {
+            $settingsIcon.hide();
+        }
+    }
+}
+
 $(function() {
 
     onAfterChange();
@@ -159,17 +170,9 @@ $(function() {
             $(".selected").not(closestDraggable).removeClass("selected");
             if (closestDraggable.length) {
                 closestDraggable.addClass("selected");
-                var firstClass = closestDraggable.attr("class").split(' ')[0];
-                var modalId = "#" + firstClass + "-modal";
-                if ($(modalId).length) {
-                    $("#settings .settings").show().attr("data-target", modalId);
-                } else {
-                    $("#settings .settings").hide();
-                }
-                closestDraggable.append($("#settings"));
             }
         })
-        .on("click", "#settings .delete", function(){
+        .on("click", ".block-controls .delete", function(){
             console.log($(this).closest(".draggable"));
             removeElement($(this).closest(".draggable"));
         })
@@ -195,6 +198,8 @@ $(function() {
                 return;
             }
             $(this).addClass("draggable-hovered");
+            addControls(this);
+
             e.stopPropagation();
         }).on("mouseout", ".draggable", function(){
             $(this).removeClass("draggable-hovered");
