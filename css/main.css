@@ -274,3 +274,29 @@ footer:empty {
 .old-placeholder {
     opacity: 0.5;
 }
+
+.top-plus,
+.bottom-plus {
+    position: absolute;
+    background: #26b3f7;
+    color: #FFF;
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-size: 12px;
+    line-height: 1;
+    left: 49.2%;
+    display: none;
+    cursor: pointer;
+    z-index: 100;
+}
+.top-plus {
+    top: -7px;
+}
+.bottom-plus {
+    bottom: -7px;
+}
+
+.draggable-hovered > .top-plus,
+.draggable-hovered > .bottom-plus {
+    display: block;
+}

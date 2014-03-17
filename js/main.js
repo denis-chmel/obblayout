@@ -201,6 +201,8 @@ function addControls(block) {
     var $controls = $(block).find("> .block-controls");
     if (!$controls.length) {
         $(block).append($("#settings-teplate").html());
+        $(block).append("<div class='top-plus'>+</div>");
+        $(block).append("<div class='bottom-plus'>+</div>");
         $controls = $(block).find(".block-controls");
         var firstClass = $(block).attr("class").split(' ')[0];
         var modalId = "#" + firstClass + "-modal";
@@ -287,6 +289,7 @@ $(function() {
         }).on("mouseout", ".draggable", function() {
             $(this).removeClass("draggable-hovered");
         });
+
 
     $("#btn-toggle-grid").click(function() {
         $("#sandbox").toggleClass("show-grid");
