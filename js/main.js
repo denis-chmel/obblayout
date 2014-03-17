@@ -39,6 +39,13 @@ var delay = (function() {
 
 function initDrag() {
 
+//    $(".grid-row > *").resizable({
+//        ghost: true,
+//        resize: function(e, ui) {
+//            console.log(ui);
+//        }
+//    });
+
     $(sortables).sortable({
         connectWith: sortables,
         helper: "clone",
@@ -68,7 +75,6 @@ function initDrag() {
         distance: 0,
         delay: 100,
         start: function(e, ui) {
-            $(ui.helper).click(); // to make it active selectable
             $("#sandbox").addClass("while-dragging");
         },
         stop: function(e, ui) {
@@ -79,6 +85,7 @@ function initDrag() {
                 var htmlCode = $(ui.item).find(".block-code").html();
                 $(ui.item).replaceWith(htmlCode);
             }
+            $(ui.item).click();
 
             onAfterChange();
         }
@@ -148,7 +155,7 @@ function onAfterChange(skipHistory) {
 }
 
 function addControls(block) {
-    var $controls = $(block).children(".block-controls");
+    var $controls = $(block).find("> .block-controls");
     if (!$controls.length) {
         $(block).append($("#settings-teplate").html());
         $controls = $(block).find(".block-controls");
@@ -156,7 +163,12 @@ function addControls(block) {
         var modalId = "#" + firstClass + "-modal";
         var $settingsIcon = $controls.find(".settings");
         var blockType = firstClass == "draggable" ? $(block).prop("tagName").toLowerCase() : firstClass;
-        $controls.find(".block-name").text(blockType);
+        var blockLabel = $("#draggable-blocks ." + blockType + ":first").closest(".draggable-block").find(".block-label").text().toLowerCase();
+        if (blockType == "grid-row") {
+            blockLabel = "grid";
+        }
+
+        $controls.find(".block-name").text(blockLabel);
         if ($(modalId).length) {
             $settingsIcon.show().attr("data-target", modalId);
         } else {
