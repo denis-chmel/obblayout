@@ -1,0 +1,61 @@
+/**
+ * CSSReset.com - Demo - Shaking Up The Web With CSS3 (or: How To Make Links Shake In Their Space-Boots) - Webkit only
+ *
+ * Contains CSS rules to make elements shake using -webkit-animations.
+ * Original Tutorial: http://www.cssreset.com/2011/css-tutorials/css3-webkit-animation-shake-links/
+ *
+ * by Joss Crowcroft and CSS Reset
+ * 1st January 2011
+ *
+ * License: Do whatever makes you happy! And, you know, give credit and links back if you like it.
+ *
+ * If you manage to work this into a project, please comment up and let me know. Kay?
+ */
+
+
+/**
+ * The declaration of the groovy shaky 'spaceboots' animation
+ */
+@-webkit-keyframes spaceboots {
+	12%   { -webkit-transform: translate(0px, 0px); }
+	25%  { -webkit-transform: translate(1px, 0px); }
+	37%  { -webkit-transform: translate(2px, 0px); }
+	50%  { -webkit-transform: translate(1px, 0px); }
+	67%  { -webkit-transform: translate(0px, 0px); }
+	75%  { -webkit-transform: translate(-1px, 0px); }
+	87%  { -webkit-transform: translate(-2px, 0px); }
+	100%  { -webkit-transform: translate(-1px, 0px); }
+}
+
+
+/**
+ * Apply the aforementioned animation to the following pseudo-selectors:
+ *
+ * NB: Normally, we'd just use the class e.g. '.shake', but for this demo, I'm also applying it to all links.
+ * To all intents and purposes, you can pretty much apply this to anything (read the tutorial for more info)
+ */
+.shake:hover,
+.shake:focus {
+	-webkit-animation-name: 'spaceboots';
+	-webkit-animation-duration: 0.4s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+
+.ui-draggable-dragging {
+    -webkit-animation: none !important;
+}
+
+
+/**
+ * Some extra styling to help it along, as inline elements won't do the shake:
+ */
+.shake {
+	display:block;
+	position:relative;
+}
+a,
+.shake.inline {
+	display:inline-block
+}

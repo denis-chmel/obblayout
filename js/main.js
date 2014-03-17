@@ -49,16 +49,76 @@ function samePositionWithOldPlaceholder(currentPlaceholder) {
     return false;
 }
 
-function initDrag() {
+function round40(value) {
+    return Math.round(value / 40) * 40;
+}
 
-//    $(".grid-row > *").resizable({
-//        ghost: true,
-//        resize: function(e, ui) {
-//            console.log(ui);
-//        }
-//    });
+function getCellsProportions(gridSetupBlock) {
+    var dividers = [];
+    var proportions = [];
+    $(gridSetupBlock).find(".grid-setup-line").each(function() {
+        var left = Math.round(parseInt($(this).css("left")) / 40);
+        if (left && -1 == dividers.indexOf(left)) {
+            dividers.push(left);
+        }
+    });
+    dividers.sort(function(a, b) {
+        return a - b;
+    });
+    var slotsUsed = 0;
+    $.each(dividers, function(i, leftPosition) {
+        proportions.push(leftPosition - slotsUsed);
+        slotsUsed += leftPosition - slotsUsed;
+    })
+    return proportions;
+}
 
-    $(sortables).sortable({
+function initDrag(where) {
+
+    var $grids = $(where || ".grid-setup");
+    $grids.each(function() {
+        var leftestCount = 0;
+        var rightestCount = 0;
+        $(this).find(".grid-setup-line").each(function() {
+            var left = parseInt($(this).css("left"));
+            leftestCount += 0 == left;
+            rightestCount += 480 == left;
+        });
+
+        if (leftestCount < 2) {
+            $(this).append("<div class='grid-setup-line' style='left: 0'></div>")
+        }
+        if (rightestCount < 2) {
+            $(this).append("<div class='grid-setup-line' style='left: 480px'></div>")
+        }
+
+        var cells = getCellsProportions(this);
+
+        $(this).closest(".modal-body").find(".btn-default").removeClass("active");
+        $(this).closest(".modal-body").find(".btn-default:nth(" + (cells.length - 1) + ")").addClass("active").focus();
+    });
+
+    $(".grid-setup-line", where).draggable({
+        grid: [40],
+        stop: function(e, ui) {
+            var dividers = [];
+            var $grid = $(this).closest(".grid-setup");
+            $grid.find(".grid-setup-line").each(function() {
+                var left = parseInt($(this).css("left"));
+                if (left && left < 480) {
+                    if (-1 == dividers.indexOf(left)) {
+                        dividers.push(left);
+                    } else {
+                        $(this).remove(); // line is duplicate
+                    }
+                }
+            });
+            initDrag($grid); // to make new lines draggable
+        },
+        containment: "parent"
+    });
+
+    $(sortables, where).sortable({
         connectWith: sortables,
         helper: "clone",
         revert: 100,
@@ -96,7 +156,7 @@ function initDrag() {
 
                         var $oldOldPlaceholder = $(".old-placeholder")
                         $oldOldPlaceholder.height(0);
-                        setTimeout(function(){
+                        setTimeout(function() {
                             $oldOldPlaceholder.remove();
                             alignColumnsInRow();
                         }, 200);
@@ -130,11 +190,12 @@ function initDrag() {
                 $(ui.item).replaceWith(htmlCode);
             }
 
-            onAfterChange();
+            onAfterChange(); // TODO wait till transition ends?
+
         }
     });
 
-    $(".draggable-block").draggable({
+    $(".draggable-block", where).draggable({
         connectToSortable: sortables,
         appendTo: "#sandbox .container",
         tolerance: "pointer",
@@ -147,7 +208,7 @@ function initDrag() {
         },
         stop: function(e, ui) {
             $("#sandbox").removeClass("while-dragging");
-            onAfterChange();
+            setTimeout(onAfterChange, 300); // wait till transition ends
         }
     });
 }
@@ -200,7 +261,7 @@ function onAfterChange(skipHistory) {
 function addControls(block) {
     var $controls = $(block).find("> .block-controls");
     if (!$controls.length) {
-        $(block).append($("#settings-teplate").html());
+        $(block).prepend($("#settings-teplate").html());
         $controls = $(block).find(".block-controls");
         var firstClass = $(block).attr("class").split(' ')[0];
         var modalId = "#" + firstClass + "-modal";
@@ -220,11 +281,57 @@ function addControls(block) {
     }
 }
 
+function initGridSettings(cellProportions) {
+    var $grid = $("#grid-row-modal .grid-setup");
+    $grid.empty();
+    var offset = 0;
+    for (var i in cellProportions) {
+        offset += round40(cellProportions[i] * 40);
+        $grid.append("<div class='grid-setup-line' style='left: " + offset + "px'></div>");
+    }
+    initDrag($grid);
+}
+
+function showSettingsPopup(popupId, $block) {
+    var $popup = $(popupId);
+    switch (popupId) {
+        case '#custom-text-html-modal':
+            var $copy = $block.clone();
+            $copy.find(".block-controls").remove();
+
+            tinyMCE.activeEditor.setContent($copy.html());
+            break;
+        case '#grid-row-modal':
+            var cellProportions = [];
+            $block.children("[class*='col-']").each(function() {
+                var size = parseInt(this.className.replace(/\D+/g, '')); // leave only numbers
+                cellProportions.push(size);
+            });
+            initGridSettings(cellProportions);
+            break;
+    }
+
+    $popup.modal("show");
+}
+
 $(function() {
 
     onAfterChange();
 
     $("#btn-undo").click(historyGoBack);
+
+    $(".btn-group-col-counts .btn").click(function() {
+        $(".btn-group-col-counts .btn").removeClass("active");
+        $(this).addClass("active");
+        var colsCount = $(this).index() + 1;
+        var $grid = $(this).closest(".modal-body").find(".grid-setup");
+        $grid.empty();
+        var distance = 12 / colsCount;
+        while (colsCount--) {
+            $grid.append("<div class='grid-setup-line' style='left: " + round40(colsCount * distance * 40) + "px'></div>");
+        }
+        initDrag($grid);
+    });
 
     $(document)
         .on("click", function(e) {
@@ -238,7 +345,7 @@ $(function() {
             }
         })
         .on("dblclick", ".draggable", function(e) {
-            $(this).find(".block-controls:last .settings").click();
+            $(this).find(".block-controls:first .settings").click();
             e.stopPropagation();
         })
         .on("click", ".block-controls .delete", function() {
@@ -246,15 +353,11 @@ $(function() {
         })
         .on("click", ".block-controls .settings", function() {
             var popupId = $(this).attr("data-target");
-            var $popup = $(popupId);
-            var closestDraggable = $(this).closest(".draggable");
 
-            var $copy = closestDraggable.clone();
-            $copy.find(".block-controls").remove();
+            if (popupId) {
+                showSettingsPopup(popupId, $(this).closest(".draggable"));
+            }
 
-            tinyMCE.activeEditor.setContent($copy.html());
-
-            $popup.modal("show");
         })
         .on("keyup",function(e) {
             var hotkey = String.fromCharCode(e.keyCode).toLowerCase();
@@ -284,8 +387,10 @@ $(function() {
             addControls(this);
 
             e.stopPropagation();
-        }).on("mouseout", ".draggable", function() {
+        }).on("mouseout", ".draggable",function() {
             $(this).removeClass("draggable-hovered");
+        }).on("mouseover", ".grid-setup-line", function() {
+            $(this).addClass("shake");
         });
 
     $("#btn-toggle-grid").click(function() {
@@ -293,13 +398,35 @@ $(function() {
         $(this).html($("#sandbox").hasClass("show-grid") ? "Hide grid" : "Show grid");
     });
 
-    $("#text-modal .btn-save").click(function() {
+    $("#custom-text-html-modal .btn-save").click(function() {
         var $block = $(".selected");
         setTimeout(function() {
             $block.html(tinyMCE.activeEditor.getContent());
             $block.effect("highlight");
             addControls($block);
         }, 500);
+    });
+
+    $("#grid-row-modal .btn-save").click(function() {
+        var $block = $(".selected");
+        var currentCols = $block.find("> *:not(.block-controls)");
+        var proportions = getCellsProportions(
+            $(this).closest(".modal").find(".grid-setup")
+        );
+        for (var i=currentCols.length - 1; i >= proportions.length; i--) {
+            $(currentCols[i]).children().insertAfter($block);
+            $(currentCols[i]).remove();
+        }
+        $.each(proportions, function(i, proportion) {
+            var className = "sortable col-md-" + proportion;
+            var col = currentCols.get(i);
+            if (col) {
+                col.className = className;
+            } else {
+                $block.append("<div class='" + className + "'></div>");
+            }
+        });
+        onAfterChange();
     });
 
     tinymce.init({

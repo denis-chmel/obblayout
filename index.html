@@ -10,6 +10,7 @@
     <script src="/js/jquery-ui/ui/jquery-ui.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/shake.css"/>
 
     <script src="vendor/tinymce/js/tinymce/tinymce.min.js"></script>
 
@@ -375,10 +376,37 @@
             </div>
             <div class="modal-body">
 
+
+                <h5>Cells count</h5>
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group btn-group-col-counts">
+                        <button class="btn btn-default">1</button>
+                        <button class="btn btn-default">2</button>
+                        <button class="btn btn-default">3</button>
+                        <button class="btn btn-default active">4</button>
+                        <button class="btn btn-default">5</button>
+                        <button class="btn btn-default">6</button>
+                        <button class="btn btn-default">7</button>
+                        <button class="btn btn-default">8</button>
+                        <button class="btn btn-default">9</button>
+                        <button class="btn btn-default">10</button>
+                        <button class="btn btn-default">11</button>
+                        <button class="btn btn-default">12</button>
+                    </div>
+                </div>
+
+                <br>
+
+                <h5>Cells proportions (drag blue lines)</h5>
+                <div class="grid-setup">
+                    <div class="grid-setup-line" style="left: 40px"></div>
+                    <div class="grid-setup-line" style="left: 80px"></div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>
@@ -419,7 +447,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>
