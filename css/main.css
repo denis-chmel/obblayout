@@ -117,10 +117,12 @@ main.sortable {
 .ui-sortable-placeholder {
     visibility: visible !important;
     outline: none !important;
-    background: #FFF !important;
-    transition: height 200ms;
     border: 2px solid #26b3f7 !important;
     border-radius: 5px;
+    background: #FFF url(../img/lines.svg) -1px -1px;
+}
+.ui-sortable-placeholder-animated {
+    transition: height 200ms;
 }
 
 .draggable-ghost {
@@ -256,4 +258,8 @@ footer:empty {
 
 .ui-resizable-helper > * {
     opacity: 1 !important;
+}
+
+.old-placeholder {
+    opacity: 0.5;
 }
