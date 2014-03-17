@@ -42,7 +42,6 @@ html, body {
 }
 
 .sortable {
-    box-sizing: border-box;
     /*border-radius: 5px;*/
     margin: 10px auto;
     padding: 0 5px;
@@ -254,6 +253,18 @@ footer:empty {
     background: #26b3f7 !important;
     outline: 2px solid #26b3f7 !important;
     z-index: 100;
+}
+.placeholder-line:after {
+    content: " move to here ";
+    position: absolute;
+    background: #26b3f7;
+    color: #FFF;
+    font-size: 11px;
+    padding: 1px 3px;
+    border-radius: 10px;
+    line-height: 1;
+    top: -6px;
+    left: 40%;
 }
 
 .ui-resizable-helper > * {

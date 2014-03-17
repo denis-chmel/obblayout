@@ -109,13 +109,7 @@ function initDrag() {
                     }, lineDelay, "drag-placeholder-show")
 
                 }
-
-
-
-
             }
-
-
 
         },
         start: function(e, ui) {
