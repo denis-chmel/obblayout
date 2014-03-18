@@ -291,8 +291,11 @@ footer:empty {
     width: 16px;
     border-left: 6px solid #FFF;
     border-right: 7px solid #FFF;
-    background: #26b3f7;
+    background: #90d1f7;
     box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
     cursor: col-resize;
     transition: left 200ms ease-out;
+}
+.grid-setup .grid-setup-line:hover {
+    background: #26b3f7;
 }
