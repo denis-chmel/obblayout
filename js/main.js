@@ -73,6 +73,55 @@ function getCellsProportions(gridSetupBlock) {
     return proportions;
 }
 
+function updatePlaceholders(ui) {
+
+    var lineDelay = $("#blue-line-delay").val();
+    if (lineDelay > 0) {
+
+        if (samePositionWithOldPlaceholder(ui.placeholder)) {
+
+            $(ui.placeholder).removeClass("placeholder-line");
+            $(".old-placeholder").hide();
+
+        } else {
+
+            $(ui.placeholder).addClass("placeholder-line");
+            $(".old-placeholder").show();
+
+            if ($(ui.placeholder).css("display") !== 'inline-block') {
+                $(ui.placeholder).width("100%");
+            }
+
+            delay(function() {
+
+                if (samePositionWithOldPlaceholder(ui.placeholder)) {
+                    return;
+                }
+
+                $(ui.helper).height("auto");
+                $(ui.helper).width(0).width($(ui.placeholder).width());
+                $(ui.placeholder).height($(ui.helper).css("height"));
+
+                $(ui.placeholder).removeClass("placeholder-line").slideDown(300);
+
+                var $oldOldPlaceholder = $(".old-placeholder");
+                $oldOldPlaceholder.height(0);
+                setTimeout(function() {
+                    $oldOldPlaceholder.remove();
+                    alignColumnsInRow();
+                }, 200);
+
+                var $newOldPlaceholder = $(ui.placeholder).clone();
+                $newOldPlaceholder.addClass("old-placeholder").insertAfter($(ui.placeholder)).hide();
+                $(ui.placeholder).data("previous-index", $(ui.placeholder).index());
+
+
+            }, lineDelay, "drag-placeholder-show")
+
+        }
+    }
+}
+
 function initDrag(where) {
 
     var $grids = $(where || ".grid-setup");
@@ -128,82 +177,40 @@ function initDrag(where) {
         delay: 100,
         change: function(event, ui) {
 
-            var lineDelay = $("#blue-line-delay").val();
-            if (lineDelay > 0) {
-
-
-                if (samePositionWithOldPlaceholder(ui.placeholder)) {
-
-                    $(ui.placeholder).removeClass("placeholder-line");
-                    $(".old-placeholder").hide();
-
-                } else {
-
-                    $(ui.placeholder).addClass("placeholder-line");
-                    $(".old-placeholder").show();
-
-                    delay(function() {
-
-                        if (samePositionWithOldPlaceholder(ui.placeholder)) {
-                            return;
-                        }
-
-                        $(ui.helper).height("auto");
-                        $(ui.helper).width($(ui.placeholder).width());
-                        $(ui.placeholder).height($(ui.helper).height());
-
-                        $(ui.placeholder).removeClass("placeholder-line").slideDown(300);
-
-                        var $oldOldPlaceholder = $(".old-placeholder")
-                        $oldOldPlaceholder.height(0);
-                        setTimeout(function() {
-                            $oldOldPlaceholder.remove();
-                            alignColumnsInRow();
-                        }, 200);
-
-                        var $newOldPlaceholder = $(ui.placeholder).clone();
-                        $newOldPlaceholder.addClass("old-placeholder").insertAfter($(ui.placeholder)).hide();
-                        $(ui.placeholder).data("previous-index", $(ui.placeholder).index());
-
-
-                    }, lineDelay, "drag-placeholder-show")
-
-                }
-            }
+            updatePlaceholders(ui);
 
         },
         start: function(e, ui) {
-            $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
-            var oldPlaceholder = $(ui.placeholder).clone();
-            oldPlaceholder.addClass("old-placeholder").insertAfter($(ui.placeholder)).hide();
+
+            if ($(ui.helper).data("isNewItem")) {
+                updatePlaceholders(ui);
+                $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
+            } else {
+                $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
+                var oldPlaceholder = $(ui.placeholder).clone();
+                oldPlaceholder.addClass("old-placeholder").insertAfter($(ui.placeholder)).hide();
+            }
+
             $("#sandbox").addClass("while-dragging");
 
         },
         stop: function(e, ui) {
-
             $(".old-placeholder").remove();
 
             $("#sandbox").removeClass("while-dragging");
-            if ($(ui.item).is(".draggable-block")) {
-                $(ui.item).find(".block-code > *").addClass("draggable").click();
-                var htmlCode = $(ui.item).find(".block-code").html();
-                $(ui.item).replaceWith(htmlCode);
-            }
 
             onAfterChange(); // TODO wait till transition ends?
 
         }
     });
 
-    $(".draggable-block", where).draggable({
+    $(".draggable-block .block-code > *", where).draggable({
         connectToSortable: sortables,
-        appendTo: "#sandbox .container",
+        appendTo: "#sandbox",
         tolerance: "pointer",
         helper: "clone",
-        drag: function(event, ui) {
-            delay(alignColumnsInRow, 50);
-        },
         start: function(e, ui) {
+            $(ui.helper).data("isNewItem", true); // flag for sortable to disinct this case
             $("#sandbox").addClass("while-dragging");
         },
         stop: function(e, ui) {

@@ -230,16 +230,24 @@ footer:empty {
     display: none;
 }
 
-.left .draggable-block .block-code {
-    display: none;
+.left .draggable-block {
+    position: relative;
+    overflow: hidden;
+}
+.left .draggable-block .block-code > * {
+    opacity: 0;
+    border: 1px solid red;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 0;
+    z-index: 100;
 }
 
 .left .block-label {
     display: block;
-}
-
-.ui-sortable-helper {
-    t1ransition: width 100ms, height 100ms;
 }
 
 .todo {
@@ -253,6 +261,7 @@ footer:empty {
     background: #26b3f7 !important;
     outline: 2px solid #26b3f7 !important;
     z-index: 100;
+    position: relative;
 }
 .placeholder-line:after {
     content: " move to here ";
