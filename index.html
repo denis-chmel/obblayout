@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+    <meta charset="utf-8">
+    <title>OBB Layout Constructor</title>
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap-3.1.1-dist/css/bootstrap.css"/>
     <script src="js/jquery-2.1.0.js"></script>
     <script src="vendor/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
@@ -315,7 +317,17 @@
             <main class="sortable">
 
                 <div class="custom-text-html">
+                    <script class="params" type="application/json">
+                        {
+                            "translations": {
+                                "da": "<h1>Velkommen!</h1>\n<p>Tillykke med din nye Internet butik. Quick Guiden hjælper dig hurtigt i gang. Den kommer automatisk første gang du logger ind i online administrationen og du kan altid finde den under menupunktet 'Generelt'.</p>",
+                                "de": "<h1>Willkommen!</h1>\n<p>Viel Glück mit Ihrem Webshop. Eine der neuen Funktionen ist ein Quick Guide, der Ihnen bei einem flotten Start behilflich sein soll. Er erscheint automatisch, wenn Sie sich zum ersten Mal bei der Online-Verwaltung anmelden, und Sie können ihn unter dem Menüpunkt 'Werkzeuge' immer wieder finden.</p>"
+                            }
+                        }
+
+                    </script>
                     <h1>Welcome!</h1>
+
                     <p>Congratulations with your new web shop. The Quick Guide helps you get started easily. It will start up automatically the first time you log onto the online admin system. Later, you can always find it under the 'General' menu.</p>
 
                     <p>Good luck with your new OpenBizBox web shop; we hope it will be very profitable. Should you need any professional support or help with getting started, please don't hesitate to contact us.</p>
@@ -377,6 +389,7 @@
 
 
                 <h5>Cells count</h5>
+
                 <div class="btn-toolbar" role="toolbar">
                     <div class="btn-group btn-group-col-counts">
                         <button class="btn btn-default">1</button>
@@ -397,6 +410,7 @@
                 <br>
 
                 <h5>Cells proportions (drag blue lines)</h5>
+
                 <div class="grid-setup">
                     <div class="grid-setup-line" style="left: 40px"></div>
                     <div class="grid-setup-line" style="left: 80px"></div>
@@ -420,9 +434,24 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="somepage">
-                    <textarea name="content" style="width:100%"></textarea>
-                </form>
+
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group btn-group-language-switcher">
+                            <button class="btn btn-default active" data-lang-code="en">English</button>
+                            <button class="btn btn-default" data-lang-code="da">Danish</button>
+                            <button class="btn btn-default" data-lang-code="de">German</button>
+                        </div>
+                    </div>
+
+                    <div class="lang-dependent lang-en">
+                        <textarea id="content-en" name="content[en]" style1="width:100%"></textarea>
+                    </div>
+                    <div class="lang-dependent lang-da hidden">
+                        <textarea id="content-da" name="content[da]" style1="width:100%"></textarea>
+                    </div>
+                    <div class="lang-dependent lang-de hidden">
+                        <textarea id="content-de" name="content[de]" style1="width:100%"></textarea>
+                    </div>
 
             </div>
             <div class="modal-footer">

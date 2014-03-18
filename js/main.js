@@ -1,5 +1,6 @@
 var changesHistory = [];
 var sortables = ".sortable";
+var enabledLocalizations = ['en', 'da', 'de'];
 
 function historySave() {
     var currentHtml = $("#sandbox").html();
@@ -269,7 +270,7 @@ function addControls(block) {
     var $controls = $(block).find("> .block-controls");
     if (!$controls.length) {
         $(block).prepend($("#settings-teplate").html());
-        $controls = $(block).find(".block-controls");
+        $controls = $(block).find("> .block-controls");
         var firstClass = $(block).attr("class").split(' ')[0];
         var modalId = "#" + firstClass + "-modal";
         var $settingsIcon = $controls.find(".settings");
@@ -305,8 +306,21 @@ function showSettingsPopup(popupId, $block) {
         case '#custom-text-html-modal':
             var $copy = $block.clone();
             $copy.find(".block-controls").remove();
+            $copy.find("script.params").remove();
 
-            tinyMCE.activeEditor.setContent($copy.html());
+            tinyMCE.get('content-en').setContent($copy.html());
+
+            var $params = $block.find("> script.params");
+            if ($params.length) {
+                var json = JSON.parse($block.find("> script.params").text());
+
+                if (json.translations) {
+                    $.each(json.translations, function(code, value){
+                        tinyMCE.get('content-' + code).setContent(value);
+                    });
+                }
+            }
+
             break;
         case '#grid-row-modal':
             var cellProportions = [];
@@ -326,6 +340,15 @@ $(function() {
     onAfterChange();
 
     $("#btn-undo").click(historyGoBack);
+
+    $(".btn-group-language-switcher .btn").click(function() {
+        $(this).closest(".btn-group-language-switcher").find(".btn").removeClass("active");
+        $(this).addClass("active");
+        var language = $(this).attr("data-lang-code");
+        $(this).closest(".modal").find(".lang-dependent").addClass("hidden");
+        $(this).closest(".modal").find(".lang-" + language).removeClass("hidden");
+
+    });
 
     $(".btn-group-col-counts .btn").click(function() {
         $(".btn-group-col-counts .btn").removeClass("active");
@@ -407,11 +430,26 @@ $(function() {
 
     $("#custom-text-html-modal .btn-save").click(function() {
         var $block = $(".selected");
+        var previewHtml = tinyMCE.get('content-en').getContent();
         setTimeout(function() {
-            $block.html(tinyMCE.activeEditor.getContent());
+            $block.html(previewHtml);
             $block.effect("highlight");
+
+            var json = {
+                translations: {}
+            };
+            $.each(enabledLocalizations, function(i, code){
+                json.translations[code] = tinyMCE.get('content-' + code).getContent();
+            });
+
+            $block.prepend("<script class='params' type='application/json'>" + JSON.stringify(json) + "</script>");
+
             addControls($block);
+
+            onAfterChange();
+
         }, 500);
+
     });
 
     $("#grid-row-modal .btn-save").click(function() {

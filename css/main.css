@@ -308,3 +308,11 @@ footer:empty {
 .grid-setup .grid-setup-line:hover {
     background: #26b3f7;
 }
+
+.hidden {
+    display: none;
+}
+
+.btn-group-language-switcher {
+    margin-bottom: 2ex;
+}
