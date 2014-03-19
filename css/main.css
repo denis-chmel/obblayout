@@ -203,7 +203,9 @@ footer:empty {
     color: #1f92c8;
     top: -14px;
     right: 0;
-    width: 120px;
+    white-space: nowrap;
+    padding: 0 3px;
+    background: #FFF;
 }
 
 .block-controls-buttons a {

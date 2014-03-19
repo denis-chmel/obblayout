@@ -2,6 +2,10 @@ var changesHistory = [];
 var sortables = ".sortable";
 var enabledLocalizations = ['en', 'da', 'de'];
 
+function getBlueLineDelay() {
+    return $("#blue-line-delay").val();
+}
+
 function historySave() {
     var currentHtml = $("#sandbox").html();
     if (changesHistory[changesHistory.length - 1] == currentHtml) {
@@ -76,50 +80,48 @@ function getCellsProportions(gridSetupBlock) {
 
 function updatePlaceholders(ui) {
 
-    var lineDelay = $("#blue-line-delay").val();
-    if (lineDelay > 0) {
+    var lineDelay = getBlueLineDelay();
 
-        if (samePositionWithOldPlaceholder(ui.placeholder)) {
+    if (samePositionWithOldPlaceholder(ui.placeholder)) {
 
-            $(ui.placeholder).removeClass("placeholder-line");
-            $(".old-placeholder").hide();
+        $(ui.placeholder).removeClass("placeholder-line");
+        $(".old-placeholder").hide();
 
-        } else {
+    } else {
 
-            $(ui.placeholder).addClass("placeholder-line");
-            $(".old-placeholder").show();
+        $(ui.placeholder).addClass("placeholder-line");
+        $(".old-placeholder").show();
 
-            if ($(ui.placeholder).css("display") !== 'inline-block') {
-                $(ui.placeholder).width("100%");
+        if ($(ui.placeholder).css("display") !== 'inline-block') {
+            $(ui.placeholder).width("auto");
+        }
+
+        delay(function() {
+
+            if (samePositionWithOldPlaceholder(ui.placeholder)) {
+                return;
             }
 
-            delay(function() {
+            $(ui.helper).height("auto");
+            $(ui.helper).width(0).width($(ui.placeholder).width());
+            $(ui.placeholder).height($(ui.helper).css("height"));
 
-                if (samePositionWithOldPlaceholder(ui.placeholder)) {
-                    return;
-                }
+            $(ui.placeholder).removeClass("placeholder-line").slideDown(300);
 
-                $(ui.helper).height("auto");
-                $(ui.helper).width(0).width($(ui.placeholder).width());
-                $(ui.placeholder).height($(ui.helper).css("height"));
+            var $oldOldPlaceholder = $(".old-placeholder");
+            $oldOldPlaceholder.height(0);
+            setTimeout(function() {
+                $oldOldPlaceholder.remove();
+                alignColumnsInRow();
+            }, 200);
 
-                $(ui.placeholder).removeClass("placeholder-line").slideDown(300);
-
-                var $oldOldPlaceholder = $(".old-placeholder");
-                $oldOldPlaceholder.height(0);
-                setTimeout(function() {
-                    $oldOldPlaceholder.remove();
-                    alignColumnsInRow();
-                }, 200);
-
-                var $newOldPlaceholder = $(ui.placeholder).clone();
-                $newOldPlaceholder.addClass("old-placeholder").insertAfter($(ui.placeholder)).hide();
-                $(ui.placeholder).data("previous-index", $(ui.placeholder).index());
+            var $newOldPlaceholder = $(ui.placeholder).clone();
+            $newOldPlaceholder.addClass("old-placeholder").insertAfter($(ui.placeholder)).hide();
+            $(ui.placeholder).data("previous-index", $(ui.placeholder).index());
 
 
-            }, lineDelay, "drag-placeholder-show")
+        }, lineDelay, "drag-placeholder-show")
 
-        }
     }
 }
 
@@ -185,9 +187,13 @@ function initDrag(where) {
 
             if ($(ui.helper).data("isNewItem")) {
                 updatePlaceholders(ui);
-                $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
+                if (getBlueLineDelay() > 0) {
+                    $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
+                }
             } else {
-                $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
+                if (getBlueLineDelay() > 0) {
+                    $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
+                }
                 var oldPlaceholder = $(ui.placeholder).clone();
                 oldPlaceholder.addClass("old-placeholder").insertAfter($(ui.placeholder)).hide();
             }
