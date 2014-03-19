@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    padding: 0;
     background: #F6F6F6 url(../img/cell.svg) -1px -1px;
 }
 
@@ -8,11 +9,12 @@ html, body {
     width: 240px;
     height: 100%;
     float: left;
-    background: #444;
+    background: rgba(0, 0, 0, 0.7);
     color: #FFF;
     position: fixed;
     top: 0;
     height: 100%;
+    z-index: 1;
     overflow: auto;
 }
 
@@ -33,27 +35,30 @@ button {
 }
 
 #sandbox {
-    padding: 20px;
     margin-left: 240px;
+    padding: 20px;
+    float: left;
 }
 
-#sandbox > .container {
+#sandbox .container {
     width: 100%;
     background: #FFF;
     border-radius: 5px;
     box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
     transition: max-width 200ms;
+    max-width: 1200px;
+
 }
 
-#sandbox.desktop > .container {
+#sandbox.desktop .container {
     max-width: 1200px;
 }
 
-#sandbox.tablet > .container {
+#sandbox.tablet .container {
     max-width: 768px;
 }
 
-#sandbox.phone > .container {
+#sandbox.phone .container {
     max-width: 320px;
 }
 
@@ -181,21 +186,6 @@ footer:empty {
     background-image: url(../img/label.php?text=footer+section);
 }
 
-.shop-logo {
-    background: #EEE;
-    padding: 5px;
-    border-radius: 5px;
-    color: #CCC;
-    text-align: center;
-}
-
-.shop-logo .block-title {
-    font-size: 18px;
-    height: 100px;
-    width: 1000px;
-    display: table-cell;
-    vertical-align: middle;
-}
 
 #settings-teplate {
     display: none;
@@ -263,7 +253,6 @@ footer:empty {
 }
 .left .draggable-block .block-code > * {
     opacity: 0;
-    border: 1px solid red;
     left: 0;
     top: 0;
     right: 0;
@@ -374,4 +363,12 @@ footer:empty {
 
 .btn-group-device {
     float: right;
+}
+
+#sandbox > div {
+    width: 100%;
+    float: left;
+    top: 0;
+    bottom: 0;
+    transition: margin-left 500ms, margin-right 500ms;
 }

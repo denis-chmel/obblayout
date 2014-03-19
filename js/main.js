@@ -112,7 +112,7 @@ function updatePlaceholders(ui) {
             $oldOldPlaceholder.height(0);
             setTimeout(function() {
                 $oldOldPlaceholder.remove();
-                alignColumnsInRow();
+                updateHeights();
             }, 200);
 
             var $newOldPlaceholder = $(ui.placeholder).clone();
@@ -243,7 +243,7 @@ function historyGo(direction) {
     }
 }
 
-function alignColumnsInRow(where) {
+function updateHeights(where) {
     $(".row", where).each(function() {
         var maxHeight = 0;
         $(this).children(".sortable").height("auto").each(function() {
@@ -252,12 +252,15 @@ function alignColumnsInRow(where) {
 
     });
 
+    var $currentLayout = $("#layout-" + $(".saved-layouts").val());
+    $("#sandbox").css("height", $currentLayout.height() + 40);
+
 }
 
 function onAfterChange(skipHistory) {
     $(".sortable > *").addClass("draggable");
     setTimeout(function() {
-        alignColumnsInRow();
+        updateHeights();
     }, 1);
 
     if (!skipHistory) {
@@ -321,7 +324,7 @@ function showSettingsPopup(popupId, $block) {
                 var json = JSON.parse($block.find("> script.params").text());
 
                 if (json.translations) {
-                    $.each(json.translations, function(code, value){
+                    $.each(json.translations, function(code, value) {
                         tinyMCE.get('content-' + code).setContent(value);
                     });
                 }
@@ -446,7 +449,7 @@ $(function() {
             var json = {
                 translations: {}
             };
-            $.each(enabledLocalizations, function(i, code){
+            $.each(enabledLocalizations, function(i, code) {
                 json.translations[code] = tinyMCE.get('content-' + code).getContent();
             });
 
@@ -466,7 +469,7 @@ $(function() {
         var proportions = getCellsProportions(
             $(this).closest(".modal").find(".grid-setup")
         );
-        for (var i=currentCols.length - 1; i >= proportions.length; i--) {
+        for (var i = currentCols.length - 1; i >= proportions.length; i--) {
             $(currentCols[i]).children().insertAfter($block);
             $(currentCols[i]).remove();
         }
@@ -482,13 +485,13 @@ $(function() {
         onAfterChange();
     });
 
-    $(".btn-group-device .btn").click(function(){
+    $(".btn-group-device .btn").click(function() {
 
         $(this).addClass('active').siblings().removeClass('active');
         $("#sandbox").attr("class", $(this).attr("data-device"));
 
-        setTimeout(function(){
-            alignColumnsInRow();
+        setTimeout(function() {
+            updateHeights();
         }, 200);
 
     });
@@ -503,6 +506,35 @@ $(function() {
             "insertdatetime media table contextmenu paste"
         ],
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    });
+
+    $(".saved-layouts").change(function() {
+        var $currentLayout = $("#layout-" + this.value);
+        $(".layout").each(function(i, item) {
+            i -= $currentLayout.index();
+            var newCss = {
+                marginLeft: (i * 150) + "%",
+                marginRight: (i - 3) * 150 + "%"
+            };
+            $(item).css(newCss);
+        });
+        updateHeights();
+    });
+
+    $(".btn-saved-layouts-next").click(function(){
+        var nextOption = $(".saved-layouts option:selected").next();
+        if (nextOption.length) {
+            $(nextOption).attr("selected", true);
+            $(".saved-layouts").trigger("change");
+        }
+    });
+
+    $(".btn-saved-layouts-prev").click(function(){
+        var prevOption = $(".saved-layouts option:selected").prev();
+        if (prevOption.length) {
+            $(prevOption).attr("selected", true);
+            $(".saved-layouts").trigger("change");
+        }
     });
 
 });

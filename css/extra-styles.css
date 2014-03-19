@@ -1,0 +1,18 @@
+body {
+    padding: 20px;
+}
+.shop-logo {
+    background: #EEE;
+    padding: 5px;
+    border-radius: 5px;
+    color: #CCC;
+    text-align: center;
+}
+
+.shop-logo .block-title {
+    font-size: 18px;
+    height: 100px;
+    width: 1000px;
+    display: table-cell;
+    vertical-align: middle;
+}
