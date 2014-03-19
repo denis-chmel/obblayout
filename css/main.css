@@ -10,31 +10,51 @@ html, body {
     float: left;
     background: #444;
     color: #FFF;
-    padding: 1ex;
-
     position: fixed;
     top: 0;
     height: 100%;
     overflow: auto;
-    z-index: 2;
+}
+
+.left > .contents {
+    padding: 10px;
+}
+
+button {
+    color: #333;
 }
 
 .right {
-    margin-left: 240px;
     float: none; /* not needed, just for clarification */
-    padding: 20px;
     /*background: url(../img/cell.svg) -1px -1px;*/
     /* the next props are meant to keep this block independent from the other floated one */
     width: auto;
     overflow: hidden;
 }
 
-.right > .container {
+#sandbox {
+    padding: 20px;
+    margin-left: 240px;
+}
+
+#sandbox > .container {
     width: 100%;
-    max-width: 1200px;
     background: #FFF;
     border-radius: 5px;
     box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
+    transition: max-width 200ms;
+}
+
+#sandbox.desktop > .container {
+    max-width: 1200px;
+}
+
+#sandbox.tablet > .container {
+    max-width: 768px;
+}
+
+#sandbox.phone > .container {
+    max-width: 320px;
 }
 
 .row > .sortable {
@@ -162,14 +182,19 @@ footer:empty {
 }
 
 .shop-logo {
-    height: 100px;
-    width: 100%;
     background: #EEE;
-    text-align: center;
-    line-height: 100px;
+    padding: 5px;
     border-radius: 5px;
     color: #CCC;
+    text-align: center;
+}
+
+.shop-logo .block-title {
     font-size: 18px;
+    height: 100px;
+    width: 1000px;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #settings-teplate {
@@ -317,4 +342,36 @@ footer:empty {
 
 .btn-group-language-switcher {
     margin-bottom: 2ex;
+}
+
+.saved-layouts {
+    font-size: 13px;
+    color: #000;
+    height: 32px;
+    margin-bottom: 2ex;
+}
+
+.left,
+.right {
+    padding-top: 50px;
+}
+
+.left .header,
+.right .header {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    background: rgba(100,100,100,0.2);
+    padding: 1ex;
+    top: 0;
+    z-index: 100;
+}
+
+.right .header {
+    margin-left: 240px;
+    padding-right: 260px;
+}
+
+.btn-group-device {
+    float: right;
 }

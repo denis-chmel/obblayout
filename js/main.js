@@ -213,7 +213,7 @@ function initDrag(where) {
 
     $(".draggable-block .block-code > *", where).draggable({
         connectToSortable: sortables,
-        appendTo: "#sandbox",
+        appendTo: "body",
         tolerance: "pointer",
         helper: "clone",
         start: function(e, ui) {
@@ -275,7 +275,7 @@ function onAfterChange(skipHistory) {
 function addControls(block) {
     var $controls = $(block).find("> .block-controls");
     if (!$controls.length) {
-        $(block).prepend($("#settings-teplate").html());
+        $(block).prepend($("#settings-template").html());
         $controls = $(block).find("> .block-controls");
         var firstClass = $(block).attr("class").split(' ')[0];
         var modalId = "#" + firstClass + "-modal";
@@ -348,8 +348,9 @@ $(function() {
     $("#btn-undo").click(historyGoBack);
 
     $(".btn-group-language-switcher .btn").click(function() {
-        $(this).closest(".btn-group-language-switcher").find(".btn").removeClass("active");
-        $(this).addClass("active");
+
+        $(this).addClass('active').siblings().removeClass('active');
+
         var language = $(this).attr("data-lang-code");
         $(this).closest(".modal").find(".lang-dependent").addClass("hidden");
         $(this).closest(".modal").find(".lang-" + language).removeClass("hidden");
@@ -357,8 +358,9 @@ $(function() {
     });
 
     $(".btn-group-col-counts .btn").click(function() {
-        $(".btn-group-col-counts .btn").removeClass("active");
-        $(this).addClass("active");
+
+        $(this).addClass('active').siblings().removeClass('active');
+
         var colsCount = $(this).index() + 1;
         var $grid = $(this).closest(".modal-body").find(".grid-setup");
         $grid.empty();
@@ -478,6 +480,17 @@ $(function() {
             }
         });
         onAfterChange();
+    });
+
+    $(".btn-group-device .btn").click(function(){
+
+        $(this).addClass('active').siblings().removeClass('active');
+        $("#sandbox").attr("class", $(this).attr("data-device"));
+
+        setTimeout(function(){
+            alignColumnsInRow();
+        }, 200);
+
     });
 
     tinymce.init({
