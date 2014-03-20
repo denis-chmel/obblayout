@@ -318,6 +318,7 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
                 <button type="button" class="btn btn-sm btn-info" data-device="phone">Phone</button>
                 <button type="button" class="btn btn-sm btn-info" data-device="tablet">Tablet</button>
                 <button type="button" class="btn btn-sm btn-info active" data-device="desktop">Desktop</button>
+                <button type="button" class="btn btn-sm btn-info" data-device="wide">Wide</button>
             </div>
 
             <button class="btn btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -353,13 +354,13 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 
             <? foreach ($layouts as $i => $layout): ?>
 
-                <div id="layout-<?= $i ?>" style="margin-left: <?= $i * 150?>%; margin-right: <?= ($i - 3) * 150?>%"  class="layout">
+                <div id="layout-<?= $i ?>" style="<?= $i > 0 ? 'opacity: 0;' : '' ?> margin-left: <?= $i * 150?>%; margin-right: <?= ($i - 3) * 150?>%"  class="layout">
                     <?= $layout["html"] ?>
                 </div>
 
             <? endforeach ?>
 
-            <div id="layout-new" style="margin-left: 300%; margin-right: -150%;" class="layout">
+            <div id="layout-new" style="margin-left: 300%; margin-right: -150%; opacity: 0" class="layout">
                 <div class="container">
 
                     <header class="sortable"></header>

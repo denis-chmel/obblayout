@@ -3,6 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     background: #F6F6F6 url(../img/cell.svg) -1px -1px;
+    transition: background-position 1s;
 }
 
 .left {
@@ -48,6 +49,10 @@ button {
     transition: max-width 200ms;
     max-width: 1200px;
 
+}
+
+#sandbox.wide .container {
+    max-width: none;
 }
 
 #sandbox.desktop .container {
@@ -370,5 +375,5 @@ footer:empty {
     float: left;
     top: 0;
     bottom: 0;
-    transition: margin-left 500ms, margin-right 500ms;
+    transition: margin-left 500ms, margin-right 500ms, opacity 500ms;
 }

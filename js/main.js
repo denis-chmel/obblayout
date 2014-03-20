@@ -514,10 +514,13 @@ $(function() {
             i -= $currentLayout.index();
             var newCss = {
                 marginLeft: (i * 150) + "%",
-                marginRight: (i - 3) * 150 + "%"
+                marginRight: (i - 3) * 150 + "%",
+                opacity: 0
             };
             $(item).css(newCss);
         });
+        $currentLayout.css("opacity", 1);
+
         updateHeights();
     });
 
