@@ -20,7 +20,9 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
     }
 
     if ($layout) {
+        $id = str_replace(".", "-", str_replace(".html", "", basename($file)));
         $layouts[] = array(
+            "id" => $id,
             "title" => $title,
             "html"  => $layout,
         );
@@ -33,7 +35,6 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1">
     <title>OBB Layout Constructor</title>
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap-3.1.1-dist/css/bootstrap.css"/>
     <script src="js/jquery-2.1.0.js"></script>
@@ -323,29 +324,29 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 
             <button class="btn btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
             <select class="saved-layouts">
-                <? foreach ($layouts as $i => $layout): ?>
-                <option value="<?= $i ?>"><?= $layout["title"] ?></option>
+                <? foreach ($layouts as $layout): ?>
+                    <option value="<?= $layout["id"] ?>"><?= $layout["title"] ?></option>
                 <? endforeach ?>
                 <option value="new">New layout...</option>
             </select>
             <button class="btn btn-info btn-saved-layouts-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 
-            <!--
             <div class="btn-group">
-                <button type="button" class="btn btn-success">Save</button>
-                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-info btn-save-layout">Save</button>
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Save as..</a></li>
-                    <li><a href="#">Preview</a></li>
+                    <li><a class="btn-save-layout-as" href="#">Save as..</a></li>
                     <li><a href="#">Save and publish</a></li>
                     <li class="divider"></li>
                     <li><a href="#">Delete</a></li>
                 </ul>
             </div>
-            -->
+
+            <button class="btn">Preview</button>
+            <button class="btn">Publish</button>
 
 
         </div>
@@ -354,7 +355,7 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 
             <? foreach ($layouts as $i => $layout): ?>
 
-                <div id="layout-<?= $i ?>" style="<?= $i > 0 ? 'opacity: 0;' : '' ?> margin-left: <?= $i * 150?>%; margin-right: <?= ($i - 3) * 150?>%"  class="layout">
+                <div id="layout-<?= $layout["id"] ?>" style="<?= $i > 0 ? 'opacity: 0;' : '' ?> margin-left: <?= $i * 150 ?>%; margin-right: <?= ($i - 3) * 150 ?>%" class="layout">
                     <?= $layout["html"] ?>
                 </div>
 
@@ -367,115 +368,152 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
                     <main class="sortable"></main>
                     <footer class="sortable"></footer>
 
+                </div>
+
             </div>
 
         </div>
-
     </div>
-</div>
 
-<div class="modal fade" id="grid-row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-vertical-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Grid settings</h4>
-            </div>
-            <div class="modal-body">
+    <div class="modal fade" id="grid-row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Grid settings</h4>
+                </div>
+                <div class="modal-body">
 
 
-                <h5>Cells count</h5>
+                    <h5>Cells count</h5>
 
-                <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group btn-group-col-counts">
-                        <button class="btn btn-default">1</button>
-                        <button class="btn btn-default">2</button>
-                        <button class="btn btn-default">3</button>
-                        <button class="btn btn-default active">4</button>
-                        <button class="btn btn-default">5</button>
-                        <button class="btn btn-default">6</button>
-                        <button class="btn btn-default">7</button>
-                        <button class="btn btn-default">8</button>
-                        <button class="btn btn-default">9</button>
-                        <button class="btn btn-default">10</button>
-                        <button class="btn btn-default">11</button>
-                        <button class="btn btn-default">12</button>
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group btn-group-col-counts">
+                            <button class="btn btn-default">1</button>
+                            <button class="btn btn-default">2</button>
+                            <button class="btn btn-default">3</button>
+                            <button class="btn btn-default active">4</button>
+                            <button class="btn btn-default">5</button>
+                            <button class="btn btn-default">6</button>
+                            <button class="btn btn-default">7</button>
+                            <button class="btn btn-default">8</button>
+                            <button class="btn btn-default">9</button>
+                            <button class="btn btn-default">10</button>
+                            <button class="btn btn-default">11</button>
+                            <button class="btn btn-default">12</button>
+                        </div>
                     </div>
-                </div>
 
-                <br>
+                    <br>
 
-                <h5>Cells proportions (drag blue lines)</h5>
+                    <h5>Cells proportions (drag blue lines)</h5>
 
-                <div class="grid-setup">
-                    <div class="grid-setup-line" style="left: 40px"></div>
-                    <div class="grid-setup-line" style="left: 80px"></div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="custom-text-html-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-vertical-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Text / Custom HTML</h4>
-            </div>
-            <div class="modal-body">
-
-
-                <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group btn-group-language-switcher">
-                        <button class="btn btn-default active" data-lang-code="en">English</button>
-                        <button class="btn btn-default" data-lang-code="da">Danish</button>
-                        <button class="btn btn-default" data-lang-code="de">German</button>
+                    <div class="grid-setup">
+                        <div class="grid-setup-line" style="left: 40px"></div>
+                        <div class="grid-setup-line" style="left: 80px"></div>
                     </div>
-                </div>
 
-                <div class="lang-dependent lang-en">
-                    <textarea id="content-en" name="content[en]" style1="width:100%"></textarea>
                 </div>
-                <div class="lang-dependent lang-da hidden">
-                    <textarea id="content-da" name="content[da]" style1="width:100%"></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
                 </div>
-                <div class="lang-dependent lang-de hidden">
-                    <textarea id="content-de" name="content[de]" style1="width:100%"></textarea>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="modal fade" id="custom-text-html-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Text / Custom HTML</h4>
+                </div>
+                <div class="modal-body">
 
 
-<div class="modal fade" id="shop-logo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-vertical-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Shop logo settings</h4>
-            </div>
-            <div class="modal-body">
-                ...<br>...<br>...<br>...<br>...<br>...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group btn-group-language-switcher">
+                            <button class="btn btn-default active" data-lang-code="en">English</button>
+                            <button class="btn btn-default" data-lang-code="da">Danish</button>
+                            <button class="btn btn-default" data-lang-code="de">German</button>
+                        </div>
+                    </div>
+
+                    <div class="lang-dependent lang-en">
+                        <textarea id="content-en" name="content[en]" style1="width:100%"></textarea>
+                    </div>
+                    <div class="lang-dependent lang-da hidden">
+                        <textarea id="content-da" name="content[da]" style1="width:100%"></textarea>
+                    </div>
+                    <div class="lang-dependent lang-de hidden">
+                        <textarea id="content-de" name="content[de]" style1="width:100%"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+
+    <div class="modal fade" id="shop-logo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Shop logo settings</h4>
+                </div>
+                <div class="modal-body">
+                    ...<br>...<br>...<br>...<br>...<br>...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="save-as-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+                <form method="get">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Save layout as...</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="get">
+                            <div class="form-group">
+                                <label for="layout_name">Name:</label>
+                                <input class="form-control" id="layout_name" required="required" name="layout_name" value="" type="text">
+
+                                <p class="help-block">Isn't shown for visitors. Name it somehow for yourself.</p>
+                            </div>
+
+                            <!--
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Publish after saving
+                                </label>
+                            </div>
+                            -->
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary disabled btn-save">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 </body>

@@ -28,6 +28,54 @@ function removeElement($draggable) {
     }
 }
 
+function focusCurrrentLayoutEditor() {
+    var $currentLayout = $("#layout-" + $(".saved-layouts").val());
+    var layoutsCount = $(".layout").length;
+    $(".layout").each(function(i, item) {
+        i -= $currentLayout.index();
+        var newCss = {
+            marginLeft: (i * 150) + "%",
+            marginRight: (i - layoutsCount) * 150 + "%",
+            opacity: 0
+        };
+        $(item).css(newCss);
+    });
+    $currentLayout.css("opacity", 1);
+}
+
+function saveLayout(id, title, dom) {
+
+    $dom = dom && dom.length ? dom : $("#layout-" + id).clone();
+    $dom.find("*").removeClass("ui-sortable draggable").removeAttr("style");
+    $dom.find(".block-controls").remove();
+    $dom.find(".sortable").removeAttr("style"); // with hardcoded height
+
+    $.post(
+        "/save.php",
+        {
+            id: id,
+            title: title,
+            html: $dom.html()
+        }
+    ).done(function(response) {
+
+            var data = JSON.parse(response);
+            var $select = $(".saved-layouts");
+            var $option = $select.find("option[value=" + data.id + "]");
+            if (!$option.length) {
+                $("<option value='" + data.id + "'>" + data.title + "</option>").insertBefore($select.find("option[value='new']"));
+                $option = $select.find("option[value=" + data.id+ "]");
+                $("<div class='layout' id='layout-" + data.id + "'>" + data.html + "</div>").insertBefore($("#layout-new"));
+            }
+            $option.attr("selected", true);
+            focusCurrrentLayoutEditor();
+
+    }).fail(function() {
+            alert( "failure" );
+    });
+    $("#save-as-modal").modal("hide");
+}
+
 /**
  * Use to delay reaction on e.g. keyup during search. Or whatever
  */
@@ -206,7 +254,7 @@ function initDrag(where) {
 
             $("#sandbox").removeClass("while-dragging");
 
-            onAfterChange(); // TODO wait till transition ends?
+            onAfterChange();
 
         }
     });
@@ -509,18 +557,7 @@ $(function() {
     });
 
     $(".saved-layouts").change(function() {
-        var $currentLayout = $("#layout-" + this.value);
-        $(".layout").each(function(i, item) {
-            i -= $currentLayout.index();
-            var newCss = {
-                marginLeft: (i * 150) + "%",
-                marginRight: (i - 3) * 150 + "%",
-                opacity: 0
-            };
-            $(item).css(newCss);
-        });
-        $currentLayout.css("opacity", 1);
-
+        focusCurrrentLayoutEditor();
         updateHeights();
     });
 
@@ -539,5 +576,42 @@ $(function() {
             $(".saved-layouts").trigger("change");
         }
     });
+
+    $(".btn-save-layout-as").click(function(){
+        $("#save-as-modal").modal("show");
+    });
+
+    $(".btn-save-layout").click(function(){
+        var currentLayoutId = $(".saved-layouts").val();
+        if (currentLayoutId == "new") {
+            $("#save-as-modal").modal("show");
+            return;
+        }
+        saveLayout(
+            currentLayoutId,
+            $(".saved-layouts option:selected").text()
+        );
+    });
+
+    $("#save-as-modal").on("show.bs.modal", function(){
+        $("#layout_name").val("").trigger("change");
+    });
+
+    $("#save-as-modal").on("shown.bs.modal", function(){
+        $("#layout_name").focus();
+    });
+
+    $("#layout_name").on("change keyup", function(){
+        $("#save-as-modal .btn-save").toggleClass("disabled", $.trim(this.value).length == 0);
+    });
+
+    $("#save-as-modal form").submit(function(){
+        var name = $("#layout_name").val();
+        var dom = $("#layout-" + $(".saved-layouts").val());
+        saveLayout(null, name, dom);
+        return false;
+    });
+
+    focusCurrrentLayoutEditor();
 
 });
