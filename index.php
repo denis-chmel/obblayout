@@ -1,33 +1,34 @@
 <?php
 
+$pageTypes = array();
+foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
-ini_set('display_errors', 1);
-error_reporting(-1);
+    $pageType = basename($dir);
 
-$layouts = array();
-foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
+    foreach (glob("$dir/*.html") as $file) {
 
-    $html = file_get_contents($file);
+        $html = file_get_contents($file);
 
-    $title = "";
-    if (preg_match("~<title>(.*?)</title>~", $html, $matches)) {
-        $title = $matches[1];
+        $title = "";
+        if (preg_match("~<title>(.*?)</title>~", $html, $matches)) {
+            $title = $matches[1];
+        }
+
+        $layout = "";
+        if (preg_match("~<body>(.*?)</body>~s", $html, $matches)) {
+            $layout = $matches[1];
+        }
+
+        if ($layout) {
+            $id = str_replace(".", "-", str_replace(".html", "", basename($file)));
+            $pageTypes[$pageType][] = array(
+                "id"    => $id,
+                "title" => $title,
+                "html"  => $layout,
+            );
+        }
+
     }
-
-    $layout = "";
-    if (preg_match("~<body>(.*?)</body>~s", $html, $matches)) {
-        $layout = $matches[1];
-    }
-
-    if ($layout) {
-        $id = str_replace(".", "-", str_replace(".html", "", basename($file)));
-        $layouts[] = array(
-            "id" => $id,
-            "title" => $title,
-            "html"  => $layout,
-        );
-    }
-
 }
 
 ?>
@@ -85,10 +86,11 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 
             <hr>
 
-            Page:
+            Page:<br>
             <select id="page-switcher" size="4">
-                <option value="landing-page" selected="selected">Landing page</option>
-                <option value="product-page">Product page</option>
+                <? foreach (array_keys($pageTypes) as $i => $pageType): ?>
+                    <option value="<?= $pageType ?>-page" <?= $i ? "" : 'selected="selected"' ?>><?= $pageType ?> page</option>
+                <? endforeach ?>
             </select>
 
             <hr>
@@ -331,12 +333,16 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
             </div>
 
             <button class="btn btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
-            <select class="saved-layouts">
-                <? foreach ($layouts as $layout): ?>
-                    <option value="<?= $layout["id"] ?>"><?= $layout["title"] ?></option>
+            <span>
+                <? foreach ($pageTypes as $pageType => $layouts): ?>
+                    <select class="saved-layouts saved-layouts-for-<?= $pageType ?>-page">
+                        <? foreach ($layouts as $i => $layout): ?>
+                            <option value="<?= $layout["id"] ?>" <?= $i ? "" : 'selected="selected"' ?>><?= $layout["title"] ?></option>
+                        <? endforeach ?>
+                        <option value="new">New layout...</option>
+                    </select>
                 <? endforeach ?>
-                <option value="new">New layout...</option>
-            </select>
+            </span>
             <button class="btn btn-info btn-saved-layouts-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 
             <div class="btn-group">
@@ -360,33 +366,18 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 
         <div id="sandbox">
 
-            <div class="obb-page active-obb-page" id="landing-page">
+            <? foreach ($pageTypes as $pageType => $layouts): ?>
+                <div class="obb-page active-obb-page" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
 
-                <? foreach ($layouts as $i => $layout): ?>
+                    <? foreach ($layouts as $layout): ?>
 
-                    <div class="layout layout-<?= $layout["id"] ?>">
-                        <?= $layout["html"] ?>
-                    </div>
+                        <div class="layout layout-<?= $layout["id"] ?>">
+                            <?= $layout["html"] ?>
+                        </div>
 
-                <? endforeach ?>
+                    <? endforeach ?>
 
-                <div class="layout layout-new" style1="background: red; height: 1000px">
-                    <div class="container">
-
-                        <header class="sortable"></header>
-                        <main class="sortable"></main>
-                        <footer class="sortable"></footer>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="obb-page" id="product-page" style="display: none">
-
-                <? foreach ($layouts as $i => $layout): ?>
-
-                    <div class="layout layout-<?= $layout["id"] ?>">
+                    <div class="layout layout-new">
                         <div class="container">
 
                             <header class="sortable"></header>
@@ -396,19 +387,8 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
                         </div>
                     </div>
 
-                <? endforeach ?>
-
-                <div class="layout layout-new"  style1="background: green">
-                    <div class="container">
-
-                        <header class="sortable"></header>
-                        <main class="sortable"></main>
-                        <footer class="sortable"></footer>
-
-                    </div>
                 </div>
-
-            </div>
+            <? endforeach ?>
 
         </div>
     </div>

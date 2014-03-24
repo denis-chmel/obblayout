@@ -29,10 +29,16 @@ function removeElement($draggable) {
 }
 
 
-
 function focusCurrrentLayoutEditor() {
     $(".obb-page").each(function(){
-        var $currentLayout = $(this).find(".layout-" + $(".saved-layouts").val());
+        var currentPageId = $(this).attr("id");
+        var currentLayout = $(".saved-layouts-for-" + currentPageId).val();
+
+        var $currentLayout = $(this).find(".layout-" + currentLayout);
+        if (!$currentLayout.length) {
+            $currentLayout = $(this).find(".layout:first");
+        }
+
         var layoutSelector = $(this).find(".layout");
         var layoutsCount = $(layoutSelector).length;
         $(layoutSelector).each(function(i, item) {
@@ -45,12 +51,16 @@ function focusCurrrentLayoutEditor() {
             $(item).css(newCss);
         });
         $currentLayout.css("opacity", 1);
+        $currentLayout.addClass("active-layout").siblings().removeClass("active-layout");
     });
 }
 
-function saveLayout(id, title, dom) {
+function saveLayout(id, title, $dom) {
 
-    $dom = dom && dom.length ? dom : $(".active-obb-page .layout-" + id).clone();
+    var $currentPage = $(".active-obb-page");
+    var currentPageType = $currentPage.attr("data-type");
+
+    $dom = $dom && $dom.length ? $dom : $currentPage.find(".layout-" + id).clone();
     $dom.find("*").removeClass("ui-sortable draggable").removeAttr("style");
     $dom.find(".block-controls").remove();
     $dom.find(".sortable").removeAttr("style"); // with hardcoded height
@@ -59,18 +69,19 @@ function saveLayout(id, title, dom) {
         "/save.php",
         {
             id: id,
+            pageType: currentPageType,
             title: title,
             html: $dom.html()
         }
     ).done(function(response) {
 
             var data = JSON.parse(response);
-            var $select = $(".saved-layouts");
+            var $select = $(".saved-layouts:visible");
             var $option = $select.find("option[value=" + data.id + "]");
             if (!$option.length) {
                 $("<option value='" + data.id + "'>" + data.title + "</option>").insertBefore($select.find("option[value='new']"));
                 $option = $select.find("option[value=" + data.id+ "]");
-                $("<div class='layout' id='layout-" + data.id + "'>" + data.html + "</div>").insertBefore(".active-obb-page .layout-new");
+                $("<div class='layout layout-" + data.id + "'>" + data.html + "</div>").insertBefore(".active-obb-page .layout-new");
             }
             $option.attr("selected", true);
             onAfterChange();
@@ -307,7 +318,7 @@ function updateHeights(where) {
 
     });
 
-    var $currentLayout = $(".active-obb-page .layout-" + $(".saved-layouts").val());
+    var $currentLayout = $(".active-obb-page .active-layout");
     $("#sandbox").css("height", $currentLayout.height() + 40);
 
 }
@@ -511,18 +522,18 @@ $(function() {
     });
 
     $(".btn-saved-layouts-next").click(function(){
-        var nextOption = $(".saved-layouts option:selected").next();
+        var nextOption = $(".saved-layouts:visible option:selected").next();
         if (nextOption.length) {
             $(nextOption).attr("selected", true);
-            $(".saved-layouts").trigger("change");
+            $(".saved-layouts:visible").trigger("change");
         }
     });
 
     $(".btn-saved-layouts-prev").click(function(){
-        var prevOption = $(".saved-layouts option:selected").prev();
+        var prevOption = $(".saved-layouts:visible option:selected").prev();
         if (prevOption.length) {
             $(prevOption).attr("selected", true);
-            $(".saved-layouts").trigger("change");
+            $(".saved-layouts:visible").trigger("change");
         }
     });
 
@@ -531,14 +542,14 @@ $(function() {
     });
 
     $(".btn-save-layout").click(function(){
-        var currentLayoutId = $(".saved-layouts").val();
+        var currentLayoutId = $(".saved-layouts:visible").val();
         if (currentLayoutId == "new") {
             $("#save-as-modal").modal("show");
             return;
         }
         saveLayout(
             currentLayoutId,
-            $(".saved-layouts option:selected").text()
+            $(".saved-layouts:visible option:selected").text()
         );
     });
 
@@ -556,7 +567,7 @@ $(function() {
 
     $("#save-as-modal form").submit(function(){
         var name = $("#layout_name").val();
-        var dom = ".active-obb-page .layout-" + $(".saved-layouts").val();
+        var dom = $(".active-obb-page .layout-" + $(".saved-layouts:visible").val());
         saveLayout(null, name, dom);
         return false;
     });

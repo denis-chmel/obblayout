@@ -3,6 +3,7 @@
 require("functions.php");
 
 $id = $_POST["id"] ? : uniqid();
+$pageType = $_POST["pageType"];
 $title = trim($_POST["title"]);
 $html = trim($_POST["html"]);
 
@@ -14,7 +15,7 @@ $tidy->cleanRepair();
 $html = (string) $tidy;
 */
 
-file_put_contents(__DIR__ . "/layouts/$id.html", getLayoutHtml($title, $html));
+file_put_contents(__DIR__ . "/layouts/$pageType/$id.html", getLayoutHtml($title, $html));
 
 echo json_encode(
     array(

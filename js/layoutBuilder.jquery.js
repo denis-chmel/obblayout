@@ -99,12 +99,15 @@
 
                 var $currentPage = $(".active-obb-page");
                 var $comingPage = $("#" + this.value);
+
+                $(".saved-layouts-for-" + $comingPage.attr("id")).show().siblings().hide();
+
+                if ($currentPage.attr("id") == $comingPage.attr("id")) {
+                    return;
+                }
+
                 var shouldComeFromUp = $currentPage.index() > $comingPage.index();
 
-                $("html").css({
-                    "overflow": "hidden",
-                    "overflow-y": "scroll"
-                });
                 $("#sandbox").css("height", "100%");
 
                 $currentPage.css({
@@ -125,21 +128,11 @@
                     "opacity": 1 // and make visible
                 });
 
-
                 $comingPage.addClass("active-obb-page");
                 $comingPage.siblings().removeClass("active-obb-page");
+                updateHeights();
 
-                setTimeout(function(){
-                    //focusCurrrentLayoutEditor();
-                    updateHeights();
-
-                    $("html").css({
-                        "overflow": ""
-                    });
-
-                }, 500);
-
-            });
+            }).trigger("change");
 
         }
     }
