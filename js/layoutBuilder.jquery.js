@@ -97,7 +97,7 @@
 
             $("#page-switcher").change(function() {
 
-                var $currentPage = $(".active-page");
+                var $currentPage = $(".active-obb-page");
                 var $comingPage = $("#" + this.value);
                 var shouldComeFromUp = $currentPage.index() > $comingPage.index();
 
@@ -107,28 +107,27 @@
                 });
                 $("#sandbox").css("height", "100%");
 
-                $currentPage.addClass("animation-on");
                 $currentPage.css({
                     "margin-top": (shouldComeFromUp ? "" : "-") + $currentPage.height() + "px",
                     "opacity": 0
                 });
 
 
-                $comingPage.removeClass("animation-on");
+                $comingPage.addClass("animation-off");
                 $comingPage.css({
                     "display": "block", // unhide
                     "opacity": 0 // but invisible yet
                 });
+                $comingPage.removeClass("animation-off");
 
-                $comingPage.addClass("animation-on");
                 $comingPage.css({
                     "margin-top": (shouldComeFromUp ? "-" : "") + $currentPage.height(), // fly in
                     "opacity": 1 // and make visible
                 });
 
 
-                $comingPage.addClass("active-page");
-                $comingPage.siblings().removeClass("active-page");
+                $comingPage.addClass("active-obb-page");
+                $comingPage.siblings().removeClass("active-obb-page");
 
                 setTimeout(function(){
                     //focusCurrrentLayoutEditor();

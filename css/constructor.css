@@ -386,11 +386,12 @@ footer:empty {
     float: right;
 }
 
-#sandbox .page-layouts {
+.obb-page {
     float: left;
     clear: both;
+    transition: margin 500ms, opacity 500ms;
 }
-#sandbox .layout {
+.obb-page .layout {
     width: 100%;
     float: left;
     top: 0;
@@ -398,6 +399,6 @@ footer:empty {
     transition: margin 500ms, opacity 500ms;
 }
 
-.page-layouts.animation-on {
-    transition: margin 500ms, opacity 500ms;
+.obb-page.animation-off {
+    transition: none;
 }

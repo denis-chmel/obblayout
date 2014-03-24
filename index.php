@@ -360,7 +360,7 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 
         <div id="sandbox">
 
-            <div class="page-layouts active-page" id="landing-page">
+            <div class="obb-page active-obb-page" id="landing-page">
 
                 <? foreach ($layouts as $i => $layout): ?>
 
@@ -382,7 +382,7 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
 
             </div>
 
-            <div class="page-layouts" id="product-page" style="display: none">
+            <div class="obb-page" id="product-page" style="display: none">
 
                 <? foreach ($layouts as $i => $layout): ?>
 

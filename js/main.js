@@ -31,7 +31,7 @@ function removeElement($draggable) {
 
 
 function focusCurrrentLayoutEditor() {
-    $(".page-layouts").each(function(){
+    $(".obb-page").each(function(){
         var $currentLayout = $(this).find(".layout-" + $(".saved-layouts").val());
         var layoutSelector = $(this).find(".layout");
         var layoutsCount = $(layoutSelector).length;
@@ -42,17 +42,15 @@ function focusCurrrentLayoutEditor() {
                 marginRight: (i - layoutsCount) * 150 + "%",
                 opacity: 0
             };
-            console.log(newCss);
             $(item).css(newCss);
         });
-        console.log($currentLayout);
         $currentLayout.css("opacity", 1);
     });
 }
 
 function saveLayout(id, title, dom) {
 
-    $dom = dom && dom.length ? dom : $(".active-page .layout-" + id).clone();
+    $dom = dom && dom.length ? dom : $(".active-obb-page .layout-" + id).clone();
     $dom.find("*").removeClass("ui-sortable draggable").removeAttr("style");
     $dom.find(".block-controls").remove();
     $dom.find(".sortable").removeAttr("style"); // with hardcoded height
@@ -72,7 +70,7 @@ function saveLayout(id, title, dom) {
             if (!$option.length) {
                 $("<option value='" + data.id + "'>" + data.title + "</option>").insertBefore($select.find("option[value='new']"));
                 $option = $select.find("option[value=" + data.id+ "]");
-                $("<div class='layout' id='layout-" + data.id + "'>" + data.html + "</div>").insertBefore(".active-page .layout-new");
+                $("<div class='layout' id='layout-" + data.id + "'>" + data.html + "</div>").insertBefore(".active-obb-page .layout-new");
             }
             $option.attr("selected", true);
             onAfterChange();
@@ -309,7 +307,7 @@ function updateHeights(where) {
 
     });
 
-    var $currentLayout = $(".active-page .layout-" + $(".saved-layouts").val());
+    var $currentLayout = $(".active-obb-page .layout-" + $(".saved-layouts").val());
     $("#sandbox").css("height", $currentLayout.height() + 40);
 
 }
@@ -558,7 +556,7 @@ $(function() {
 
     $("#save-as-modal form").submit(function(){
         var name = $("#layout_name").val();
-        var dom = ".active-page .layout-" + $(".saved-layouts").val();
+        var dom = ".active-obb-page .layout-" + $(".saved-layouts").val();
         saveLayout(null, name, dom);
         return false;
     });
