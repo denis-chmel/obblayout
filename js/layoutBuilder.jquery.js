@@ -110,11 +110,12 @@
 
                 $("#sandbox").css("height", "100%");
 
+                $comingPage.siblings().not($currentPage).hide();
+
                 $currentPage.css({
                     "margin-top": (shouldComeFromUp ? "" : "-") + $currentPage.height() + "px",
                     "opacity": 0
                 });
-
 
                 $comingPage.addClass("animation-off");
                 $comingPage.css({
@@ -133,6 +134,8 @@
                 updateHeights();
 
             }).trigger("change");
+
+            focusCurrrentLayoutEditor();
 
         }
     }

@@ -41,7 +41,7 @@ function focusCurrrentLayoutEditor() {
 
         var layoutSelector = $(this).find(".layout");
         var layoutsCount = $(layoutSelector).length;
-        $(layoutSelector).each(function(i, item) {
+        $(layoutSelector).each(function(i, item) {06
             i -= $currentLayout.index();
             var newCss = {
                 marginLeft: (i * 150) + "%",
@@ -571,7 +571,5 @@ $(function() {
         saveLayout(null, name, dom);
         return false;
     });
-
-    focusCurrrentLayoutEditor();
 
 });

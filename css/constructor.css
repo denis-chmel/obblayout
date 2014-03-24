@@ -5,7 +5,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: #F6F6F6 url(../img/cell.svg) -1px -1px;
+    background: #F6F6F6 url(../img/cell.svg);
     transition: background-position 1s;
 }
 
@@ -13,7 +13,7 @@ html, body {
     width: 240px;
     height: 100%;
     float: left;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.6);
     color: #FFF;
     position: fixed;
     top: 0;
@@ -46,33 +46,14 @@ button {
 }
 
 #sandbox .container {
-    width: 100%;
     background: #FFF;
     border-radius: 5px;
     box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
-    transition: max-width 200ms;
-    max-width: 1200px;
-    width: 1024px;
-
+    width: 1000px;
 }
 
 #sandbox.wide .container {
     max-width: none;
-}
-
-#sandbox.desktop .container {
-    width: 1024px;
-    max-width: 1024px;
-}
-
-#sandbox.tablet .container {
-    width: 768px;
-    max-width: 768px;
-}
-
-#sandbox.phone .container {
-    width: 320px;
-    max-width: 320px;
 }
 
 .row > .sortable {
@@ -106,8 +87,12 @@ button {
 }
 
 
+header.sortable,
+footer.sortable {
+    min-height: 100px;
+}
 main.sortable {
-    min-height: 300px;
+    min-height: 600px;
 }
 
 .hint {
@@ -352,7 +337,6 @@ footer:empty {
     margin-bottom: 2ex;
 }
 
-.left,
 .right {
     padding-top: 50px;
 }
@@ -389,8 +373,14 @@ footer:empty {
 .obb-page {
     float: left;
     clear: both;
+    opacity: 0;
     transition: margin 500ms, opacity 500ms;
 }
+.obb-page.active-obb-page {
+    opacity: 1;
+}
+
+
 .obb-page .layout {
     width: 100%;
     float: left;

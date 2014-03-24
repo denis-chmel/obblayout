@@ -1,5 +1,12 @@
 <?php
 
+$pageTypesToDisplay = array(
+    'index',
+    'category',
+    'product',
+    'information',
+);
+
 $pageTypes = array();
 foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
@@ -88,7 +95,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
             Page:<br>
             <select id="page-switcher" size="4">
-                <? foreach (array_keys($pageTypes) as $i => $pageType): ?>
+                <? foreach ($pageTypesToDisplay as $i => $pageType ): ?>
                     <option value="<?= $pageType ?>-page" <?= $i ? "" : 'selected="selected"' ?>><?= $pageType ?> page</option>
                 <? endforeach ?>
             </select>
@@ -325,12 +332,14 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
         <div class="header">
 
+            <!--
             <div class="btn-group btn-group-device">
                 <button type="button" class="btn btn-sm btn-info" data-device="phone">Phone</button>
                 <button type="button" class="btn btn-sm btn-info" data-device="tablet">Tablet</button>
                 <button type="button" class="btn btn-sm btn-info active" data-device="desktop">Desktop</button>
                 <button type="button" class="btn btn-sm btn-info" data-device="wide">Wide</button>
             </div>
+            -->
 
             <button class="btn btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
             <span>
@@ -366,10 +375,10 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
         <div id="sandbox">
 
-            <? foreach ($pageTypes as $pageType => $layouts): ?>
-                <div class="obb-page active-obb-page" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
+            <? foreach ($pageTypesToDisplay as $i => $pageType ): ?>
+                <div class="obb-page <?= $i ? "" : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
 
-                    <? foreach ($layouts as $layout): ?>
+                    <? if (isset($pageTypes[$pageType])) foreach ($pageTypes[$pageType] as $layout): ?>
 
                         <div class="layout layout-<?= $layout["id"] ?>">
                             <?= $layout["html"] ?>
@@ -385,6 +394,10 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                             <footer class="sortable"></footer>
 
                         </div>
+                    </div>
+
+                    <div class="layout layout-workaround">
+                        <div class="container"></div>
                     </div>
 
                 </div>
