@@ -44,9 +44,9 @@ function focusCurrrentLayoutEditor() {
         $(layoutSelector).each(function(i, item) {06
             i -= $currentLayout.index();
             var newCss = {
-                marginLeft: (i * 150) + "%",
-                marginRight: (i - layoutsCount) * 150 + "%",
-                opacity: 0
+                marginLeft: (i * 120) + "%",
+                marginRight: (i - layoutsCount) * 120 + "%",
+                opacity: 0.5
             };
             $(item).css(newCss);
         });

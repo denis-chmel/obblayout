@@ -57,6 +57,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
     <link rel="stylesheet" type="text/css" href="css/constructor.css"/>
 
     <script src="vendor/tinymce/js/tinymce/tinymce.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet' type='text/css'>
 
 </head>
 <body class="layout-constructor">
@@ -75,25 +76,35 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
     <div class="left">
 
-        <div class="header">
-
-            <span class="glyphicon glyphicon-th-large"></span>
-            Openbizbox Layout Constructor
-
-        </div>
         <div class="contents">
 
-            <button type="button" class="btn btn-primary" id="btn-toggle-grid">Show grid</button>
-            <button type="button" class="btn btn-primary disabled" id="btn-undo">Undo</button>
+            <div id="logo">
+
+                <table>
+                    <tr valign="top">
+                        <td><span class="glyphicon glyphicon-th-large"></span></td>
+                        <td>
+                            Openbizbox
+                            <span class="subpage">Layout Builder</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <button type="button" class="btn btn-info" id="btn-toggle-grid">Show grid</button>
+            <button type="button" class="btn btn-info disabled" id="btn-undo">Undo</button>
             <br>
             <br>
 
+            <!--
             Blue-line delay:
             <input type="text" class="input" value="600" style="color: #000" size="4" id="blue-line-delay">&nbsp;ms
 
-            <hr>
 
-            Page:<br>
+            <hr>
+            -->
+
+            <p>Page:</p>
             <select id="page-switcher" size="4">
                 <? foreach ($pageTypesToDisplay as $i => $pageType ): ?>
                     <option value="<?= $pageType ?>-page" <?= $i ? "" : 'selected="selected"' ?>><?= $pageType ?> page</option>
@@ -101,8 +112,10 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             </select>
 
             <hr>
-            <span style="color: #888">Grids:</span>
 
+            <p>Grids:</p>
+
+            <div class="wrap">
             <div class="draggable-block">
                 <div class="block-label">
                     <img src="/img/icons/grid4-4-4.svg" width="16" height="16"> Grid 4/4/4
@@ -142,10 +155,12 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                     </div>
                 </div>
             </div>
+            </div>
 
             <br>
-            <span style="color: #888">Blocks:</span>
+            <p>Blocks</p>
 
+            <div class="wrap">
             <div id="draggable-blocks">
 
                 <div class="draggable-block">
@@ -325,6 +340,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
 
             </div>
+            </div>
         </div>
 
     </div>
@@ -341,35 +357,37 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             </div>
             -->
 
-            <button class="btn btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
-            <span>
-                <? foreach ($pageTypes as $pageType => $layouts): ?>
-                    <select class="saved-layouts saved-layouts-for-<?= $pageType ?>-page">
-                        <? foreach ($layouts as $i => $layout): ?>
-                            <option value="<?= $layout["id"] ?>" <?= $i ? "" : 'selected="selected"' ?>><?= $layout["title"] ?></option>
-                        <? endforeach ?>
-                        <option value="new">New layout...</option>
-                    </select>
-                <? endforeach ?>
-            </span>
-            <button class="btn btn-info btn-saved-layouts-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
+            <div class="control-panel">
+                <button class="btn btn-sm btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                <span>
+                    <? foreach ($pageTypes as $pageType => $layouts): ?>
+                        <select class="saved-layouts saved-layouts-for-<?= $pageType ?>-page">
+                            <? foreach ($layouts as $i => $layout): ?>
+                                <option value="<?= $layout["id"] ?>" <?= $i ? "" : 'selected="selected"' ?>><?= $layout["title"] ?></option>
+                            <? endforeach ?>
+                            <option value="new">New layout...</option>
+                        </select>
+                    <? endforeach ?>
+                </span>
+                <button class="btn btn-sm btn-info btn-saved-layouts-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-info btn-save-layout">Save</button>
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a class="btn-save-layout-as" href="#">Save as..</a></li>
-                    <li><a href="#">Save and publish</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Delete</a></li>
-                </ul>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-info btn-save-layout">Save</button>
+                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="btn-save-layout-as" href="#">Save as..</a></li>
+                        <li><a href="#">Save and publish</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Delete</a></li>
+                    </ul>
+                </div>
+
+                <button class="btn btn-sm disabled" id="btn-preview">Preview</button>
+                <button class="btn btn-sm disabled">Publish</button>
             </div>
-
-            <button class="btn disabled" id="btn-preview">Preview</button>
-            <button class="btn disabled">Publish</button>
 
         </div>
 

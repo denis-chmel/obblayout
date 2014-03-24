@@ -95,6 +95,18 @@
                     $(this).addClass("shake");
                 });
 
+            $(window)
+                .on("scroll", function() {
+                    $(".right .header").toggleClass("scrolled", $(self).scrollTop() > 10);
+                })
+                .on("resize", function() {
+                    var value = Math.max(260, ($(this).width() - 1000) / 1.5) + "px";
+                    $(".left").css("width", value);
+                    $(".right").css("padding-left", value);
+                    $(".right .header").css("margin-left", value);
+                })
+                .trigger("resize");
+
             $("#page-switcher").change(function() {
 
                 var $currentPage = $(".active-obb-page");

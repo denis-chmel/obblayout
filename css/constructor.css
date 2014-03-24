@@ -5,25 +5,38 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: #F6F6F6 url(../img/cell.svg);
-    transition: background-position 1s;
+    background: #F3F3F3;
 }
 
 .left {
-    width: 240px;
+    width: 260px;
     height: 100%;
     float: left;
-    background: rgba(0, 0, 0, 0.6);
-    color: #FFF;
+    b1ackground: rgba(0, 191, 255, 0.7);
+    background: rgba(74, 132, 173, 0.7);
+    background: rgba(38, 154, 188, 0.4);
+    background: -webkit-linear-gradient(left, rgba(0, 191, 255, 0.7) 0%, rgba(38, 154, 188, 0.7) 100%);
+    border-right: 3px solid skyblue;
+
+    color: #222;
     position: fixed;
     top: 0;
     height: 100%;
     z-index: 1;
     overflow: auto;
+    font-size: 15px;
+    line-height: 1.2;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.glyphicon {
+    margin-right: 4px;
 }
 
 .left > .contents {
-    padding: 10px;
+    padding: 10px 20px 10px;
+    min-width: 260px;
+    float: right;
 }
 
 button {
@@ -36,24 +49,27 @@ button {
     /* the next props are meant to keep this block independent from the other floated one */
     width: auto;
     overflow: hidden;
-    padding-left: 240px;
+    padding-left: 260px;
 }
 
 #sandbox {
-    width: 100%;
     padding: 20px;
     float: left;
+    font-family: 'Open Sans', sans-serif;
+
 }
 
 #sandbox .container {
-    background: #FFF;
     border-radius: 5px;
-    box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
     width: 1000px;
+    margin: 15px 30px 30px;
+    background: #FFF;
+    transition: border 500ms, box-shadow 500ms;
+
 }
 
-#sandbox.wide .container {
-    max-width: none;
+#sandbox .active-layout .container {
+    box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
 }
 
 .row > .sortable {
@@ -333,8 +349,13 @@ footer:empty {
 
 .saved-layouts {
     font-size: 13px;
-    height: 32px;
-    margin-bottom: 2ex;
+    height: 30px;
+    padding: 3px;
+    /*border: 1px solid;*/
+    /*border-color: #CCC #EEE #EEE #CCC;*/
+    /*background: #EEE;*/
+    /*border-radius: 3px;*/
+    width: 220px;
 }
 
 .right {
@@ -345,25 +366,40 @@ footer:empty {
     color: #000;
 }
 
-.page-switcher {
+#page-switcher {
     padding: 1ex;
     width: 100%;
+    border: none;
+    border-radius: 4px;
 }
 
 .right .header {
     position: fixed;
-    height: 50px;
+    height: 60px;
     width: 100%;
     left: 0;
-    background: rgba(100,100,100,0.2);
-    padding: 1ex;
+    padding: 10px;
     top: 0;
     z-index: 100;
+    margin-left: 260px;
 }
 
-.right .header {
-    margin-left: 240px;
-    padding-right: 260px;
+/*
+.right .header.scrolled {
+    background: rgba(0,0,0,0.15);
+}
+*/
+
+.control-panel {
+    padding: 10px;
+    border-radius: 3px;
+    float: left;
+    transition: background 200ms;
+}
+
+.right .header.scrolled .control-panel {
+    /*background: rgba(57, 179, 215, 0.5);*/
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .btn-group-device {
@@ -391,4 +427,35 @@ footer:empty {
 
 .obb-page.animation-off {
     transition: none;
+}
+
+
+.right .header .disabled {
+    background: #EEE;
+    color: #999;
+    text-shadow: 1px 1px 0 #FFF;
+    opacity: 1;
+}
+
+#logo {
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #FFF;
+}
+#logo .subpage {
+    font-size: 16px;
+    display: block;
+    margin: 5px 0 20px 0;
+    opacity: 0.8;
+}
+
+p {
+    margin: 5px 0;
+}
+
+.wrap {
+    background: rgba(255,255,255,0.2);
+    font-size: 13px;
+    padding: 10px;
+    border-radius: 4px;
 }
