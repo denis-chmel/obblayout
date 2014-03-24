@@ -39,6 +39,7 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap-3.1.1-dist/css/bootstrap.css"/>
     <script src="js/jquery-2.1.0.js"></script>
     <script src="vendor/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+    <script src="js/layoutBuilder.jquery.js"></script>
     <script src="js/main.js"></script>
 
     <link rel="stylesheet" href="/js/jquery-ui/themes/smoothness/jquery-ui.css">
@@ -82,6 +83,13 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
             Blue-line delay:
             <input type="text" class="input" value="600" style="color: #000" size="4" id="blue-line-delay">&nbsp;ms
 
+            <hr>
+
+            Page:
+            <select id="page-switcher" size="4">
+                <option value="landing-page" selected="selected">Landing page</option>
+                <option value="product-page">Product page</option>
+            </select>
 
             <hr>
             <span style="color: #888">Grids:</span>
@@ -345,29 +353,59 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
                 </ul>
             </div>
 
-            <button class="btn">Preview</button>
-            <button class="btn">Publish</button>
-
+            <button class="btn disabled" id="btn-preview">Preview</button>
+            <button class="btn disabled">Publish</button>
 
         </div>
 
         <div id="sandbox">
 
-            <? foreach ($layouts as $i => $layout): ?>
+            <div class="page-layouts active-page" id="landing-page">
 
-                <div id="layout-<?= $layout["id"] ?>" style="<?= $i > 0 ? 'opacity: 0;' : '' ?> margin-left: <?= $i * 150 ?>%; margin-right: <?= ($i - 3) * 150 ?>%" class="layout">
-                    <?= $layout["html"] ?>
+                <? foreach ($layouts as $i => $layout): ?>
+
+                    <div class="layout layout-<?= $layout["id"] ?>">
+                        <?= $layout["html"] ?>
+                    </div>
+
+                <? endforeach ?>
+
+                <div class="layout layout-new" style1="background: red; height: 1000px">
+                    <div class="container">
+
+                        <header class="sortable"></header>
+                        <main class="sortable"></main>
+                        <footer class="sortable"></footer>
+
+                    </div>
                 </div>
 
-            <? endforeach ?>
+            </div>
 
-            <div id="layout-new" style="margin-left: 300%; margin-right: -150%; opacity: 0" class="layout">
-                <div class="container">
+            <div class="page-layouts" id="product-page" style="display: none">
 
-                    <header class="sortable"></header>
-                    <main class="sortable"></main>
-                    <footer class="sortable"></footer>
+                <? foreach ($layouts as $i => $layout): ?>
 
+                    <div class="layout layout-<?= $layout["id"] ?>">
+                        <div class="container">
+
+                            <header class="sortable"></header>
+                            <main class="sortable"></main>
+                            <footer class="sortable"></footer>
+
+                        </div>
+                    </div>
+
+                <? endforeach ?>
+
+                <div class="layout layout-new"  style1="background: green">
+                    <div class="container">
+
+                        <header class="sortable"></header>
+                        <main class="sortable"></main>
+                        <footer class="sortable"></footer>
+
+                    </div>
                 </div>
 
             </div>
@@ -514,6 +552,16 @@ foreach (glob(__DIR__ . "/layouts/*.html") as $file) {
             </div>
         </div>
     </div>
+
+    <!--
+    <script type="text/javascript">
+        $(function(){
+
+            $("#sandbox").layoutBuilder();
+
+        });
+    </script>
+    -->
 
 
 </body>

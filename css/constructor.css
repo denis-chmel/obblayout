@@ -1,3 +1,6 @@
+html {
+    overflow-y: scroll;
+}
 html, body {
     height: 100%;
     margin: 0;
@@ -33,10 +36,11 @@ button {
     /* the next props are meant to keep this block independent from the other floated one */
     width: auto;
     overflow: hidden;
+    padding-left: 240px;
 }
 
 #sandbox {
-    margin-left: 240px;
+    width: 100%;
     padding: 20px;
     float: left;
 }
@@ -48,6 +52,7 @@ button {
     box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
     transition: max-width 200ms;
     max-width: 1200px;
+    width: 1024px;
 
 }
 
@@ -56,14 +61,17 @@ button {
 }
 
 #sandbox.desktop .container {
-    max-width: 1200px;
+    width: 1024px;
+    max-width: 1024px;
 }
 
 #sandbox.tablet .container {
+    width: 768px;
     max-width: 768px;
 }
 
 #sandbox.phone .container {
+    width: 320px;
     max-width: 320px;
 }
 
@@ -340,7 +348,6 @@ footer:empty {
 
 .saved-layouts {
     font-size: 13px;
-    color: #000;
     height: 32px;
     margin-bottom: 2ex;
 }
@@ -350,11 +357,20 @@ footer:empty {
     padding-top: 50px;
 }
 
-.left .header,
+.left select {
+    color: #000;
+}
+
+.page-switcher {
+    padding: 1ex;
+    width: 100%;
+}
+
 .right .header {
     position: fixed;
     height: 50px;
     width: 100%;
+    left: 0;
     background: rgba(100,100,100,0.2);
     padding: 1ex;
     top: 0;
@@ -370,10 +386,18 @@ footer:empty {
     float: right;
 }
 
-#sandbox > div {
+#sandbox .page-layouts {
+    float: left;
+    clear: both;
+}
+#sandbox .layout {
     width: 100%;
     float: left;
     top: 0;
     bottom: 0;
-    transition: margin-left 500ms, margin-right 500ms, opacity 500ms;
+    transition: margin 500ms, opacity 500ms;
+}
+
+.page-layouts.animation-on {
+    transition: margin 500ms, opacity 500ms;
 }

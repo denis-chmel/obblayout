@@ -28,24 +28,31 @@ function removeElement($draggable) {
     }
 }
 
+
+
 function focusCurrrentLayoutEditor() {
-    var $currentLayout = $("#layout-" + $(".saved-layouts").val());
-    var layoutsCount = $(".layout").length;
-    $(".layout").each(function(i, item) {
-        i -= $currentLayout.index();
-        var newCss = {
-            marginLeft: (i * 150) + "%",
-            marginRight: (i - layoutsCount) * 150 + "%",
-            opacity: 0
-        };
-        $(item).css(newCss);
+    $(".page-layouts").each(function(){
+        var $currentLayout = $(this).find(".layout-" + $(".saved-layouts").val());
+        var layoutSelector = $(this).find(".layout");
+        var layoutsCount = $(layoutSelector).length;
+        $(layoutSelector).each(function(i, item) {
+            i -= $currentLayout.index();
+            var newCss = {
+                marginLeft: (i * 150) + "%",
+                marginRight: (i - layoutsCount) * 150 + "%",
+                opacity: 0
+            };
+            console.log(newCss);
+            $(item).css(newCss);
+        });
+        console.log($currentLayout);
+        $currentLayout.css("opacity", 1);
     });
-    $currentLayout.css("opacity", 1);
 }
 
 function saveLayout(id, title, dom) {
 
-    $dom = dom && dom.length ? dom : $("#layout-" + id).clone();
+    $dom = dom && dom.length ? dom : $(".active-page .layout-" + id).clone();
     $dom.find("*").removeClass("ui-sortable draggable").removeAttr("style");
     $dom.find(".block-controls").remove();
     $dom.find(".sortable").removeAttr("style"); // with hardcoded height
@@ -65,9 +72,11 @@ function saveLayout(id, title, dom) {
             if (!$option.length) {
                 $("<option value='" + data.id + "'>" + data.title + "</option>").insertBefore($select.find("option[value='new']"));
                 $option = $select.find("option[value=" + data.id+ "]");
-                $("<div class='layout' id='layout-" + data.id + "'>" + data.html + "</div>").insertBefore($("#layout-new"));
+                $("<div class='layout' id='layout-" + data.id + "'>" + data.html + "</div>").insertBefore(".active-page .layout-new");
             }
             $option.attr("selected", true);
+            onAfterChange();
+            initDrag();
             focusCurrrentLayoutEditor();
 
     }).fail(function() {
@@ -300,7 +309,7 @@ function updateHeights(where) {
 
     });
 
-    var $currentLayout = $("#layout-" + $(".saved-layouts").val());
+    var $currentLayout = $(".active-page .layout-" + $(".saved-layouts").val());
     $("#sandbox").css("height", $currentLayout.height() + 40);
 
 }
@@ -394,6 +403,8 @@ function showSettingsPopup(popupId, $block) {
 
 $(function() {
 
+    var builder = $("#sandbox").layoutBuilder();
+
     onAfterChange();
 
     $("#btn-undo").click(historyGoBack);
@@ -421,66 +432,6 @@ $(function() {
         }
         initDrag($grid);
     });
-
-    $(document)
-        .on("click", function(e) {
-            if ($(e.target).closest(".modal").length) {
-                return;
-            }
-            var closestDraggable = $(e.target).closest(".draggable");
-            $(".selected").not(closestDraggable).removeClass("selected");
-            if (closestDraggable.length) {
-                closestDraggable.addClass("selected");
-            }
-        })
-        .on("dblclick", ".draggable", function(e) {
-            $(this).find(".block-controls:first .settings").click();
-            e.stopPropagation();
-        })
-        .on("click", ".block-controls .delete", function() {
-            removeElement($(this).closest(".draggable"));
-        })
-        .on("click", ".block-controls .settings", function() {
-            var popupId = $(this).attr("data-target");
-
-            if (popupId) {
-                showSettingsPopup(popupId, $(this).closest(".draggable"));
-            }
-
-        })
-        .on("keyup",function(e) {
-            var hotkey = String.fromCharCode(e.keyCode).toLowerCase();
-            if (e.ctrlKey) {
-                hotkey = 'Ctrl+' + hotkey;
-            }
-
-            switch (hotkey) {
-                case 'Ctrl+z':
-                    historyGoBack();
-                    break;
-            }
-            switch (e.keyCode) {
-                case 46: // delete
-                    removeElement($(".draggable.selected"));
-                    break;
-            }
-
-        }).on("mouseover", ".draggable",function(e) {
-            if ($("#sandbox").hasClass("while-dragging")) {
-                return;
-            }
-            if ($(".task-sortable-placeholder:visible").length) {
-                return;
-            }
-            $(this).addClass("draggable-hovered");
-            addControls(this);
-
-            e.stopPropagation();
-        }).on("mouseout", ".draggable",function() {
-            $(this).removeClass("draggable-hovered");
-        }).on("mouseover", ".grid-setup-line", function() {
-            $(this).addClass("shake");
-        });
 
     $("#btn-toggle-grid").click(function() {
         $("#sandbox").toggleClass("show-grid");
@@ -607,7 +558,7 @@ $(function() {
 
     $("#save-as-modal form").submit(function(){
         var name = $("#layout_name").val();
-        var dom = $("#layout-" + $(".saved-layouts").val());
+        var dom = ".active-page .layout-" + $(".saved-layouts").val();
         saveLayout(null, name, dom);
         return false;
     });
