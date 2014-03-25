@@ -76,7 +76,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
         </div>
     </div>
 
-    <div class="left">
+    <div id="left">
 
         <div class="contents">
 
@@ -108,7 +108,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
             <h5>Page</h5>
             <select id="page-switcher" size="4">
-                <? foreach ($pageTypesToDisplay as $i => $pageType ): ?>
+                <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
                     <option value="<?= $pageType ?>-page" <?= $i ? "" : 'selected="selected"' ?>><?= $pageType ?> page</option>
                 <? endforeach ?>
             </select>
@@ -116,243 +116,262 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             <h5>Grids</h5>
 
             <div class="wrap">
-            <div class="draggable-block">
-                <div class="block-label">
-                    <img src="/img/icons/grid4-4-4.svg" width="16" height="16"> Grid 4/4/4
-                </div>
-                <div class="block-code">
-                    <div class="grid-row row">
-                        <div class="sortable col-md-4"></div>
-                        <div class="sortable col-md-4"></div>
-                        <div class="sortable col-md-4"></div>
+                <div class="draggable-block">
+                    <div class="block-label">
+                        <img src="/img/icons/grid4-4-4.svg" width="16" height="16"> Grid 4/4/4
+                    </div>
+                    <div class="block-code">
+                        <div class="grid-row row">
+                            <div class="sortable col-md-4"></div>
+                            <div class="sortable col-md-4"></div>
+                            <div class="sortable col-md-4"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="draggable-block">
-                <div class="block-label">
-                    <img src="/img/icons/grid3-3-3-3.svg" width="16" height="16"> Grid 3/3/3/3
-                </div>
-                <div class="block-code">
-                    <div class="grid-row row">
-                        <div class="sortable col-md-3"></div>
-                        <div class="sortable col-md-3"></div>
-                        <div class="sortable col-md-3"></div>
-                        <div class="sortable col-md-3"></div>
+                <div class="draggable-block">
+                    <div class="block-label">
+                        <img src="/img/icons/grid3-3-3-3.svg" width="16" height="16"> Grid 3/3/3/3
+                    </div>
+                    <div class="block-code">
+                        <div class="grid-row row">
+                            <div class="sortable col-md-3"></div>
+                            <div class="sortable col-md-3"></div>
+                            <div class="sortable col-md-3"></div>
+                            <div class="sortable col-md-3"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="draggable-block">
-                <div class="block-label">
-                    <img src="/img/icons/grid2-8-2.svg" width="16" height="16"> Grid 2/8/2
-                </div>
-                <div class="block-code">
-                    <div class="grid-row row">
-                        <div class="sortable col-md-2"></div>
-                        <div class="sortable col-md-8"></div>
-                        <div class="sortable col-md-2"></div>
+                <div class="draggable-block">
+                    <div class="block-label">
+                        <img src="/img/icons/grid2-8-2.svg" width="16" height="16"> Grid 2/8/2
+                    </div>
+                    <div class="block-code">
+                        <div class="grid-row row">
+                            <div class="sortable col-md-2"></div>
+                            <div class="sortable col-md-8"></div>
+                            <div class="sortable col-md-2"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
 
             <h5>Blocks</h5>
 
             <div class="wrap">
-            <div id="draggable-blocks">
+                <div id="draggable-blocks">
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Checkout button
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Checkout button
+                        </div>
+                        <div class="block-code">
+                            <div class="btn btn-danger">Checkout</div>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <div class="btn btn-danger">Checkout</div>
-                    </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Map address
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-map-marker"></span> Map address
+                        </div>
+                        <div class="block-code">
+                            <div class="google-map"></div>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <div class="google-map"></div>
-                    </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Breadcrumb
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Breadcrumb
+                        </div>
+                        <div class="block-code">
+                            <ol class="breadcrumb">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Library</a></li>
+                                <li class="active">Data</li>
+                            </ol>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Library</a></li>
-                            <li class="active">Data</li>
-                        </ol>
-                    </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-align-justify"></span> Custom text / HTML
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-align-justify"></span> Custom text / HTML
+                        </div>
+                        <div class="block-code">
+                            <div class="custom-text-html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt tellus eget tortor elementum pellentesque. Vivamus a ornare turpis. Curabitur quis urna in erat elementum dapibus et et sem. Morbi congue sem vitae urna adipiscing laoreet. Ut lectus elit, vulputate ac metus vitae, cursus malesuada purus. Pellentesque tristique egestas elit, vitae rhoncus est sagittis vitae. Morbi lobortis condimentum massa eget vehicula. Duis nec massa vel mauris dignissim fermentum eget vel nulla. Pellentesque quis nunc mattis, mollis nibh vel, ornare sapien.</div>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <div class="custom-text-html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt tellus eget tortor elementum pellentesque. Vivamus a ornare turpis. Curabitur quis urna in erat elementum dapibus et et sem. Morbi congue sem vitae urna adipiscing laoreet. Ut lectus elit, vulputate ac metus vitae, cursus malesuada purus. Pellentesque tristique egestas elit, vitae rhoncus est sagittis vitae. Morbi lobortis condimentum massa eget vehicula. Duis nec massa vel mauris dignissim fermentum eget vel nulla. Pellentesque quis nunc mattis, mollis nibh vel, ornare sapien.</div>
-                    </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-info-sign"></span> Info pages links
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-info-sign"></span> Info pages links
+                        </div>
+                        <div class="block-code">
+                            <p class="info-pages-links">
+                                <a href="#">Privacy Notice</a><br>
+                                <a href="#">Conditions of Use</a><br>
+                                <a href="#">Sitemap</a><br>
+                                <a href="#">Newsletter</a><br>
+                            </p>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <p class="info-pages-links">
-                            <a href="#">Privacy Notice</a><br>
-                            <a href="#">Conditions of Use</a><br>
-                            <a href="#">Sitemap</a><br>
-                            <a href="#">Newsletter</a><br>
-                        </p>
-                    </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-info-sign"></span> Account pages links
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-info-sign"></span> Account pages links
+                        </div>
+                        <div class="block-code">
+                            <p class="account-pages-links">
+                                <a href="#">My Account</a><br>
+                                <a href="#">Edit Account</a><br>
+                                <a href="#">Password</a><br>
+                                <a href="#">Address Books</a><br>
+                                <a href="#">Wish List</a><br>
+                                <a href="#">Order History</a><br>
+                                <a href="#">Newsletter</a><br>
+                                <a href="#">Logout</a>
+                            </p>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <p class="account-pages-links">
-                            <a href="#">My Account</a><br>
-                            <a href="#">Edit Account</a><br>
-                            <a href="#">Password</a><br>
-                            <a href="#">Address Books</a><br>
-                            <a href="#">Wish List</a><br>
-                            <a href="#">Order History</a><br>
-                            <a href="#">Newsletter</a><br>
-                            <a href="#">Logout</a>
-                        </p>
-                    </div>
-                </div>
 
-                <div class="draggable-block todo">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-tags"></span> Supported credit cards
+                    <div class="draggable-block todo">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-tags"></span> Supported credit cards
+                        </div>
+                        <div class="block-code">
+                            <p>TODO</p>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <p>TODO</p>
-                    </div>
-                </div>
 
-                <div class="draggable-block todo">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-tags"></span> Contact us form
+                    <div class="draggable-block todo">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-tags"></span> Contact us form
+                        </div>
+                        <div class="block-code">
+                            <p>TODO</p>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <p>TODO</p>
-                    </div>
-                </div>
 
-                <div class="draggable-block todo">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-tags"></span> Subscribe form
+                    <div class="draggable-block todo">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-tags"></span> Subscribe form
+                        </div>
+                        <div class="block-code">
+                            <p>TODO</p>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <p>TODO</p>
-                    </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-picture"></span> Shop logo
-                    </div>
-                    <div class="block-code">
-                        <div class="shop-logo">
-                            <div class="block-title">
-                                <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-picture"></span> Shop logo
+                        </div>
+                        <div class="block-code">
+                            <div class="shop-logo">
+                                <div class="block-title">
+                                    <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-font"></span> Shop Title
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-font"></span> Shop Title
+                        </div>
+                        <div class="block-code">
+                            <h2 class="shop-title">Shop Title</h2>
+                        </div>
                     </div>
-                    <div class="block-code">
-                        <h2 class="shop-title">Shop Title</h2>
-                    </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-picture"></span> Custom Banner / Image
-                    </div>
-                    <div class="block-code">
-                        <div class="shop-logo">
-                            <div class="block-title">
-                                <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-picture"></span> Custom Banner / Image
+                        </div>
+                        <div class="block-code">
+                            <div class="shop-logo">
+                                <div class="block-title">
+                                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="draggable-block">
-                    <div class="block-label">
+                    <div class="draggable-block">
+                        <div class="block-label">
 
-                        <span class="glyphicon glyphicon glyphicon-th-list"></span> Menu
-                    </div>
+                            <span class="glyphicon glyphicon glyphicon-th-list"></span> Menu
+                        </div>
 
-                    <div class="block-code">
-                        <ul class="nav nav-pills">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Messages</a></li>
-                            <li><a href="#">Friends</a></li>
-                            <li><a href="#">Photos</a></li>
-                            <li><a href="#">Calendar</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-search"></span> Search
-                    </div>
-                    <div class="block-code">
-                        <div class="input-group" style="padding: 5px;">
-                            <input type="text" class="form-control">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <span class="glyphicon glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
+                        <div class="block-code">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Messages</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Photos</a></li>
+                                <li><a href="#">Calendar</a></li>
+                            </ul>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="draggable-block">
-                    <div class="block-label">
-                        <span class="glyphicon glyphicon glyphicon-film"></span> Slider
-                    </div>
-                    <div class="block-code">
-                        <div class="slider jumbotron">
-                            <h1>Slider</h1>
-
-                            <p>This is your home page, you are able to remove and add any block. Each block has such hint</p>
-
-                            <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-search"></span> Search
+                        </div>
+                        <div class="block-code">
+                            <div class="input-group" style="padding: 5px;">
+                                <input type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <span class="glyphicon glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="draggable-block">
+                        <div class="block-label">
+                            <span class="glyphicon glyphicon glyphicon-film"></span> Images carousel
+                        </div>
+                        <div class="block-code">
+                            <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <h1>Product 1</h1>
+                                        <p class="description">A trendy tool to cycle products advertisement. Products which are promoted to front page are rotated here.</p>
+                                    </div>
+                                    <div class="item">
+                                        <h1>Product 2</h1>
+                                        <p class="description">A trendy tool to cycle products advertisement. Products which are promoted to front page are rotated here.</p>
+                                    </div>
+                                    <div class="item">
+                                        <h1>Product 3</h1>
+                                        <p class="description">A trendy tool to cycle products advertisement. Products which are promoted to front page are rotated here.</p>
+                                    </div>
+                                </div>
+                                <a class="left carousel-control" data-target="#carousel-example" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" data-target="#carousel-example" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-
-
-            </div>
             </div>
         </div>
 
     </div>
-    <div class="right">
+    <div id="right">
 
         <div class="header">
 
@@ -401,16 +420,18 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
         <div id="sandbox">
 
-            <? foreach ($pageTypesToDisplay as $i => $pageType ): ?>
+            <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
                 <div class="obb-page <?= $i ? "" : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
 
-                    <? if (isset($pageTypes[$pageType])) foreach ($pageTypes[$pageType] as $layout): ?>
+                    <? if (isset($pageTypes[$pageType])): ?>
+                        <? foreach ($pageTypes[$pageType] as $layout): ?>
 
-                        <div class="layout layout-<?= $layout["id"] ?>">
-                            <?= $layout["html"] ?>
-                        </div>
+                            <div class="layout layout-<?= $layout["id"] ?>">
+                                <?= $layout["html"] ?>
+                            </div>
 
-                    <? endforeach ?>
+                        <? endforeach ?>
+                    <? endif ?>
 
                     <div class="layout layout-new">
                         <div class="container">
@@ -488,7 +509,6 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                 </div>
                 <div class="modal-body">
 
-
                     <div class="btn-toolbar" role="toolbar">
                         <div class="btn-group btn-group-language-switcher">
                             <button class="btn btn-default active" data-lang-code="en">English</button>
@@ -498,13 +518,13 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                     </div>
 
                     <div class="lang-dependent lang-en">
-                        <textarea id="content-en" name="content[en]" style1="width:100%"></textarea>
+                        <textarea id="content-en" name="content[en]" class="wysiwyg"></textarea>
                     </div>
                     <div class="lang-dependent lang-da hidden">
-                        <textarea id="content-da" name="content[da]" style1="width:100%"></textarea>
+                        <textarea id="content-da" name="content[da]" class="wysiwyg"></textarea>
                     </div>
                     <div class="lang-dependent lang-de hidden">
-                        <textarea id="content-de" name="content[de]" style1="width:100%"></textarea>
+                        <textarea id="content-de" name="content[de]" class="wysiwyg"></textarea>
                     </div>
 
                 </div>
@@ -530,6 +550,79 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="component-tabs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Tabs</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group btn-group-language-switcher">
+                            <button class="btn btn-default active" data-lang-code="en">English</button>
+                            <button class="btn btn-default" data-lang-code="da">Danish</button>
+                            <button class="btn btn-default" data-lang-code="de">German</button>
+                        </div>
+                    </div>
+
+                    <div class="grid-row row">
+                        <div class="col-md-6">
+
+                            <div class="lang-dependent lang-en">
+                                <textarea class="form-control" rows="6"><?=
+                                    <<<EOF
+Wholesale
+Bestsellers
+Reach us
+- Address
+- Leave a message
+
+EOF;
+                                    ?></textarea>
+                            </div>
+                            <div class="lang-dependent lang-da hidden">
+                                <textarea class="form-control" rows="6"><?=
+                                    <<<EOF
+Wholesale
+Bestsellere
+Kontakt os
+- Adresse
+- Efterlad en besked
+
+EOF;
+                                    ?></textarea>
+                            </div>
+                            <div class="lang-dependent lang-de hidden">
+                                <textarea class="form-control" rows="6"><?=
+                                    <<<EOF
+Großhandel
+Bestseller
+Kontaktieren Sie uns
+- Adresse
+- Lassen Sie eine Nachricht
+
+EOF;
+                                    ?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            Enter tab labels one per line, optionally translate to languages. Ensure that if translation is present it contains same amount of tabs.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-save">Save changes</button>
                 </div>
             </div>
         </div>
@@ -573,10 +666,10 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
     </div>
 
     <script type="text/javascript">
-        $(function(){
+        $(function() {
 
             // $("#sandbox").layoutBuilder();
-            $(".left").mCustomScrollbar({
+            $("#left").mCustomScrollbar({
                 scrollInertia: 300
             });
 

@@ -23,3 +23,27 @@ body {
     background: #FFF url(../img/googlemap.png) center center no-repeat;
     border-radius: 6px;
 }
+
+.draggable.carousel {
+    margin: 20px auto;
+}
+
+.carousel {
+    padding: 20px;
+    border-radius: 6px;
+    background: #EEE;
+    height: 460px;
+}
+.carousel .carousel-control {
+    background: transparent;
+    color: #CCC;
+    text-shadow: none;
+}
+
+.carousel .carousel-indicators li {
+    border-color: #CCC;
+}
+
+.carousel .carousel-indicators li.active {
+    background-color: #CCC;
+}

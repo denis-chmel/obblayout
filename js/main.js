@@ -271,9 +271,13 @@ function initDrag(where) {
             $(".old-placeholder").remove();
 
             $("#sandbox").removeClass("while-dragging");
+            if ($(ui.item).is(".carousel")) {
+                var uniqId = "carousel-" + (Math.random() + '').replace('0.', '');
+                $(ui.item).attr("id", uniqId);
+                $(ui.item).find("[data-target]").attr("data-target", "#" + uniqId);
+            }
 
             onAfterChange();
-
         }
     });
 
@@ -334,8 +338,8 @@ function onAfterChange(skipHistory) {
     }
     $("#btn-undo").toggleClass("disabled", historyEmpty());
     initDrag();
-    $("main, footer, header").each(function() {
-        if (!$(this).children().length) {
+    $("main, footer, header, .sortable").each(function() {
+        if (!$(this).children().length && $.trim($(this).text()).length == 0) {
             $(this).empty();
         }
     });
@@ -471,6 +475,47 @@ $(function() {
 
     });
 
+    $("#component-tabs-modal .btn-save").click(function() {
+        var $modal = $(this).closest(".modal");
+        var $block = $(".selected");
+        var previewData = $modal.find('.lang-en textarea').html();
+
+        var tabs = [];
+        $.each(previewData.split("\n"), function(i, tabLabel) {
+            tabLabel = $.trim(tabLabel);
+            if (!tabLabel.length) {
+                return;
+            }
+            tabs.push()
+            console.log(tabLabel);
+        });
+//        alert(previewData);
+        $modal.modal("hide");
+
+        /*
+        var previewHtml = tinyMCE.get('content-en').getContent();
+        setTimeout(function() {
+            $block.html(previewHtml);
+            $block.effect("highlight");
+
+            var json = {
+                translations: {}
+            };
+            $.each(enabledLocalizations, function(i, code) {
+                json.translations[code] = tinyMCE.get('content-' + code).getContent();
+            });
+
+            $block.prepend("<script class='params' type='application/json'>" + JSON.stringify(json) + "</script>");
+
+            addControls($block);
+
+            onAfterChange();
+
+        }, 500);
+        */
+
+    });
+
     $("#grid-row-modal .btn-save").click(function() {
         var $block = $(".selected");
         var currentCols = $block.find("> *:not(.block-controls)");
@@ -505,7 +550,7 @@ $(function() {
     });
 
     tinymce.init({
-        selector: "textarea",
+        selector: "textarea.wysiwyg",
         height: 300,
         content_css: "/vendor/bootstrap-3.1.1-dist/css/bootstrap.css",
         plugins: [

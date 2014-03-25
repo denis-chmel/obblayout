@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>Default layout</title>
-    <link rel="stylesheet" type="text/css" href="../../vendor/bootstrap-3.1.1-dist/css/bootstrap.css"/>
-    <script src="../../js/jquery-2.1.0.js"></script>
-    <script src="../../vendor/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../css/extra-styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap-3.1.1-dist/css/bootstrap.css"/>
+    <script src="../js/jquery-2.1.0.js"></script>
+    <script src="../vendor/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/extra-styles.css"/>
 </head>
 <body>
 
@@ -50,10 +50,69 @@
             <p>Congratulations with your new web shop. The Quick Guide helps you get started easily. It will start up automatically the first time you log onto the online admin system. Later, you can always find it under the 'General' menu.</p>
             <p>Good luck with your new OpenBizBox web shop; we hope it will be very profitable. Should you need any professional support or help with getting started, please don't hesitate to contact us.</p>
         </div>
-        <div class="slider jumbotron">
-            <h1>Slider</h1>
-            <p>This is your home page, you are able to remove and add any block. Each block has such hint</p>
-            <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2" class="active"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item">
+                    <h1>Product 1</h1>
+                    <p class="description">A trendy tool to cycle products advertisement. Products which are promoted to front page are rotated here.</p>
+                </div>
+                <div class="item">
+                    <h1>Product 2</h1>
+                    <p class="description">A trendy tool to cycle products advertisement. Products which are promoted to front page are rotated here.</p>
+                </div>
+                <div class="item active">
+                    <h1>Product 3</h1>
+                    <p class="description">A trendy tool to cycle products advertisement. Products which are promoted to front page are rotated here.</p>
+                </div>
+            </div>
+            <a class="left carousel-control" data-target="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" data-target="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+        <div class="component-tabs">
+            <ul class="nav nav-tabs">
+                <li class=""><a href="#wholesale" data-toggle="tab">Wholesale</a></li>
+                <li class=""><a href="#bestsellers" data-toggle="tab">Bestsellers</a></li>
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reach us <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="active"><a href="#map" tabindex="-1" data-toggle="tab">Address</a></li>
+                        <li class=""><a href="#message" tabindex="-1" data-toggle="tab">Leave message</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane sortable" id="wholesale">
+                    <div class="custom-text-html">
+    Tabs is a single content area with multiple panels, each associated with horizontally oriented links usually at the top.</div>
+                </div>
+                <div class="tab-pane sortable" id="bestsellers"></div>
+                <div class="tab-pane sortable active" id="map">
+                    <div class="grid-row row ui-draggable">
+                            <div class="sortable col-md-9"><div class="google-map">
+    </div></div>
+                            <div class="sortable col-md-3"><div class="custom-text-html ui-draggable">
+    <script class="params" type="application/json">{"translations":{"en":"<div class=\"_wc\"><strong>Address:</strong></div>\n<div class=\"_wc\">Dalbygade 40, 6000</div>\n<div class=\"_wc\">Kolding, Denmark</div>\n<div class=\"_wc\">&nbsp;</div>\n<div class=\"_wc\"><strong>Phone:</strong></div>\n<div class=\"_wc\">+45 70 20 95 94</div>\n<div class=\"_wc\">&nbsp;</div>\n<div class=\"_wc\"><strong>Hours:</strong></div>\n<div class=\"_wc\">9:00 - 16:00</div>","da":"","de":""}}</script><div class="_wc"><strong>Address:</strong></div>
+<div class="_wc">Dalbygade 40, 6000</div>
+<div class="_wc">Kolding, Denmark</div>
+<div class="_wc">&nbsp;</div>
+<div class="_wc"><strong>Phone:</strong></div>
+<div class="_wc">+45 70 20 95 94</div>
+<div class="_wc">&nbsp;</div>
+<div class="_wc"><strong>Hours:</strong></div>
+<div class="_wc">9:00 - 16:00</div></div></div>
+                        </div>
+                </div>
+                <div class="tab-pane sortable" id="message"></div>
+            </div>
         </div>
     </main>
     <footer class="sortable">

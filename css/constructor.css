@@ -8,7 +8,7 @@ html, body {
     background: #F3F3F3;
 }
 
-.left {
+#left {
     width: 260px;
     height: 100%;
     float: left;
@@ -28,11 +28,7 @@ html, body {
     font-family: 'Open Sans', sans-serif;
 }
 
-.glyphicon {
-    margin-right: 4px;
-}
-
-.left .contents {
+#left .contents {
     padding: 10px 20px 10px;
     min-width: 260px;
     float: right;
@@ -42,7 +38,7 @@ button {
     color: #333;
 }
 
-.right {
+#right {
     float: none; /* not needed, just for clarification */
     /*background: url(../img/cell.svg) -1px -1px;*/
     /* the next props are meant to keep this block independent from the other floated one */
@@ -97,10 +93,9 @@ button {
     border-color: #AAA;
 }
 
-.row .sortable + .sortable {
+.row > .sortable + .sortable {
     border-left-color: transparent !important;
 }
-
 
 header.sortable,
 footer.sortable {
@@ -127,10 +122,13 @@ main.sortable {
 .draggable-block,
 .draggable {
     cursor: move;
-    margin: 10px auto !important;
+    margin: 10px auto;
 }
+.draggable:not(.placeholder-line) {
+    min-height: 30px;
+}
+
 .draggable-hovered {
-    outline: 2px solid #7ac1d5;
     outline: 2px solid #26b3f7;
 }
 .draggable-hovered.ui-sortable-helper {
@@ -140,7 +138,7 @@ main.sortable {
     position: relative;
 }
 .draggable.selected {
-    outline: 2px solid #68a2b1;
+    outline: 2px solid deepskyblue;
 }
 
 .task-sortable-placeholder {
@@ -184,19 +182,23 @@ header.sortable {
 footer.sortable {
     border-top: 1px dotted #CCC;
 }
+.sortable:empty,
 header:empty,
 footer:empty,
 main:empty {
     background: center center no-repeat;
 }
-header:empty {
-    background-image: url(../img/label.php?text=header+section);
+.sortable:empty {
+    background-image: url(../img/label.php?width=80&text=drop+area);
 }
-main:empty {
-    background-image: url(../img/label.php?text=main+section);
+header.sortable:empty {
+    background-image: url(../img/label.php?width=100&text=header);
 }
-footer:empty {
-    background-image: url(../img/label.php?text=footer+section);
+main.sortable:empty {
+    background-image: url(../img/label.php?width=100&text=main);
+}
+footer.sortable:empty {
+    background-image: url(../img/label.php?width=100&text=footer);
 }
 
 
@@ -206,12 +208,9 @@ footer:empty {
 
 .block-controls {
     display: none;
-    border-bottom-left-radius: 3px;
-    background: #26b3f7;
-    color: #FFF;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     font-size: 24px;
     line-height: 1;
     z-index: 2;
@@ -221,15 +220,14 @@ footer:empty {
 }
 .block-controls,
 .block-controls a {
-    color: #FFF;
+    color: #26b3f7;
     cursor: pointer;
 }
 
 .block-controls .block-name {
     font-size: 10px;
     position: absolute;
-    color: #1f92c8;
-    top: -14px;
+    top: -15px;
     right: 0;
     white-space: nowrap;
     padding: 0 3px;
@@ -260,11 +258,11 @@ footer:empty {
     display: none;
 }
 
-.left .draggable-block {
+#left .draggable-block {
     position: relative;
     overflow: hidden;
 }
-.left .draggable-block .block-code > * {
+#left .draggable-block .block-code > * {
     opacity: 0;
     left: 0;
     top: 0;
@@ -275,7 +273,7 @@ footer:empty {
     z-index: 100;
 }
 
-.left .block-label {
+#left .block-label {
     display: block;
 }
 
@@ -285,7 +283,7 @@ footer:empty {
 
 .placeholder-line {
     padding: 0;
-    height: 0px !important;
+    height: 0 !important;
     border: none !important;
     background: #26b3f7 !important;
     outline: 2px solid #26b3f7 !important;
@@ -357,11 +355,11 @@ footer:empty {
     width: 220px;
 }
 
-.right {
+#right {
     padding-top: 50px;
 }
 
-.left select {
+#left select {
     color: #000;
 }
 
@@ -376,7 +374,7 @@ footer:empty {
 
 }
 
-.right .header {
+#right .header {
     position: fixed;
     height: 60px;
     width: 100%;
@@ -388,7 +386,7 @@ footer:empty {
 }
 
 /*
-.right .header.scrolled {
+#right .header.scrolled {
     background: rgba(0,0,0,0.15);
 }
 */
@@ -400,7 +398,7 @@ footer:empty {
     transition: background 200ms;
 }
 
-.right .header.scrolled .control-panel {
+#right .header.scrolled .control-panel {
     /*background: rgba(57, 179, 215, 0.5);*/
     background: rgba(0, 0, 0, 0.1);
 }
@@ -433,7 +431,7 @@ footer:empty {
 }
 
 
-.right .header .disabled {
+#right .header .disabled {
     background: #EEE;
     color: #999;
     text-shadow: 1px 1px 0 #FFF;
@@ -464,10 +462,14 @@ p {
     border-radius: 4px;
 }
 
-.left .btn {
+#left .btn {
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
-.left h5 {
+#left h5 {
     margin-top: 20px;
+}
+
+textarea {
+    resize: none;
 }
