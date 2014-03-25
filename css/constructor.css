@@ -12,13 +12,12 @@ html, body {
     width: 260px;
     height: 100%;
     float: left;
-    b1ackground: rgba(0, 191, 255, 0.7);
-    background: rgba(74, 132, 173, 0.7);
-    background: rgba(38, 154, 188, 0.4);
-    background: -webkit-linear-gradient(left, rgba(0, 191, 255, 0.7) 0%, rgba(38, 154, 188, 0.7) 100%);
-    border-right: 3px solid skyblue;
 
-    color: #222;
+    background: -webkit-linear-gradient(left, rgba(0, 191, 255, 0.7) 0%, rgba(38, 154, 188, 0.7) 100%);
+    background: rgba(0,0,0, 0.6);
+    border-right: 5px solid #CCC;
+
+    color: #FFF;
     position: fixed;
     top: 0;
     height: 100%;
@@ -33,7 +32,7 @@ html, body {
     margin-right: 4px;
 }
 
-.left > .contents {
+.left .contents {
     padding: 10px 20px 10px;
     min-width: 260px;
     float: right;
@@ -371,6 +370,10 @@ footer:empty {
     width: 100%;
     border: none;
     border-radius: 4px;
+    background: #999;
+    color: #FFF;
+    overflow: hidden;
+
 }
 
 .right .header {
@@ -378,7 +381,7 @@ footer:empty {
     height: 60px;
     width: 100%;
     left: 0;
-    padding: 10px;
+    padding: 10px 40px;
     top: 0;
     z-index: 100;
     margin-left: 260px;
@@ -441,6 +444,7 @@ footer:empty {
     font-size: 22px;
     letter-spacing: 1px;
     color: #FFF;
+    margin-top: 10px;
 }
 #logo .subpage {
     font-size: 16px;
@@ -458,4 +462,12 @@ p {
     font-size: 13px;
     padding: 10px;
     border-radius: 4px;
+}
+
+.left .btn {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.left h5 {
+    margin-top: 20px;
 }

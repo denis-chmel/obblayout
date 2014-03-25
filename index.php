@@ -49,12 +49,14 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
     <script src="vendor/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
     <script src="js/layoutBuilder.jquery.js"></script>
     <script src="js/main.js"></script>
+    <script src="vendor/mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
 
     <link rel="stylesheet" href="/js/jquery-ui/themes/smoothness/jquery-ui.css">
     <script src="/js/jquery-ui/ui/jquery-ui.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/extra-styles.css"/>
     <link rel="stylesheet" type="text/css" href="css/constructor.css"/>
+    <link rel="stylesheet" type="text/css" href="vendor/mCustomScrollbar/jquery.mCustomScrollbar.css"/>
 
     <script src="vendor/tinymce/js/tinymce/tinymce.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet' type='text/css'>
@@ -104,16 +106,14 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             <hr>
             -->
 
-            <p>Page:</p>
+            <h5>Page</h5>
             <select id="page-switcher" size="4">
                 <? foreach ($pageTypesToDisplay as $i => $pageType ): ?>
                     <option value="<?= $pageType ?>-page" <?= $i ? "" : 'selected="selected"' ?>><?= $pageType ?> page</option>
                 <? endforeach ?>
             </select>
 
-            <hr>
-
-            <p>Grids:</p>
+            <h5>Grids</h5>
 
             <div class="wrap">
             <div class="draggable-block">
@@ -157,8 +157,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             </div>
             </div>
 
-            <br>
-            <p>Blocks</p>
+            <h5>Blocks</h5>
 
             <div class="wrap">
             <div id="draggable-blocks">
@@ -169,6 +168,15 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                     </div>
                     <div class="block-code">
                         <div class="btn btn-danger">Checkout</div>
+                    </div>
+                </div>
+
+                <div class="draggable-block">
+                    <div class="block-label">
+                        <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Map address
+                    </div>
+                    <div class="block-code">
+                        <div class="google-map"></div>
                     </div>
                 </div>
 
@@ -564,15 +572,16 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
         </div>
     </div>
 
-    <!--
     <script type="text/javascript">
         $(function(){
 
-            $("#sandbox").layoutBuilder();
+            // $("#sandbox").layoutBuilder();
+            $(".left").mCustomScrollbar({
+                scrollInertia: 300
+            });
 
         });
     </script>
-    -->
 
 
 </body>

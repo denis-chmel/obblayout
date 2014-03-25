@@ -16,3 +16,10 @@ body {
     display: table-cell;
     vertical-align: middle;
 }
+
+.google-map {
+    width: 100%;
+    height: 300px;
+    background: #FFF url(../img/googlemap.png) center center no-repeat;
+    border-radius: 6px;
+}

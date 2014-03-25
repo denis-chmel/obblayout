@@ -3,7 +3,7 @@ var sortables = ".sortable";
 var enabledLocalizations = ['en', 'da', 'de'];
 
 function getBlueLineDelay() {
-    return $("#blue-line-delay").val();
+    return 600;
 }
 
 function historySave() {
@@ -168,7 +168,7 @@ function updatePlaceholders(ui) {
                 return;
             }
 
-            $(ui.helper).height("auto");
+            $(ui.helper).height("");
             $(ui.helper).width(0).width($(ui.placeholder).width());
             $(ui.placeholder).height($(ui.helper).css("height"));
 
