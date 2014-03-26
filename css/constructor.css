@@ -12,7 +12,7 @@ html, body {
 
     background: -webkit-linear-gradient(left, rgba(0, 191, 255, 0.7) 0%, rgba(38, 154, 188, 0.7) 100%);
     background: rgba(0,0,0, 0.6);
-    border-right: 5px solid #CCC;
+    border-right: 5px solid #999;
 
     color: #FFF;
     position: fixed;
@@ -98,12 +98,6 @@ button {
 #sandbox header,
 #sandbox footer {
     position: relative;
-    -webkit-filter: grayscale(100%);
-    min-height: 10px;
-}
-
-#sandbox header.sortable,
-#sandbox footer.sortable {
     min-height: 100px;
 }
 
@@ -187,6 +181,12 @@ button {
 }
 #sandbox footer {
     border-top: 1px dotted #D3D3D3;
+}
+#sandbox .default-header header:empty {
+    border-bottom: none;
+}
+#sandbox .default-footer footer:empty {
+    border-top: none;
 }
 .sortable:empty,
 header:empty,
@@ -517,25 +517,10 @@ textarea {
     display: none;
 }
 
-header > *,
-footer > * {
-    pointer-events: none;
-}
-
-#front-page header,
-#front-page footer {
-    opacity: 1;
-    -webkit-filter: grayscale(0%);
-}
-#front-page header > *,
-#front-page header:before,
-#front-page header:after,
-#front-page footer > *,
-#front-page footer:before,
-#front-page footer:after {
-    content: "";
-    opacity: 1;
-    pointer-events: auto;
+.default-header header,
+.default-footer footer {
+    -webkit-filter: grayscale(100%);
+    min-height: 10px;
 }
 
 .lock-warning {

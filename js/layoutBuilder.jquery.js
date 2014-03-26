@@ -55,6 +55,12 @@
 
             options = $.extend(defaultOptions, passedOptions);
 
+            $("body")
+                .on("click", ".default-footer, .default-header", function(e) {
+                    $.growl.error({ message: "This page uses the general header/footer, change them on a front page" });
+                    e.stopPropagation();
+                });
+
             $(document)
                 .on("click", function(e) {
                     if ($(e.target).closest(".modal").length) {
@@ -164,11 +170,15 @@
                     "margin-top": (shouldComeFromUp ? "" : "-") + $currentPage.height() + "px",
                     "opacity": 0
                 });
+//                console.log({
+//                    "margin-top": (shouldComeFromUp ? "" : "-") + $currentPage.height() + "px",
+//                    "opacity": 0
+//                });
 
                 $comingPage.addClass("animation-off");
                 $comingPage.css({
                     "display": "block", // unhide
-                    "opacity": 0 // but invisible yet
+                    "opacity": 1 // but invisible yet
                 });
                 $comingPage.removeClass("animation-off");
 

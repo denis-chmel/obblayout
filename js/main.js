@@ -1,5 +1,5 @@
 var changesHistory = [];
-var sortables = ".grid-row > *, header, footer, main, .tab-pane";
+var sortables = "#sandbox .grid-row > *, #sandbox header, #sandbox footer, #sandbox main, #sandbox .tab-pane";
 var enabledLocalizations = ['en', 'da', 'de'];
 
 function getBlueLineDelay() {
@@ -87,6 +87,8 @@ function saveLayout(id, title, $dom) {
             onAfterChange();
             initDrag();
             focusCurrrentLayoutEditor();
+
+            $.growl.notice({ title: "", message: "Saved successfully" });
 
     }).fail(function() {
             alert( "failure" );
@@ -241,6 +243,7 @@ function initDrag(where) {
             $(this).find("*").andSelf().removeClass("sortable");
         }
     });
+    $(".block-controls").removeClass("sortable");
 
     $(".sortable", where).sortable({
         connectWith: ".sortable",
@@ -320,9 +323,9 @@ function historyGo(direction) {
 }
 
 function updateHeights(where) {
-    $(".row", where).each(function() {
+    $("#sandbox .row", where).each(function() {
         var maxHeight = 0;
-        $(this).children().height("auto").each(function() {
+        $(this).children().not(".block-controls").height("auto").each(function() {
             maxHeight = Math.max(maxHeight, $(this).height());
         }).height(maxHeight);
 
@@ -334,7 +337,7 @@ function updateHeights(where) {
 }
 
 function onAfterChange(skipHistory) {
-    $(sortables).addClass("sortable").children().addClass("draggable");
+    $(sortables).not(".block-controls").addClass("sortable").children().addClass("draggable");
 
     setTimeout(function() {
         updateHeights();

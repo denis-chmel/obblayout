@@ -58,6 +58,9 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
     <link rel="stylesheet" type="text/css" href="css/constructor.css"/>
     <link rel="stylesheet" type="text/css" href="vendor/mCustomScrollbar/jquery.mCustomScrollbar.css"/>
 
+    <script src="vendor/growl/jquery.growl.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/growl/jquery.growl.css"/>
+
     <script src="vendor/tinymce/js/tinymce/tinymce.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet' type='text/css'>
 
@@ -422,7 +425,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
         <div id="sandbox">
 
             <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
-                <div class="obb-page <?= $i ? "" : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
+                <div class="obb-page <?= $i ? " default-header default-footer " : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
 
                     <? if ($i): ?>
                     <div class="lock-warning">
