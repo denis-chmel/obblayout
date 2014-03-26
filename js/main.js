@@ -1,5 +1,5 @@
 var changesHistory = [];
-var sortables = ".sortable";
+var sortables = ".grid-row > *, header, footer, main, .tab-pane";
 var enabledLocalizations = ['en', 'da', 'de'];
 
 function getBlueLineDelay() {
@@ -63,7 +63,7 @@ function saveLayout(id, title, $dom) {
     $dom = $dom && $dom.length ? $dom : $currentPage.find(".layout-" + id).clone();
     $dom.find("*").removeClass("ui-sortable draggable").removeAttr("style");
     $dom.find(".block-controls").remove();
-    $dom.find(".sortable").removeAttr("style"); // with hardcoded height
+    $dom.find(".sortable").removeClass("sortable").removeAttr("style"); // with hardcoded height
 
     $.post(
         "/save.php",
@@ -236,8 +236,14 @@ function initDrag(where) {
         containment: "parent"
     });
 
-    $(sortables, where).sortable({
-        connectWith: sortables,
+    $("header, footer").each(function(){
+        if ($(this).closest("#index-page").length == 0) {
+            $(this).find("*").andSelf().removeClass("sortable");
+        }
+    });
+
+    $(".sortable", where).sortable({
+        connectWith: ".sortable",
         helper: "clone",
         revert: 100,
         tolerance: "pointer",
@@ -316,7 +322,7 @@ function historyGo(direction) {
 function updateHeights(where) {
     $(".row", where).each(function() {
         var maxHeight = 0;
-        $(this).children(".sortable").height("auto").each(function() {
+        $(this).children().height("auto").each(function() {
             maxHeight = Math.max(maxHeight, $(this).height());
         }).height(maxHeight);
 
@@ -328,7 +334,8 @@ function updateHeights(where) {
 }
 
 function onAfterChange(skipHistory) {
-    $(".sortable > *").addClass("draggable");
+    $(sortables).addClass("sortable").children().addClass("draggable");
+
     setTimeout(function() {
         updateHeights();
     }, 1);
