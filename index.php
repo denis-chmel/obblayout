@@ -1,7 +1,7 @@
 <?php
 
 $pageTypesToDisplay = array(
-    'index',
+    'front',
     'category',
     'product',
     'information',
@@ -424,6 +424,14 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
                 <div class="obb-page <?= $i ? "" : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
 
+                    <? if ($i): ?>
+                    <div class="lock-warning">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        the header and footer are always taken from a front page, change them there
+                    </div>
+                    <? endif ?>
+
+                    <div class="layouts">
                     <? if (isset($pageTypes[$pageType])): ?>
                         <? foreach ($pageTypes[$pageType] as $layout): ?>
 
@@ -446,6 +454,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="layout layout-workaround">
                         <div class="container"></div>
+                    </div>
                     </div>
 
                 </div>

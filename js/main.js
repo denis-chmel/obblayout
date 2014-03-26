@@ -237,7 +237,7 @@ function initDrag(where) {
     });
 
     $("header, footer").each(function(){
-        if ($(this).closest("#index-page").length == 0) {
+        if ($(this).closest("#front-page").length == 0) {
             $(this).find("*").andSelf().removeClass("sortable");
         }
     });
@@ -329,7 +329,7 @@ function updateHeights(where) {
     });
 
     var $currentLayout = $(".active-obb-page .active-layout");
-    $("#sandbox").css("height", $currentLayout.height() + 40);
+    $("#sandbox").css("height", $currentLayout.height() + 70);
 
 }
 

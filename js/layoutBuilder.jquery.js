@@ -124,7 +124,8 @@
 
             $(window)
                 .on("scroll", function() {
-                    $(".right .header").toggleClass("scrolled", $(self).scrollTop() > 10);
+                    $("#right .header").toggleClass("scrolled", $(self).scrollTop() > 10);
+                    console.log($("#right .header").attr("class"));
                 })
                 .on("resize", function() {
                     var value = Math.max(260, ($(this).width() - 1000) / 1.5);

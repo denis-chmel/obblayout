@@ -53,7 +53,8 @@ button {
 
 #sandbox .container {
     border-radius: 5px;
-    width: 1000px;
+    width: 95%;
+    max-width: 1000px;
     margin: 15px 30px 30px;
     background: #FFF;
     transition: border 500ms, box-shadow 500ms;
@@ -408,7 +409,7 @@ main:empty {
     transition: background 200ms;
 }
 
-#sandbox .header.scrolled .control-panel {
+#right .header.scrolled .control-panel {
     /*background: rgba(57, 179, 215, 0.5);*/
     background: rgba(0, 0, 0, 0.1);
 }
@@ -519,62 +520,27 @@ textarea {
 
 header > *,
 footer > * {
-    o1pacity: 0.7;
     pointer-events: none;
 }
-footer:before,
-header:before,
-footer:after,
-header:after {
-    opacity: 0;
-    position: absolute;
-}
-header:hover:before,
-header:hover:after,
-footer:hover:before,
-footer:hover:after {
-    opacity: 0.5;
-    color: #555;
-}
-footer:before,
-header:before {
-    display: inline-block;
-    font-size: 12px;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-wei1ght: 400;
-    line-height: 1;
-    top: -9px;
-    -webkit-font-smoothing: antialiased;
-    content: "\e033";
-}
-footer:after,
-header:after {
-    content: "the header / footer blocks you can change on a front page only";
-    font-size: 12px;
-    border-radius: 10px;
-    line-height: 1;
-    top: -9px;
-    left: 22px;
-}
-footer:before,
-footer:after {
-    top: -25px;
-}
 
-#index-page header,
-#index-page footer {
+#front-page header,
+#front-page footer {
     margin-top: 0;
     opacity: 1;
     -webkit-filter: grayscale(0%);
 }
-#index-page header > *,
-#index-page header:before,
-#index-page header:after,
-#index-page footer > *,
-#index-page footer:before,
-#index-page footer:after {
+#front-page header > *,
+#front-page header:before,
+#front-page header:after,
+#front-page footer > *,
+#front-page footer:before,
+#front-page footer:after {
     content: "";
     opacity: 1;
     pointer-events: auto;
+}
+
+.lock-warning {
+    margin: 10px 30px 0;
+    color: #999;
 }
