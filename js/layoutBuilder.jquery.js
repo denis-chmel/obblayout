@@ -125,7 +125,6 @@
             $(window)
                 .on("scroll", function() {
                     $("#right .header").toggleClass("scrolled", $(self).scrollTop() > 10);
-                    console.log($("#right .header").attr("class"));
                 })
                 .on("resize", function() {
                     var value = Math.max(260, ($(this).width() - 1000) / 1.5);
@@ -140,6 +139,14 @@
 
                 var $currentPage = $(".active-obb-page");
                 var $comingPage = $("#" + this.value);
+
+                if ($comingPage.attr("id") !== "front-page") {
+                    var $pubishedHeader = $("#front-page header:first");
+                    var $pubishedFooter = $("#front-page footer:first");
+                    $comingPage.find("header").html($pubishedHeader.html());
+                    $comingPage.find("footer").html($pubishedFooter.html());
+                    initDrag($comingPage);
+                }
 
                 $(".saved-layouts-for-" + $comingPage.attr("id")).show().siblings().hide();
 

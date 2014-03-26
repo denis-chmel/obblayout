@@ -99,7 +99,6 @@ button {
 #sandbox footer {
     position: relative;
     -webkit-filter: grayscale(100%);
-    margin-top: 20px;
     min-height: 10px;
 }
 
@@ -183,11 +182,11 @@ button {
     display: none !important;
 }
 
-#sandbox header.sortable {
-    border-bottom: 1px dotted #CCC;
+#sandbox header {
+    border-bottom: 1px dotted #D3D3D3;
 }
-#sandbox footer.sortable {
-    border-top: 1px dotted #CCC;
+#sandbox footer {
+    border-top: 1px dotted #D3D3D3;
 }
 .sortable:empty,
 header:empty,
@@ -525,7 +524,6 @@ footer > * {
 
 #front-page header,
 #front-page footer {
-    margin-top: 0;
     opacity: 1;
     -webkit-filter: grayscale(0%);
 }

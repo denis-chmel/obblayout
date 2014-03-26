@@ -236,7 +236,7 @@ function initDrag(where) {
         containment: "parent"
     });
 
-    $("header, footer").each(function(){
+    $("header, footer", where).each(function(){
         if ($(this).closest("#front-page").length == 0) {
             $(this).find("*").andSelf().removeClass("sortable");
         }
