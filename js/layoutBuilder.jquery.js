@@ -28,7 +28,27 @@
 
     var methods = {
 
-        focusCurrrentLayoutEditor: function() {
+        helpShow: function() {
+            $("body").addClass("help-active");
+            var body = $("body");
+            setTimeout(function(){
+                $("#help-cover").css({
+                    "background-color": "rgba(255, 255, 255, 0.6)"
+                });
+                var delay = 500;
+                $("#help svg g").queue(function(){
+                    $(this).delay(delay).fadeIn();
+                    delay += 1000;
+                    $(this).dequeue();
+                });
+            }, 1)
+        },
+
+        helpHide: function() {
+            $("body").removeClass("help-active");
+            $("#help-cover").css({
+                "background-color": ""
+            });
         },
 
         init: function(passedOptions) {
@@ -80,6 +100,9 @@
                         case 46: // delete
                             removeElement($(".draggable.selected"));
                             break;
+                        case 27: // Esc
+                            methods.helpHide();
+                            break;
                     }
                 })
                 .on("mouseover", ".draggable",function(e) {
@@ -104,10 +127,11 @@
                     $(".right .header").toggleClass("scrolled", $(self).scrollTop() > 10);
                 })
                 .on("resize", function() {
-                    var value = Math.max(260, ($(this).width() - 1000) / 1.5) + "px";
+                    var value = Math.max(260, ($(this).width() - 1000) / 1.5);
                     $("#left").css("width", value);
                     $("#right").css("padding-left", value);
                     $("#right .header").css("margin-left", value);
+                    $(".help-text").css("left", value - 100);
                 })
                 .trigger("resize");
 
@@ -150,6 +174,14 @@
                 updateHeights();
 
             }).trigger("change");
+
+            $("#btn-help").click(function(){
+                methods.helpShow();
+            });
+
+            $("#help").click(function(){
+                methods.helpHide();
+            });
 
             focusCurrrentLayoutEditor();
 

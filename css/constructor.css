@@ -217,23 +217,27 @@ footer.sortable:empty {
     height: 30px;
     padding: 1px;
     text-align: right;
+    background: #26b3f7;
 }
 .block-controls,
 .block-controls a {
-    color: #26b3f7;
+    color: #FFF;
     cursor: pointer;
 }
 
 .block-controls .block-name {
     font-size: 10px;
     position: absolute;
-    top: -15px;
-    right: 0;
+    top: -17px;
+    right: -2px;
     white-space: nowrap;
-    padding: 0 3px;
-    background: #FFF;
+    padding: 2px 3px;
+    color: #219dd8;
 }
 
+.block-controls-buttons {
+    padding: 0 2px;
+}
 .block-controls-buttons a {
     opacity: 0.8;
 }
@@ -432,7 +436,7 @@ footer.sortable:empty {
 
 
 #right .header .disabled {
-    background: #EEE;
+    background: #E6E6E6;
     color: #999;
     text-shadow: 1px 1px 0 #FFF;
     opacity: 1;
@@ -472,4 +476,37 @@ p {
 
 textarea {
     resize: none;
+}
+
+.help-text {
+    position: fixed;
+    top: 100px;
+    left: 400px;
+    z-index: 101;
+}
+
+#help {
+    display: none;
+}
+#help-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    transition: background-color 500ms;
+}
+
+.help-active #help {
+    display: block;
+}
+.help-active #left,
+.help-active #right {
+    -webkit-filter: blur(2px);
+}
+
+
+#help svg g {
+    display: none;
 }
