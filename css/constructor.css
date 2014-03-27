@@ -55,6 +55,7 @@ button {
     border-radius: 5px;
     width: 95%;
     max-width: 1000px;
+    min-width: 500px;
     margin: 15px 30px 30px;
     background: #FFF;
     transition: border 500ms, box-shadow 500ms;
