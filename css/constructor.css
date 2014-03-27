@@ -503,7 +503,7 @@ textarea {
 
 .locked-header header,
 .locked-footer footer {
-    -webkit-filter: grayscale(100%);
+    /*-webkit-filter: grayscale(100%);*/
     pointer-events: none;
     min-height: 10px;
 }
