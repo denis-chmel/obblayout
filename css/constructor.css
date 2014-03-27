@@ -96,9 +96,19 @@ button {
     border-left-color: transparent !important;
 }
 
+#sandbox .active-layout main:before,
+#sandbox .active-layout footer:before {
+    content: " ";
+    width: 100%;
+    position: absolute;
+    left: 0;
+    border-top: 1px dotted #D3D3D3;
+}
+
 #sandbox header,
+#sandbox main,
 #sandbox footer {
-    position: relative;
+    transition: margin 400ms;
     min-height: 100px;
 }
 
@@ -177,12 +187,6 @@ button {
     display: none !important;
 }
 
-#sandbox header {
-    border-bottom: 1px dotted #D3D3D3;
-}
-#sandbox footer {
-    border-top: 1px dotted #D3D3D3;
-}
 #sandbox .default-header header:empty {
     border-bottom: none;
 }
@@ -387,6 +391,7 @@ main:empty {
 
 #right .header {
     position: fixed;
+    background: -webkit-linear-gradient(top, rgba(243, 243, 243, 1) 0%, rgba(243, 243, 243, 1) 80%, rgba(255, 255, 255, 0) 100%);
     height: 60px;
     width: 100%;
     left: 0;
@@ -394,24 +399,6 @@ main:empty {
     top: 0;
     z-index: 100;
     margin-left: 260px;
-}
-
-/*
-#right .header.scrolled {
-    background: rgba(0,0,0,0.15);
-}
-*/
-
-.control-panel {
-    padding: 10px;
-    border-radius: 3px;
-    float: left;
-    transition: background 200ms;
-}
-
-#right .header.scrolled .control-panel {
-    /*background: rgba(57, 179, 215, 0.5);*/
-    background: rgba(0, 0, 0, 0.1);
 }
 
 .btn-group-device {
@@ -527,4 +514,66 @@ textarea {
 .lock-warning {
     margin: 10px 30px 0;
     color: #999;
+}
+
+.header-preset-switcher {
+    position: relative;
+}
+.header-preset-switcher span {
+    position: absolute;
+    color: #999;
+    cursor: pointer;
+    top: 20px;
+    font-size: 20px;
+}
+.header-preset-switcher span:hover {
+    color: #333;
+}
+.header-preset-switcher span.disabled {
+    color: #DDD;
+}
+.header-preset-switcher .preset-unlock,
+.header-preset-switcher .preset-prev {
+    left: -50px;
+}
+.header-preset-switcher .preset-next {
+    right: -50px;
+}
+.header-preset-switcher .preset-name {
+    position: absolute;
+    padding: 0 3px;
+    font-size: 11px;
+    color: #FFF;
+    background: #DDD;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.header-preset-switcher:hover .preset-name {
+    background: #CCC;
+    color: #FFF;
+}
+
+.header-preset-switcher-for-header .preset-prev,
+.header-preset-switcher-for-header .preset-next,
+.header-preset-switcher-for-footer .preset-prev,
+.header-preset-switcher-for-footer .preset-next {
+    display: none;
+}
+
+.preset-unlock {
+    display: none;
+}
+
+.header-preset-switcher-for-header .preset-unlock,
+.header-preset-switcher-for-footer .preset-unlock {
+    display: block;
+}
+#front-page .preset-unlock {
+    display: none;
+}
+
+
+#front-page .header-preset-switcher .preset-prev,
+#front-page .header-preset-switcher .preset-next {
+    display: block;
 }

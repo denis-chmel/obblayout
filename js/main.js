@@ -46,7 +46,7 @@ function focusCurrrentLayoutEditor() {
             var newCss = {
                 marginLeft: (i * 120) + "%",
                 marginRight: (i - layoutsCount) * 120 + "%",
-                opacity: 0.5
+                opacity: 0.4
             };
             $(item).css(newCss);
         });
@@ -625,6 +625,37 @@ $(function() {
         var dom = $(".active-obb-page .layout-" + $(".saved-layouts:visible").val());
         saveLayout(null, name, dom);
         return false;
+    });
+
+    $('<div class="header-preset-switcher"><span class="glyphicon preset-unlock glyphicon-lock"></span><span class="preset-prev disabled glyphicon glyphicon-chevron-left"></span><span class="preset-next glyphicon glyphicon-chevron-right"></span><div class="preset-name"></div></div>').insertBefore(
+        $("header:visible, main:visible, footer:visible")
+    );
+    $(".header-preset-switcher").each(function(){
+        var $block = $(this).next();
+        $(this).addClass("header-preset-switcher-for-" + $block.prop("tagName").toLowerCase());
+        $(this).find(".preset-name").html($block.prop("tagName").toLowerCase() + " " + 1);
+    });
+
+    $(document).on("click", ".preset-next", function() {
+        var $switcher = $(this).closest(".header-preset-switcher");
+        var $block = $switcher.next();
+        $block.css({
+            "margin-left": "-110%",
+            "margin-right": "110%"
+        });
+        $switcher.find(".preset-name").html($block.prop("tagName").toLowerCase() + " " + 2);
+        $(this).addClass("disabled").siblings().removeClass("disabled");
+    });
+
+    $(document).on("click", ".preset-prev", function() {
+        var $switcher = $(this).closest(".header-preset-switcher");
+        var $block = $switcher.next();
+        $block.css({
+            "margin-left": "0%",
+            "margin-right": "0%"
+        });
+        $switcher.find(".preset-name").html($block.prop("tagName").toLowerCase() + " " + 1);
+        $(this).addClass("disabled").siblings().removeClass("disabled");
     });
 
 });

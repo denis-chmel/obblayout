@@ -425,16 +425,16 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
         <div id="sandbox">
 
             <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
-                <div class="obb-page <?= $i ? " default-header default-footer " : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
+            <div class="obb-page <?= $i ? " default-header default-footer " : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
 
-                    <? if ($i): ?>
+                <? if ($i): ?>
                     <div class="lock-warning">
-                        <span class="glyphicon glyphicon-lock"></span>
-                        the header and footer are always taken from a front page, change them there
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        The default header/footer are used. Unlock them if you want a custom for this page.
                     </div>
-                    <? endif ?>
+                <? endif ?>
 
-                    <div class="layouts">
+                <div class="layouts">
                     <? if (isset($pageTypes[$pageType])): ?>
                         <? foreach ($pageTypes[$pageType] as $layout): ?>
 
@@ -455,15 +455,11 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                         </div>
                     </div>
 
-                    <div class="layout layout-workaround">
-                        <div class="container"></div>
-                    </div>
-                    </div>
-
                 </div>
+            </div>
             <? endforeach ?>
 
-        </div>
+            </div>
     </div>
 
     <div class="modal fade" id="grid-row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

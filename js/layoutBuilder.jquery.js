@@ -42,7 +42,7 @@
 
             $('.modal').on('show.bs.modal', centerModal);
             $(window).on("resize", function () {
-                $('.modal').each(centerModal);
+                $('.modal:visible').each(centerModal);
             });
         },
 
@@ -73,11 +73,11 @@
 
             options = $.extend(defaultOptions, passedOptions);
 
-            $("body")
-                .on("click", ".default-footer, .default-header", function(e) {
-                    $.growl.error({ message: "This page uses the general header/footer, change them on a front page" });
-                    e.stopPropagation();
-                });
+//            $("body")
+//                .on("click", ".default-footer, .default-header", function(e) {
+//                    $.growl.error({ message: "This page uses the general header/footer, change them on a front page" });
+//                    e.stopPropagation();
+//                });
 
             $(document)
                 .on("click", function(e) {
@@ -147,9 +147,6 @@
                 });
 
             $(window)
-                .on("scroll", function() {
-                    $("#right .header").toggleClass("scrolled", $(self).scrollTop() > 10);
-                })
                 .on("resize", function() {
                     var value = Math.max(260, ($(this).width() - 1000) / 1.5);
                     $("#left").css("width", value);
@@ -207,6 +204,7 @@
 
                 $comingPage.addClass("active-obb-page");
                 $comingPage.siblings().removeClass("active-obb-page");
+
                 updateHeights();
 
             }).trigger("change");
