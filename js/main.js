@@ -30,9 +30,8 @@ function removeElement($draggable) {
 
 
 function focusCurrrentLayoutEditor() {
-//    $(".obb-page .layout").each(function(){
     var currentPageId = $(this).attr("data-obb-page");
-    var currentLayout = $(".saved-layouts").val();
+    var currentLayout = $(".pages-switcher").val();
 
     var $currentLayout = $(".obb-page-" + currentLayout);
     console.log($currentLayout);
@@ -49,10 +48,13 @@ function focusCurrrentLayoutEditor() {
     });
     $currentLayout.css("opacity", 1);
     $currentLayout.addClass("active-layout").siblings().removeClass("active-layout");
-//    });
+    updateHeights();
 }
 
 function saveLayout(id, title, $dom) {
+
+    alert("Save doesn't work yet");
+    return;
 
     var $currentPage = $(".active-obb-page");
     var currentPageType = $currentPage.attr("data-type");
@@ -73,7 +75,7 @@ function saveLayout(id, title, $dom) {
     ).done(function(response) {
 
             var data = JSON.parse(response);
-            var $select = $(".saved-layouts:visible");
+            var $select = $(".pages-switcher:visible");
             var $option = $select.find("option[value=" + data.id + "]");
             if (!$option.length) {
                 $("<option value='" + data.id + "'>" + data.title + "</option>").insertBefore($select.find("option[value='new']"));
@@ -327,9 +329,6 @@ function updateHeights(where) {
         }).height(maxHeight);
 
     });
-
-//    var $currentLayout = $(".active-obb-page .active-layout");
-//    $("#sandbox").css("height", $currentLayout.height() + 70);
 }
 
 function onAfterChange(skipHistory) {
@@ -574,24 +573,21 @@ $(function() {
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
     });
 
-    $(".saved-layouts").change(function() {
-        focusCurrrentLayoutEditor();
-        updateHeights();
-    });
+    $(".pages-switcher").change(focusCurrrentLayoutEditor);
 
     $(".btn-saved-layouts-next").click(function() {
-        var nextOption = $(".saved-layouts:visible option:selected").next();
+        var nextOption = $(".pages-switcher option:selected").next();
         if (nextOption.length) {
             $(nextOption).attr("selected", true);
-            $(".saved-layouts:visible").trigger("change");
+            $(".pages-switcher").trigger("change");
         }
     });
 
     $(".btn-saved-layouts-prev").click(function() {
-        var prevOption = $(".saved-layouts:visible option:selected").prev();
+        var prevOption = $(".pages-switcher option:selected").prev();
         if (prevOption.length) {
             $(prevOption).attr("selected", true);
-            $(".saved-layouts:visible").trigger("change");
+            $(".pages-switcher").trigger("change");
         }
     });
 
@@ -600,14 +596,14 @@ $(function() {
     });
 
     $(".btn-save-layout").click(function() {
-        var currentLayoutId = $(".saved-layouts:visible").val();
+        var currentLayoutId = $(".pages-switcher:visible").val();
         if (currentLayoutId == "new") {
             $("#save-as-modal").modal("show");
             return;
         }
         saveLayout(
             currentLayoutId,
-            $(".saved-layouts:visible option:selected").text()
+            $(".pages-switcher:visible option:selected").text()
         );
     });
 
@@ -623,12 +619,14 @@ $(function() {
         $("#save-as-modal .btn-save").toggleClass("disabled", $.trim(this.value).length == 0);
     });
 
+    /*
     $("#save-as-modal form").submit(function() {
         var name = $("#layout_name").val();
-        var dom = $(".active-obb-page .layout-" + $(".saved-layouts:visible").val());
+        var dom = $(".active-obb-page .layout-" + $(".pages-switcher:visible").val());
         saveLayout(null, name, dom);
         return false;
     });
+    */
 
     $($("#section-preset-switcher-tpl").html()).insertBefore(
         $("header:visible, main:visible, footer:visible")
@@ -641,8 +639,7 @@ $(function() {
 
         $(this).addClass("section-preset-switcher-for-" + $block.prop("tagName").toLowerCase());
 
-        console.log($layouts);
-        $(this).find(".preset-name var").html($layouts.attr("data-title"));
+        $(this).find(".preset-name var").html(($layouts.attr("data-title") || "new layout").toLowerCase());
     });
 
     $(document).on("click", ".preset-next", function() {
@@ -703,7 +700,7 @@ $(function() {
             }, 300);
         }, 0);
 
-        $switcher.find(".preset-name var").html($nextLayout.attr("data-title"));
+        $switcher.find(".preset-name var").html($nextLayout.attr("data-title").toLowerCase());
     });
 
     $(document).on("click", ".preset-prev", function() {
@@ -767,7 +764,7 @@ $(function() {
             }, 300);
         }, 0);
 
-        $switcher.find(".preset-name var").html($nextLayout.attr("data-title"));
+        $switcher.find(".preset-name var").html($nextLayout.attr("data-title").toLowerCase());
     });
 
 });

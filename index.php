@@ -115,7 +115,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             <p>Page</p>
             <div class="control-panel">
                 <span>
-                    <select class="saved-layouts">
+                    <select class="pages-switcher">
                         <? foreach (array_keys($pages) as $i => $pageType): ?>
                             <option value="<?= $pageType ?>"><?= $pageType ?></option>
                         <? endforeach ?>
