@@ -416,26 +416,118 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                     <button class="btn btn-sm1 btn-info btn-saved-layouts-next">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
                 </div>
 
+                <div id="header-layout-presets">
+                    <div class="layout-preset" data-title="header 1">
+                        <header>
+                            <div class="grid-row row">
+                                <div class="sortable col-md-3">
+                                    <div class="shop-logo">
+                                        <div class="block-title">
+                                            <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sortable col-md-9">
+                                    <h2 class="shop-title">Shop Title</h2>
+                                    <ol class="breadcrumb">
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">Library</a></li>
+                                        <li class="active">Data</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="layout-preset" data-title="header 2">
+                        <header>
+                            <div class="grid-row row">
+                                <div class="sortable col-md-3">
+                                    <h2 class="shop-title">
+                                        Shop Title</h2>
+                                    <ol class="breadcrumb">
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">Library</a></li>
+                                        <li class="active">Data</li>
+                                    </ol>
+                                </div>
+                                <div class="sortable col-md-9">
+                                    <div class="shop-logo">
+                                        <div class="block-title">
+                                            <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
+                                        </div>
+                                    </div></div>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="layout-preset" data-title="new header">
+                        <header></header>
+                    </div>
+                </div>
+
+                <div id="footer-layout-presets">
+                    <div class="layout-preset" data-title="footer 1">
+                        <footer>
+                            <div class="grid-row row">
+                                <div class="sortable col-md-3">
+                                    <p class="info-pages-links">
+                                        <a href="#">Privacy Notice</a><br>
+                                        <a href="#">Conditions of Use</a><br>
+                                        <a href="#">Sitemap</a><br>
+                                        <a href="#">Newsletter</a><br>
+                                    </p>
+                                </div>
+                                <div class="sortable col-md-3">
+                                    <p class="account-pages-links">
+                                        <a href="#">My Account</a><br>
+                                        <a href="#">Edit Account</a><br>
+                                        <a href="#">Password</a><br>
+                                        <a href="#">Address Books</a><br>
+                                        <a href="#">Wish List</a><br>
+                                        <a href="#">Order History</a><br>
+                                        <a href="#">Newsletter</a><br>
+                                        <a href="#">Logout</a>
+                                    </p>
+                                </div>
+                                <div class="sortable col-md-3"></div>
+                                <div class="sortable col-md-3"></div>
+                            </div>
+                        </footer>
+                    </div>
+                    <div class="layout-preset" data-title="footer image">
+                        <footer>
+                            <div class="shop-logo">
+                                <div class="block-title">
+                                    <span class="glyphicon glyphicon-picture"></span> Banner
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                    <div class="layout-preset" data-title="new footer">
+                        <footer></footer>
+                    </div>
+                </div>
+
                 <div class="layouts">
 
                     <? foreach (array_keys($pages) as $i => $pageType): ?>
 
                         <? if (!$pages[$pageType]["layouts"]) continue ?>
 
-                            <div class="layout obb-page-<?= $pageType ?>" data-obb-page="<?= $pageType ?>">
+                            <div class="layout obb-page-<?= $pageType ?> <?= $i ? " locked-header locked-footer " : "" ?>" data-obb-page="<?= $pageType ?>">
 
                                 <div class="layout-presets">
-                                <? foreach ($pages[$pageType]["layouts"] as $layout): ?>
-                                    <div class="layout-preset" data-title="<?= $layout["title"] ?>"><?= $layout["html"]?></div>
-                                <? endforeach ?>
+                                    <? foreach ($pages[$pageType]["layouts"] as $layout): ?>
+                                        <div class="layout-preset" data-title="<?= $layout["title"] ?>"><?= $layout["html"]?></div>
+                                    <? endforeach ?>
+                                    <div class="layout-preset" data-title="new layout"><main></main></div>
                                 </div>
 
                                 <h2>
                                     <?= ucfirst($pageType) ?> page
 
                                     <span class="page-buttons">
-                                        <button type="button" class="btn btn-sm btn-info disabled btn-save-layout">Saved</button>
-                                        <button type="button" class="btn btn-sm btn-info disabled" id="btn-undo">Undo</button>
+                                        <button type="button" class="btn btn-sm btn-warning disabled btn-save-layout">Saved</button>
+                                        <button type="button" class="btn btn-sm btn-info disabled btn-undo">Undo</button>
                                     </span>
                                 </h2>
 
@@ -453,9 +545,52 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                                 <? $layout = $pages[$pageType]["layouts"][0]; ?>
                                 <div class="page-html">
                                     <div class="container">
-                                    <header></header>
+                                    <header>
+                                        <div class="grid-row row">
+                                            <div class="sortable col-md-3">
+                                                <div class="shop-logo">
+                                                    <div class="block-title">
+                                                        <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sortable col-md-9">
+                                                <h2 class="shop-title">Shop Title</h2>
+                                                <ol class="breadcrumb">
+                                                    <li><a href="#">Home</a></li>
+                                                    <li><a href="#">Library</a></li>
+                                                    <li class="active">Data</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </header>
                                     <?= $layout["html"] ?>
-                                    <footer></footer>
+                                    <footer>
+                                        <div class="grid-row row">
+                                            <div class="sortable col-md-3">
+                                                <p class="info-pages-links">
+                                                    <a href="#">Privacy Notice</a><br>
+                                                    <a href="#">Conditions of Use</a><br>
+                                                    <a href="#">Sitemap</a><br>
+                                                    <a href="#">Newsletter</a><br>
+                                                </p>
+                                            </div>
+                                            <div class="sortable col-md-3">
+                                                <p class="account-pages-links">
+                                                    <a href="#">My Account</a><br>
+                                                    <a href="#">Edit Account</a><br>
+                                                    <a href="#">Password</a><br>
+                                                    <a href="#">Address Books</a><br>
+                                                    <a href="#">Wish List</a><br>
+                                                    <a href="#">Order History</a><br>
+                                                    <a href="#">Newsletter</a><br>
+                                                    <a href="#">Logout</a>
+                                                </p>
+                                            </div>
+                                            <div class="sortable col-md-3"></div>
+                                            <div class="sortable col-md-3"></div>
+                                        </div>
+                                    </footer>
                                     </div>
                                 </div>
                             </div>

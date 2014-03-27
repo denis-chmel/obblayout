@@ -28,13 +28,11 @@ function removeElement($draggable) {
     }
 }
 
-
 function focusCurrrentLayoutEditor() {
-    var currentPageId = $(this).attr("data-obb-page");
+    //var currentPageId = $(this).attr("data-obb-page");
     var currentLayout = $(".pages-switcher").val();
 
     var $currentLayout = $(".obb-page-" + currentLayout);
-    console.log($currentLayout);
 
     var layoutSelector = $(".layout");
     var layoutsCount = $(layoutSelector).length;
@@ -48,6 +46,11 @@ function focusCurrrentLayoutEditor() {
     });
     $currentLayout.css("opacity", 1);
     $currentLayout.addClass("active-layout").siblings().removeClass("active-layout");
+
+    if (currentLayout !== 'front') {
+        $currentLayout.find("header").html($(".obb-page-front header").html()); // FIXME
+        $currentLayout.find("footer").html($(".obb-page-front footer").html()); // FIXME
+    }
     updateHeights();
 }
 
@@ -341,7 +344,7 @@ function onAfterChange(skipHistory) {
     if (!skipHistory) {
         historySave();
     }
-    $("#btn-undo").toggleClass("disabled", historyEmpty());
+    $(".btn-undo").toggle(!historyEmpty()).toggleClass("disabled", historyEmpty());
     $(".btn-save-layout").toggleClass("disabled", historyEmpty()).text(historyEmpty() ? "Saved" : "Save");
 
     initDrag();
@@ -427,7 +430,7 @@ $(function() {
 
     onAfterChange();
 
-    $("#btn-undo").click(historyGoBack);
+    $(".btn-undo").click(historyGoBack);
 
     $(".btn-group-language-switcher .btn").click(function() {
 
@@ -632,10 +635,21 @@ $(function() {
         $("header:visible, main:visible, footer:visible")
     );
 
+    function getPresetsForBlock($block) {
+        if ($block.is("header")) {
+            return $("#header-layout-presets").find(".layout-preset");
+        }
+        if ($block.is("footer")) {
+            return $("#footer-layout-presets").find(".layout-preset");
+        }
+        return $block.closest(".layout").find(".layout-preset");
+    }
+
     $("#sandbox .section-preset-switcher").each(function() {
         var $block = $(this).next();
-        var $layouts = $block.closest(".layout").find(".layout-preset");
-        $(this).attr("data-current-layout", 0); // FIXME hardcode
+
+        var $layouts = getPresetsForBlock($block);
+        $(this).attr("data-current-layout", 0); // FIXME unhardcode
 
         $(this).addClass("section-preset-switcher-for-" + $block.prop("tagName").toLowerCase());
 
@@ -644,9 +658,11 @@ $(function() {
 
     $(document).on("click", ".preset-next", function() {
         var $switcher = $(this).closest(".section-preset-switcher");
+        var $block = $switcher.next();
+
         var currentLayoutNum = parseInt($switcher.attr("data-current-layout"));
 
-        var $presets = $(this).closest(".layout").find(".layout-preset");
+        var $presets = getPresetsForBlock($block);
         var $nextLayout = $presets.eq(++currentLayoutNum);
         if (!$nextLayout.length) {
             return;
@@ -659,17 +675,15 @@ $(function() {
 
         $switcher.attr("data-current-layout", currentLayoutNum);
 
-        var $block = $switcher.next();
-
-        $block.addClass("animation-off");
+        $block.addClass("transition-none");
         $block.height($block.height());
         setTimeout(function() { // XXX at least 0ms is needed to apply height
-            $block.removeClass("animation-off");
+            $block.removeClass("transition-none");
 
             $($nextLayout.html()).insertBefore($block);
             var $newBlock = $block.prev();
 
-            $newBlock.addClass("animation-off");
+            $newBlock.addClass("transition-none");
             $newBlock.css({
                 position: "absolute",
                 width: $newBlock.width(),
@@ -677,7 +691,7 @@ $(function() {
                 opacity: 0
             });
             updateHeights();
-            $newBlock.removeClass("animation-off");
+            $newBlock.removeClass("transition-none");
 
             $block.css({
                 "margin-left": "-110%",
@@ -696,6 +710,8 @@ $(function() {
                     "position": "",
                     width: ""
                 });
+                updateHeights(); // FIXME
+                onAfterChange();
                 initDrag();
             }, 300);
         }, 0);
@@ -704,11 +720,11 @@ $(function() {
     });
 
     $(document).on("click", ".preset-prev", function() {
-
         var $switcher = $(this).closest(".section-preset-switcher");
+        var $block = $switcher.next();
         var currentLayoutNum = parseInt($switcher.attr("data-current-layout"));
 
-        var $presets = $(this).closest(".layout").find(".layout-preset");
+        var $presets = getPresetsForBlock($block);
         var $nextLayout = $presets.eq(--currentLayoutNum);
         if (currentLayoutNum < 0 || !$nextLayout.length) {
             return;
@@ -721,17 +737,15 @@ $(function() {
 
         $switcher.attr("data-current-layout", currentLayoutNum);
 
-        var $block = $switcher.next();
-
-        $block.addClass("animation-off");
+        $block.addClass("transition-none");
         $block.height($block.height());
         setTimeout(function() {
-            $block.removeClass("animation-off");
+            $block.removeClass("transition-none");
 
             $($nextLayout.html()).insertBefore($block);
             var $newBlock = $block.prev();
 
-            $newBlock.addClass("animation-off");
+            $newBlock.addClass("transition-none");
             $newBlock.css({
                 position: "absolute",
                 width: $block.width(),
@@ -740,7 +754,7 @@ $(function() {
                 opacity: 0
             });
             updateHeights();
-            $newBlock.removeClass("animation-off");
+            $newBlock.removeClass("transition-none");
 
             $block.css({
                 "margin-left": "110%",
@@ -760,6 +774,8 @@ $(function() {
                     "position": "",
                     width: ""
                 });
+                updateHeights(); // FIXME
+                onAfterChange();
                 initDrag();
             }, 300);
         }, 0);
