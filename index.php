@@ -1,5 +1,20 @@
 <?php
 
+$pages = array(
+    'front' => array(
+        "description" => "The index page of a shop. Usually contains most popular products advertisement and contact info.",
+    ),
+    'category' => array(
+        "description" => "This page lists products of a certain category.",
+    ),
+    'product' => array(
+        "description" => "Page of a certain product",
+    ),
+    'information' => array(
+        "description" => "This is a stucture for a set pages like contact us, about, terms & conditions, etc",
+    ),
+);
+
 $pageTypesToDisplay = array(
     'front',
     'category',
@@ -96,11 +111,25 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                 </table>
             </div>
 
+            <button type="button" class="btn btn" id="btn-toggle-grid"><span class="glyphicon glyphicon-th"></span></button>
             <button type="button" class="btn btn-warning" id="btn-help">Help</button>
-            <button type="button" class="btn btn-info" id="btn-toggle-grid">Show grid</button>
-            <button type="button" class="btn btn-info disabled" id="btn-undo">Undo</button>
+
             <br>
             <br>
+
+            <p>Page</p>
+            <div class="control-panel">
+                <span>
+                    <select class="saved-layouts">
+                        <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
+                            <? $layout = $pageTypes[$pageType][0]; ?>
+                            <option value="<?= $pageType ?>"><?= $pageType ?></option>
+                        <? endforeach ?>
+                        <option value="new">New page...</option>
+                    </select>
+                </span>
+            </div>
+
 
             <!--
             Blue-line delay:
@@ -109,13 +138,6 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
             <hr>
             -->
-
-            <h5>Page</h5>
-            <select id="page-switcher" size="4">
-                <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
-                    <option value="<?= $pageType ?>-page" <?= $i ? "" : 'selected="selected"' ?>><?= $pageType ?> page</option>
-                <? endforeach ?>
-            </select>
 
             <h5>Grids</h5>
 
@@ -168,7 +190,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Checkout button
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Checkout button
                         </div>
                         <div class="block-code">
                             <div class="btn btn-danger">Checkout</div>
@@ -177,7 +199,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-map-marker"></span> Map address
+                            <span class="glyphicon glyphicon-map-marker"></span> Map address
                         </div>
                         <div class="block-code">
                             <div class="google-map"></div>
@@ -186,7 +208,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-shopping-cart"></span> Breadcrumb
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Breadcrumb
                         </div>
                         <div class="block-code">
                             <ol class="breadcrumb">
@@ -199,7 +221,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-align-justify"></span> Custom text / HTML
+                            <span class="glyphicon glyphicon-align-justify"></span> Custom text / HTML
                         </div>
                         <div class="block-code">
                             <div class="custom-text-html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt tellus eget tortor elementum pellentesque. Vivamus a ornare turpis. Curabitur quis urna in erat elementum dapibus et et sem. Morbi congue sem vitae urna adipiscing laoreet. Ut lectus elit, vulputate ac metus vitae, cursus malesuada purus. Pellentesque tristique egestas elit, vitae rhoncus est sagittis vitae. Morbi lobortis condimentum massa eget vehicula. Duis nec massa vel mauris dignissim fermentum eget vel nulla. Pellentesque quis nunc mattis, mollis nibh vel, ornare sapien.</div>
@@ -208,7 +230,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-info-sign"></span> Info pages links
+                            <span class="glyphicon glyphicon-info-sign"></span> Info pages links
                         </div>
                         <div class="block-code">
                             <p class="info-pages-links">
@@ -222,7 +244,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-info-sign"></span> Account pages links
+                            <span class="glyphicon glyphicon-info-sign"></span> Account pages links
                         </div>
                         <div class="block-code">
                             <p class="account-pages-links">
@@ -240,7 +262,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block todo">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-tags"></span> Supported credit cards
+                            <span class="glyphicon glyphicon-tags"></span> Supported credit cards
                         </div>
                         <div class="block-code">
                             <p>TODO</p>
@@ -249,7 +271,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block todo">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-tags"></span> Contact us form
+                            <span class="glyphicon glyphicon-tags"></span> Contact us form
                         </div>
                         <div class="block-code">
                             <p>TODO</p>
@@ -258,7 +280,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block todo">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-tags"></span> Subscribe form
+                            <span class="glyphicon glyphicon-tags"></span> Subscribe form
                         </div>
                         <div class="block-code">
                             <p>TODO</p>
@@ -267,12 +289,12 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-picture"></span> Shop logo
+                            <span class="glyphicon glyphicon-picture"></span> Shop logo
                         </div>
                         <div class="block-code">
                             <div class="shop-logo">
                                 <div class="block-title">
-                                    <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
+                                    <span class="glyphicon glyphicon-picture"></span> Shop Logo
                                 </div>
                             </div>
                         </div>
@@ -280,7 +302,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-font"></span> Shop Title
+                            <span class="glyphicon glyphicon-font"></span> Shop Title
                         </div>
                         <div class="block-code">
                             <h2 class="shop-title">Shop Title</h2>
@@ -289,12 +311,12 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-picture"></span> Custom Banner / Image
+                            <span class="glyphicon glyphicon-picture"></span> Custom Banner / Image
                         </div>
                         <div class="block-code">
                             <div class="shop-logo">
                                 <div class="block-title">
-                                    <span class="glyphicon glyphicon glyphicon-picture"></span> Banner
+                                    <span class="glyphicon glyphicon-picture"></span> Banner
                                 </div>
                             </div>
                         </div>
@@ -303,7 +325,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                     <div class="draggable-block">
                         <div class="block-label">
 
-                            <span class="glyphicon glyphicon glyphicon-th-list"></span> Menu
+                            <span class="glyphicon glyphicon-th-list"></span> Menu
                         </div>
 
                         <div class="block-code">
@@ -320,14 +342,14 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-search"></span> Search
+                            <span class="glyphicon glyphicon-search"></span> Search
                         </div>
                         <div class="block-code">
                             <div class="input-group" style="padding: 5px;">
                                 <input type="text" class="form-control">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
-                                        <span class="glyphicon glyphicon glyphicon-search"></span>
+                                        <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
                             </div>
@@ -336,7 +358,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                     <div class="draggable-block">
                         <div class="block-label">
-                            <span class="glyphicon glyphicon glyphicon-film"></span> Images carousel
+                            <span class="glyphicon glyphicon-film"></span> Images carousel
                         </div>
                         <div class="block-code">
                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
@@ -388,64 +410,69 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             </div>
             -->
 
-            <div class="control-panel">
-                <button class="btn btn-sm btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
-                <span>
-                    <? foreach ($pageTypes as $pageType => $layouts): ?>
-                        <select class="saved-layouts saved-layouts-for-<?= $pageType ?>-page">
-                            <? foreach ($layouts as $i => $layout): ?>
-                                <option value="<?= $layout["id"] ?>" <?= $i ? "" : 'selected="selected"' ?>><?= $layout["title"] ?></option>
-                            <? endforeach ?>
-                            <option value="new">New layout...</option>
-                        </select>
-                    <? endforeach ?>
-                </span>
-                <button class="btn btn-sm btn-info btn-saved-layouts-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
-
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-info btn-save-layout">Save</button>
-                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a class="btn-save-layout-as" href="#">Save as..</a></li>
-                        <li><a href="#">Save and publish</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Delete</a></li>
-                    </ul>
-                </div>
-
-                <button class="btn btn-sm disabled" id="btn-preview">Preview</button>
-                <button class="btn btn-sm disabled">Publish</button>
-            </div>
 
         </div>
 
         <div id="sandbox">
 
-            <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
-            <div class="obb-page <?= $i ? " default-header default-footer " : " active-obb-page " ?>" id="<?= $pageType ?>-page" data-type="<?= $pageType ?>">
+            <div class="obb-page">
 
-                <? if ($i): ?>
-                    <div class="lock-warning">
-                        <span class="glyphicon glyphicon-info-sign"></span>
-                        The default header/footer are used. Unlock them if you want a custom for this page.
-                    </div>
-                <? endif ?>
+                <div class="next-prev-buttons">
+                    <button class="btn btn-sm1 btn-info btn-saved-layouts-prev"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+                    <button class="btn btn-sm1 btn-info btn-saved-layouts-next">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                </div>
 
                 <div class="layouts">
-                    <? if (isset($pageTypes[$pageType])): ?>
-                        <? foreach ($pageTypes[$pageType] as $layout): ?>
 
-                            <div class="layout layout-<?= $layout["id"] ?>">
-                                <?= $layout["html"] ?>
+                    <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
+
+                        <? if (isset($pageTypes[$pageType])): ?>
+                            <? $layout = $pageTypes[$pageType][0]; ?>
+
+                            <div class="layout obb-page-<?= $pageType ?>" data-obb-page="<?= $pageType ?>">
+
+                                <h2>
+                                    <?= ucfirst($pageType) ?> page
+
+                                    <span class="page-buttons">
+                                        <button type="button" class="btn btn-sm btn-info disabled btn-save-layout">Saved</button>
+                                        <button type="button" class="btn btn-sm btn-info disabled" id="btn-undo">Undo</button>
+                                    </span>
+                                </h2>
+
+                                <p><?= $pages[$pageType]["description"] ?></p>
+
+                                <? /*
+                                <? if ($i): ?>
+                                <p class="lock-warning">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    The default header/footer are used. Unlock them if you want a custom for this page.
+                                </p>
+                                <? endif ?>
+                                */ ?>
+
+                                <div class="page-html">
+                                    <?= $layout["html"] ?>
+                                </div>
                             </div>
 
-                        <? endforeach ?>
-                    <? endif ?>
+                        <? endif ?>
+                    <? endforeach ?>
 
-                    <div class="layout layout-new">
+                    <div class="layout obb-page-new">
+
+                        <h2>
+                            New page
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-warning btn-save-layout">Save as</button>
+                            </div>
+
+                        </h2>
+
+                        <p style="color: #999">Left here to ignite imagination :)</p>
+
+                        <div class="page-html">
                         <div class="container">
 
                             <header class="sortable"></header>
@@ -453,13 +480,13 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                             <footer class="sortable"></footer>
 
                         </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
-            <? endforeach ?>
 
-            </div>
+        </div>
     </div>
 
     <div class="modal fade" id="grid-row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

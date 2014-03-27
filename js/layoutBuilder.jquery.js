@@ -156,59 +156,6 @@
                 })
                 .trigger("resize");
 
-            $("#page-switcher").change(function() {
-
-                var $currentPage = $(".active-obb-page");
-                var $comingPage = $("#" + this.value);
-
-                if ($comingPage.attr("id") !== "front-page") {
-                    var $pubishedHeader = $("#front-page header:first");
-                    var $pubishedFooter = $("#front-page footer:first");
-                    $comingPage.find("header").html($pubishedHeader.html());
-                    $comingPage.find("footer").html($pubishedFooter.html());
-                    initDrag($comingPage);
-                }
-
-                $(".saved-layouts-for-" + $comingPage.attr("id")).show().siblings().hide();
-
-                if ($currentPage.attr("id") == $comingPage.attr("id")) {
-                    return;
-                }
-
-                var shouldComeFromUp = $currentPage.index() > $comingPage.index();
-
-                $("#sandbox").css("height", "100%");
-
-                $comingPage.siblings().not($currentPage).hide();
-
-                $currentPage.css({
-                    "margin-top": (shouldComeFromUp ? "" : "-") + $currentPage.height() + "px",
-                    "opacity": 0
-                });
-//                console.log({
-//                    "margin-top": (shouldComeFromUp ? "" : "-") + $currentPage.height() + "px",
-//                    "opacity": 0
-//                });
-
-                $comingPage.addClass("animation-off");
-                $comingPage.css({
-                    "display": "block", // unhide
-                    "opacity": 1 // but invisible yet
-                });
-                $comingPage.removeClass("animation-off");
-
-                $comingPage.css({
-                    "margin-top": (shouldComeFromUp ? "-" : "") + $currentPage.height(), // fly in
-                    "opacity": 1 // and make visible
-                });
-
-                $comingPage.addClass("active-obb-page");
-                $comingPage.siblings().removeClass("active-obb-page");
-
-                updateHeights();
-
-            }).trigger("change");
-
             $("#btn-help").click(function(){
                 methods.helpShow();
             });
