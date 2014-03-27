@@ -3,26 +3,22 @@
 $pages = array(
     'front' => array(
         "description" => "The index page of a shop. Usually contains most popular products advertisement and contact info.",
+        "layouts" => array(),
     ),
     'category' => array(
         "description" => "This page lists products of a certain category.",
+        "layouts" => array(),
     ),
     'product' => array(
         "description" => "Page of a certain product",
+        "layouts" => array(),
     ),
     'information' => array(
         "description" => "This is a stucture for a set pages like contact us, about, terms & conditions, etc",
+        "layouts" => array(),
     ),
 );
 
-$pageTypesToDisplay = array(
-    'front',
-    'category',
-    'product',
-    'information',
-);
-
-$pageTypes = array();
 foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
     $pageType = basename($dir);
@@ -37,13 +33,12 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
         }
 
         $layout = "";
-        if (preg_match("~<body>(.*?)</body>~s", $html, $matches)) {
-            $layout = $matches[1];
+        if (preg_match("~<main.*?>(.*?)</main>~s", $html, $matches)) {
+            $layout = $matches[0];
         }
-
         if ($layout) {
             $id = str_replace(".", "-", str_replace(".html", "", basename($file)));
-            $pageTypes[$pageType][] = array(
+            $pages[$pageType]["layouts"][] = array(
                 "id"    => $id,
                 "title" => $title,
                 "html"  => $layout,
@@ -121,8 +116,7 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
             <div class="control-panel">
                 <span>
                     <select class="saved-layouts">
-                        <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
-                            <? $layout = $pageTypes[$pageType][0]; ?>
+                        <? foreach (array_keys($pages) as $i => $pageType): ?>
                             <option value="<?= $pageType ?>"><?= $pageType ?></option>
                         <? endforeach ?>
                         <option value="new">New page...</option>
@@ -424,12 +418,17 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
 
                 <div class="layouts">
 
-                    <? foreach ($pageTypesToDisplay as $i => $pageType): ?>
+                    <? foreach (array_keys($pages) as $i => $pageType): ?>
 
-                        <? if (isset($pageTypes[$pageType])): ?>
-                            <? $layout = $pageTypes[$pageType][0]; ?>
+                        <? if (!$pages[$pageType]["layouts"]) continue ?>
 
                             <div class="layout obb-page-<?= $pageType ?>" data-obb-page="<?= $pageType ?>">
+
+                                <div class="layout-presets">
+                                <? foreach ($pages[$pageType]["layouts"] as $layout): ?>
+                                    <div class="layout-preset" data-title="<?= $layout["title"] ?>"><?= $layout["html"]?></div>
+                                <? endforeach ?>
+                                </div>
 
                                 <h2>
                                     <?= ucfirst($pageType) ?> page
@@ -451,12 +450,16 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                                 <? endif ?>
                                 */ ?>
 
+                                <? $layout = $pages[$pageType]["layouts"][0]; ?>
                                 <div class="page-html">
+                                    <div class="container">
+                                    <header></header>
                                     <?= $layout["html"] ?>
+                                    <footer></footer>
+                                    </div>
                                 </div>
                             </div>
 
-                        <? endif ?>
                     <? endforeach ?>
 
                     <div class="layout obb-page-new">
@@ -752,6 +755,15 @@ EOF;
         <div id="help-cover"></div>
     </div>
 
+    <div id="section-preset-switcher-tpl" class="hidden">
+        <div class="section-preset-switcher">
+            <div class="section-preset-switcher-wrap">
+                <span class="glyphicon preset-unlock glyphicon-lock"></span><span class="preset-prev disabled glyphicon glyphicon-chevron-left"></span><span class="preset-next glyphicon glyphicon-chevron-right"></span>
+
+                <div class="preset-name"><var>name</var> <b class="caret"></b></div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

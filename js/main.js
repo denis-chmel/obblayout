@@ -31,24 +31,24 @@ function removeElement($draggable) {
 
 function focusCurrrentLayoutEditor() {
 //    $(".obb-page .layout").each(function(){
-        var currentPageId = $(this).attr("data-obb-page");
-        var currentLayout = $(".saved-layouts").val();
+    var currentPageId = $(this).attr("data-obb-page");
+    var currentLayout = $(".saved-layouts").val();
 
-        var $currentLayout = $(".obb-page-" + currentLayout);
-        console.log($currentLayout);
+    var $currentLayout = $(".obb-page-" + currentLayout);
+    console.log($currentLayout);
 
-        var layoutSelector = $(".layout");
-        var layoutsCount = $(layoutSelector).length;
-        $(layoutSelector).each(function(i, item) {
-            i -= $currentLayout.index();
-            var newCss = {
-                marginLeft: (i * 150) + "%",
-                marginRight: (i - layoutsCount) * 150 + "%"
-            };
-            $(item).css(newCss);
-        });
-        $currentLayout.css("opacity", 1);
-        $currentLayout.addClass("active-layout").siblings().removeClass("active-layout");
+    var layoutSelector = $(".layout");
+    var layoutsCount = $(layoutSelector).length;
+    $(layoutSelector).each(function(i, item) {
+        i -= $currentLayout.index();
+        var newCss = {
+            marginLeft: (i * 150) + "%",
+            marginRight: (i - layoutsCount) * 150 + "%"
+        };
+        $(item).css(newCss);
+    });
+    $currentLayout.css("opacity", 1);
+    $currentLayout.addClass("active-layout").siblings().removeClass("active-layout");
 //    });
 }
 
@@ -77,7 +77,7 @@ function saveLayout(id, title, $dom) {
             var $option = $select.find("option[value=" + data.id + "]");
             if (!$option.length) {
                 $("<option value='" + data.id + "'>" + data.title + "</option>").insertBefore($select.find("option[value='new']"));
-                $option = $select.find("option[value=" + data.id+ "]");
+                $option = $select.find("option[value=" + data.id + "]");
                 $("<div class='layout layout-" + data.id + "'>" + data.html + "</div>").insertBefore(".active-obb-page .layout-new");
             }
             $option.attr("selected", true);
@@ -87,9 +87,9 @@ function saveLayout(id, title, $dom) {
 
             $.growl.notice({ title: "", message: "Saved successfully" });
 
-    }).fail(function() {
-            alert( "failure" );
-    });
+        }).fail(function() {
+            alert("failure");
+        });
     $("#save-as-modal").modal("hide");
 }
 
@@ -235,7 +235,7 @@ function initDrag(where) {
         containment: "parent"
     });
 
-    $("header, footer", where).each(function(){
+    $("header, footer", where).each(function() {
         if ($(this).closest(".obb-page-front").length == 0) {
             $(this).find("*").andSelf().removeClass("sortable");
         }
@@ -457,11 +457,11 @@ $(function() {
     $("#btn-toggle-grid").click(function() {
         $(this).toggleClass("active");
         $("#sandbox").toggleClass("show-grid", $(this).is(".active"));
-    }).hover(function(){
+    }).hover(function() {
             $("#sandbox").addClass("show-grid");
-        }, function(){
+        }, function() {
             if (!$(this).is(".active"))
-            $("#sandbox").removeClass("show-grid");
+                $("#sandbox").removeClass("show-grid");
         });
 
     $("#custom-text-html-modal .btn-save").click(function() {
@@ -506,26 +506,26 @@ $(function() {
         $modal.modal("hide");
 
         /*
-        var previewHtml = tinyMCE.get('content-en').getContent();
-        setTimeout(function() {
-            $block.html(previewHtml);
-            $block.effect("highlight");
+         var previewHtml = tinyMCE.get('content-en').getContent();
+         setTimeout(function() {
+         $block.html(previewHtml);
+         $block.effect("highlight");
 
-            var json = {
-                translations: {}
-            };
-            $.each(enabledLocalizations, function(i, code) {
-                json.translations[code] = tinyMCE.get('content-' + code).getContent();
-            });
+         var json = {
+         translations: {}
+         };
+         $.each(enabledLocalizations, function(i, code) {
+         json.translations[code] = tinyMCE.get('content-' + code).getContent();
+         });
 
-            $block.prepend("<script class='params' type='application/json'>" + JSON.stringify(json) + "</script>");
+         $block.prepend("<script class='params' type='application/json'>" + JSON.stringify(json) + "</script>");
 
-            addControls($block);
+         addControls($block);
 
-            onAfterChange();
+         onAfterChange();
 
-        }, 500);
-        */
+         }, 500);
+         */
 
     });
 
@@ -579,7 +579,7 @@ $(function() {
         updateHeights();
     });
 
-    $(".btn-saved-layouts-next").click(function(){
+    $(".btn-saved-layouts-next").click(function() {
         var nextOption = $(".saved-layouts:visible option:selected").next();
         if (nextOption.length) {
             $(nextOption).attr("selected", true);
@@ -587,7 +587,7 @@ $(function() {
         }
     });
 
-    $(".btn-saved-layouts-prev").click(function(){
+    $(".btn-saved-layouts-prev").click(function() {
         var prevOption = $(".saved-layouts:visible option:selected").prev();
         if (prevOption.length) {
             $(prevOption).attr("selected", true);
@@ -595,11 +595,11 @@ $(function() {
         }
     });
 
-    $(".btn-save-layout-as").click(function(){
+    $(".btn-save-layout-as").click(function() {
         $("#save-as-modal").modal("show");
     });
 
-    $(".btn-save-layout").click(function(){
+    $(".btn-save-layout").click(function() {
         var currentLayoutId = $(".saved-layouts:visible").val();
         if (currentLayoutId == "new") {
             $("#save-as-modal").modal("show");
@@ -611,56 +611,163 @@ $(function() {
         );
     });
 
-    $("#save-as-modal").on("show.bs.modal", function(){
+    $("#save-as-modal").on("show.bs.modal", function() {
         $("#layout_name").val("").trigger("change");
     });
 
-    $("#save-as-modal").on("shown.bs.modal", function(){
+    $("#save-as-modal").on("shown.bs.modal", function() {
         $("#layout_name").focus();
     });
 
-    $("#layout_name").on("change keyup", function(){
+    $("#layout_name").on("change keyup", function() {
         $("#save-as-modal .btn-save").toggleClass("disabled", $.trim(this.value).length == 0);
     });
 
-    $("#save-as-modal form").submit(function(){
+    $("#save-as-modal form").submit(function() {
         var name = $("#layout_name").val();
         var dom = $(".active-obb-page .layout-" + $(".saved-layouts:visible").val());
         saveLayout(null, name, dom);
         return false;
     });
 
-    $('<div class="section-preset-switcher"><span class="glyphicon preset-unlock glyphicon-lock"></span><span class="preset-prev disabled glyphicon glyphicon-chevron-left"></span><span class="preset-next glyphicon glyphicon-chevron-right"></span><div class="preset-name"><var>name</var> <b class="caret"></b></div></div>').insertBefore(
+    $($("#section-preset-switcher-tpl").html()).insertBefore(
         $("header:visible, main:visible, footer:visible")
     );
-    $(".section-preset-switcher").each(function(){
+
+    $("#sandbox .section-preset-switcher").each(function() {
         var $block = $(this).next();
+        var $layouts = $block.closest(".layout").find(".layout-preset");
+        $(this).attr("data-current-layout", 0); // FIXME hardcode
+
         $(this).addClass("section-preset-switcher-for-" + $block.prop("tagName").toLowerCase());
-        $(this).find(".preset-name var").html($block.prop("tagName").toLowerCase() + " " + 1);
+
+        console.log($layouts);
+        $(this).find(".preset-name var").html($layouts.attr("data-title"));
     });
 
     $(document).on("click", ".preset-next", function() {
         var $switcher = $(this).closest(".section-preset-switcher");
+        var currentLayoutNum = parseInt($switcher.attr("data-current-layout"));
+
+        var $presets = $(this).closest(".layout").find(".layout-preset");
+        var $nextLayout = $presets.eq(++currentLayoutNum);
+        if (!$nextLayout.length) {
+            return;
+        }
+
+        $(this).siblings().removeClass("disabled");
+        if (currentLayoutNum == $presets.length - 1) {
+            $(this).addClass("disabled").siblings().removeClass("disabled");
+        }
+
+        $switcher.attr("data-current-layout", currentLayoutNum);
+
         var $block = $switcher.next();
-        $block.css({
-            "margin-left": "-110%",
-            "margin-right": "110%",
-            opacity: 0
-        });
-        $switcher.find(".preset-name var").html($block.prop("tagName").toLowerCase() + " " + 2);
-        $(this).addClass("disabled").siblings().removeClass("disabled");
+
+        $block.addClass("animation-off");
+        $block.height($block.height());
+        setTimeout(function() { // XXX at least 0ms is needed to apply height
+            $block.removeClass("animation-off");
+
+            $($nextLayout.html()).insertBefore($block);
+            var $newBlock = $block.prev();
+
+            $newBlock.addClass("animation-off");
+            $newBlock.css({
+                position: "absolute",
+                width: $newBlock.width(),
+                "margin-left": "100%",
+                opacity: 0
+            });
+            updateHeights();
+            $newBlock.removeClass("animation-off");
+
+            $block.css({
+                "margin-left": "-110%",
+                "margin-right": "110%",
+                "height": $newBlock.height(),
+                opacity: 0
+            });
+            $newBlock.css({
+                "margin-left": "0%",
+                opacity: 1
+            });
+
+            setTimeout(function() {
+                $block.remove();
+                $newBlock.css({
+                    "position": "",
+                    width: ""
+                });
+                initDrag();
+            }, 300);
+        }, 0);
+
+        $switcher.find(".preset-name var").html($nextLayout.attr("data-title"));
     });
 
     $(document).on("click", ".preset-prev", function() {
+
         var $switcher = $(this).closest(".section-preset-switcher");
+        var currentLayoutNum = parseInt($switcher.attr("data-current-layout"));
+
+        var $presets = $(this).closest(".layout").find(".layout-preset");
+        var $nextLayout = $presets.eq(--currentLayoutNum);
+        if (currentLayoutNum < 0 || !$nextLayout.length) {
+            return;
+        }
+
+        $(this).siblings().removeClass("disabled");
+        if (currentLayoutNum == 0) {
+            $(this).addClass("disabled");
+        }
+
+        $switcher.attr("data-current-layout", currentLayoutNum);
+
         var $block = $switcher.next();
-        $block.css({
-            "margin-left": "0%",
-            "margin-right": "0%",
-            opacity: 1
-        });
-        $switcher.find(".preset-name var").html($block.prop("tagName").toLowerCase() + " " + 1);
-        $(this).addClass("disabled").siblings().removeClass("disabled");
+
+        $block.addClass("animation-off");
+        $block.height($block.height());
+        setTimeout(function() {
+            $block.removeClass("animation-off");
+
+            $($nextLayout.html()).insertBefore($block);
+            var $newBlock = $block.prev();
+
+            $newBlock.addClass("animation-off");
+            $newBlock.css({
+                position: "absolute",
+                width: $block.width(),
+                "margin-left": "-110%",
+                "margin-right": "110%",
+                opacity: 0
+            });
+            updateHeights();
+            $newBlock.removeClass("animation-off");
+
+            $block.css({
+                "margin-left": "110%",
+                "margin-right": "-110%",
+                "height": $newBlock.height(),
+                opacity: 0
+            });
+            $newBlock.css({
+                "margin-left": "0%",
+                "margin-right": "0%",
+                opacity: 1
+            });
+
+            setTimeout(function() {
+                $block.remove();
+                $newBlock.css({
+                    "position": "",
+                    width: ""
+                });
+                initDrag();
+            }, 300);
+        }, 0);
+
+        $switcher.find(".preset-name var").html($nextLayout.attr("data-title"));
     });
 
 });
