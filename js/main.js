@@ -39,8 +39,9 @@ function focusCurrrentLayoutEditor() {
     $(layoutSelector).each(function(i, item) {
         i -= $currentLayout.index();
         var newCss = {
-            marginLeft: (i * 150) + "%",
-            marginRight: (i - layoutsCount) * 150 + "%"
+            opacity: 0.4,
+            marginLeft: (i * 140) + "%",
+            marginRight: (i - layoutsCount) * 140 + "%"
         };
         $(item).css(newCss);
     });

@@ -48,6 +48,8 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
     }
 }
 
+define("VERSION", uniqid());
+
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -57,15 +59,15 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap-3.1.1-dist/css/bootstrap.css"/>
     <script src="js/jquery-2.1.0.js"></script>
     <script src="vendor/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
-    <script src="js/layoutBuilder.jquery.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/layoutBuilder.jquery.js?<?= VERSION ?>"></script>
+    <script src="js/main.js?<?= VERSION ?>"></script>
     <script src="vendor/mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
 
     <link rel="stylesheet" href="/js/jquery-ui/themes/smoothness/jquery-ui.css">
     <script src="/js/jquery-ui/ui/jquery-ui.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/extra-styles.css"/>
-    <link rel="stylesheet" type="text/css" href="css/constructor.css"/>
+    <link rel="stylesheet" type="text/css" href="css/extra-styles.css?<?= VERSION ?>"/>
+    <link rel="stylesheet" type="text/css" href="css/constructor.css?<?= VERSION ?>"/>
     <link rel="stylesheet" type="text/css" href="vendor/mCustomScrollbar/jquery.mCustomScrollbar.css"/>
 
     <script src="vendor/growl/jquery.growl.js"></script>

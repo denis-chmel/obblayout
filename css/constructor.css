@@ -15,9 +15,9 @@ html, body {
     b1order-right: 5px solid #999;
     background: rgba(255,255,255,0.5);
     background: rgba(29, 115, 180, 0.8);
-    background: rgba(0, 100, 165, 0.65);
-    background: rgba(60, 60, 60, 0.6);
-    border-right: 4px solid rgba(255, 255, 255, 0.4);
+    background: rgba(0, 100, 165, 0.65)  url(../img/glass.png) right top;
+    background: rgba(60, 60, 60, 0.6) url(../img/glass.png) right top;
+    border-right: 6px solid rgba(255, 255, 255, 0.2);
 
     color: #FFF;
     position: fixed;
@@ -82,7 +82,6 @@ button {
     margin-top: 10px;
 }
 
-
 #sandbox .active-layout .container {
     box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
 }
@@ -130,8 +129,13 @@ main.sortable {
     position: absolute;
     left: 0;
     border-top: 1px dotted #D3D3D3;
-
 }
+
+.show-grid .section-preset-switcher-for-main:before,
+.show-grid .section-preset-switcher-for-footer:before {
+    border-top: 1px dotted #999;
+}
+
 /*
 #sandbox .active-layout main:before,
 #sandbox .active-layout footer:before {
@@ -143,11 +147,6 @@ main.sortable {
     border-top: 1px dotted #D3D3D3;
 }
 */
-
-#sandbox.show-grid .active-layout main:before,
-#sandbox.show-grid .active-layout footer:before {
-    border-top: 1px dotted #999;
-}
 
 #sandbox header,
 #sandbox main,
@@ -561,15 +560,22 @@ textarea {
     font-style: normal;
 }
 
+.section-preset-switcher .preset-name .caret {
+    margin-top: -2px;
+}
 .section-preset-switcher .preset-name {
     position: absolute;
     padding: 1px 6px;
     font-size: 11px;
-    color: #FFF;
-    background: #CCC;
+    color: #BBB;
+    margin-top: 1px;
+    background: #FFF;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     cursor: pointer;
+}
+.section-preset-switcher-for-header .preset-name {
+    margin-top: 0;
 }
 
 .section-preset-switcher .preset-name:hover {
