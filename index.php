@@ -112,18 +112,12 @@ define("VERSION", uniqid());
 
             </div>
 
-            <p>Page</p>
-            <div class="control-panel">
-                <span>
-                    <select class="pages-switcher">
-                        <? foreach (array_keys($pages) as $i => $pageType): ?>
-                            <option value="<?= $pageType ?>"><?= $pageType ?></option>
-                        <? endforeach ?>
-                        <option value="new">New page...</option>
-                    </select>
-                </span>
+            <div id="pages-switcher" class="list-group" style="margin-top: 30px">
+                <? foreach (array_keys($pages) as $i => $pageType): ?>
+                    <a href="#" class="list-group-item <?= $i ? "" : " active " ?>" data-value="<?= $pageType ?>"><?= ucfirst($pageType) ?> page</a>
+                <? endforeach ?>
+                <a href="#" class="list-group-item" data-value="new">New page</a>
             </div>
-
 
             <!--
             Blue-line delay:
@@ -515,7 +509,7 @@ define("VERSION", uniqid());
                     -->
                     <button type="button" class="btn btn-sm btn-info disabled btn-undo">Undo</button>
                     <input id="btn-toggle-grid" data-on-color="info" type="checkbox" data-size="mini" data-label-text="<span class='grid-icon'><table><tr><td></td><td></td></tr><tr><td></td><td></td></tr></table></span>">
-                    <button type="button" class="btn btn-warning" id="btn-help">Help</button>
+                    <button type="button" class="btn btn-info" id="btn-help">Help</button>
 
 
                 </div>

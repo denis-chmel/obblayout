@@ -30,7 +30,7 @@ function removeElement($draggable) {
 
 function focusCurrrentLayoutEditor() {
     //var currentPageId = $(this).attr("data-obb-page");
-    var currentLayout = $(".pages-switcher").val();
+    var currentLayout = $("#pages-switcher .active").attr("data-value");
 
     var $currentLayout = $(".obb-page-" + currentLayout);
 
@@ -79,7 +79,7 @@ function saveLayout(id, title, $dom) {
     ).done(function(response) {
 
             var data = JSON.parse(response);
-            var $select = $(".pages-switcher:visible");
+            var $select = $("#pages-switcher:visible");
             var $option = $select.find("option[value=" + data.id + "]");
             if (!$option.length) {
                 $("<option value='" + data.id + "'>" + data.title + "</option>").insertBefore($select.find("option[value='new']"));
@@ -585,21 +585,19 @@ $(function() {
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
     });
 
-    $(".pages-switcher").change(focusCurrrentLayoutEditor);
-
     $(".btn-saved-layouts-next").click(function() {
-        var nextOption = $(".pages-switcher option:selected").next();
+        var nextOption = $("#pages-switcher option:selected").next();
         if (nextOption.length) {
             $(nextOption).attr("selected", true);
-            $(".pages-switcher").trigger("change");
+            $("#pages-switcher").trigger("change");
         }
     });
 
     $(".btn-saved-layouts-prev").click(function() {
-        var prevOption = $(".pages-switcher option:selected").prev();
+        var prevOption = $("#pages-switcher option:selected").prev();
         if (prevOption.length) {
             $(prevOption).attr("selected", true);
-            $(".pages-switcher").trigger("change");
+            $("#pages-switcher").trigger("change");
         }
     });
 
@@ -608,14 +606,14 @@ $(function() {
     });
 
     $(".btn-save-layout").click(function() {
-        var currentLayoutId = $(".pages-switcher:visible").val();
+        var currentLayoutId = $("#pages-switcher:visible").val();
         if (currentLayoutId == "new") {
             $("#save-as-modal").modal("show");
             return;
         }
         saveLayout(
             currentLayoutId,
-            $(".pages-switcher:visible option:selected").text()
+            $("#pages-switcher:visible option:selected").text()
         );
     });
 
@@ -634,7 +632,7 @@ $(function() {
     /*
      $("#save-as-modal form").submit(function() {
      var name = $("#layout_name").val();
-     var dom = $(".active-obb-page .layout-" + $(".pages-switcher:visible").val());
+     var dom = $(".active-obb-page .layout-" + $("#pages-switcher:visible").val());
      saveLayout(null, name, dom);
      return false;
      });
@@ -806,5 +804,9 @@ $(function() {
                 $("#sandbox").removeClass("show-grid");
         });
 
+    $("#pages-switcher a").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+        focusCurrrentLayoutEditor();
+    });
 
 });

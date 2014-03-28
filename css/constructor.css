@@ -385,15 +385,12 @@ footer:empty,
     margin-bottom: 2ex;
 }
 
-.pages-switcher {
+#pages-switcher {
     font-size: 13px;
-    height: 30px;
-    padding: 3px;
     /*border: 1px solid;*/
     /*border-color: #CCC #EEE #EEE #CCC;*/
     /*background: #EEE;*/
     /*border-radius: 3px;*/
-    width: 100%;
 }
 
 #left select {
@@ -645,4 +642,15 @@ textarea {
 
 .grid-icon td {
     border: 1px dotted #999;
+}
+
+#pages-switcher a {
+    background: rgba(255,255,255, 0.1);
+    border: 1px solid #999;
+    color: #FFF;
+}
+
+#pages-switcher a.active {
+    background: deepskyblue;
+    border-color: deepskyblue;
 }
