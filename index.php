@@ -444,18 +444,20 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
                                 <div class="sortable col-md-3">
                                     <h2 class="shop-title">
                                         Shop Title</h2>
-                                    <ol class="breadcrumb">
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">Library</a></li>
-                                        <li class="active">Data</li>
-                                    </ol>
+
                                 </div>
                                 <div class="sortable col-md-9">
                                     <div class="shop-logo">
                                         <div class="block-title">
                                             <span class="glyphicon glyphicon glyphicon-picture"></span> Shop Logo
                                         </div>
-                                    </div></div>
+                                    </div>
+                                    <ol class="breadcrumb">
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">Library</a></li>
+                                        <li class="active">Data</li>
+                                    </ol>
+                                </div>
                             </div>
                         </header>
                     </div>

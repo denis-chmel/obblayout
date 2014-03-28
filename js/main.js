@@ -240,11 +240,13 @@ function initDrag(where) {
         containment: "parent"
     });
 
+    /* TODO: do this elsewhere
     $("header, footer", where).each(function() {
         if ($(this).closest(".obb-page-front").length == 0) {
             $(this).find("*").andSelf().removeClass("sortable");
         }
     });
+    */
     $(".block-controls").removeClass("sortable");
 
     $(".sortable", where).sortable({
@@ -681,6 +683,7 @@ $(function() {
             $block.removeClass("transition-none");
 
             $($nextLayout.html()).insertBefore($block);
+            initDrag(); // affects height
             var $newBlock = $block.prev();
 
             $newBlock.addClass("transition-none");
@@ -694,10 +697,10 @@ $(function() {
             $newBlock.removeClass("transition-none");
 
             $block.css({
-                "margin-left": "-110%",
-                "margin-right": "110%",
+                "margin-left": "-210%",
+                "margin-right": "210%",
                 "height": $newBlock.height(),
-                opacity: 0
+                opacity: 1
             });
             $newBlock.css({
                 "margin-left": "0%",
@@ -712,8 +715,7 @@ $(function() {
                 });
                 updateHeights(); // FIXME
                 onAfterChange();
-                initDrag();
-            }, 300);
+            }, 400);
         }, 0);
 
         $switcher.find(".preset-name var").html($nextLayout.attr("data-title").toLowerCase());
@@ -743,6 +745,7 @@ $(function() {
             $block.removeClass("transition-none");
 
             $($nextLayout.html()).insertBefore($block);
+            initDrag(); // affects height
             var $newBlock = $block.prev();
 
             $newBlock.addClass("transition-none");
@@ -757,10 +760,10 @@ $(function() {
             $newBlock.removeClass("transition-none");
 
             $block.css({
-                "margin-left": "110%",
-                "margin-right": "-110%",
+                "margin-left": "210%",
+                "margin-right": "-210%",
                 "height": $newBlock.height(),
-                opacity: 0
+                opacity: 1
             });
             $newBlock.css({
                 "margin-left": "0%",
@@ -776,8 +779,7 @@ $(function() {
                 });
                 updateHeights(); // FIXME
                 onAfterChange();
-                initDrag();
-            }, 300);
+            }, 400);
         }, 0);
 
         $switcher.find(".preset-name var").html($nextLayout.attr("data-title").toLowerCase());

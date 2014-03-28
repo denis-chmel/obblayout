@@ -152,7 +152,7 @@ main.sortable {
 #sandbox header,
 #sandbox main,
 #sandbox footer {
-    transition: height 300ms, margin 300ms, opacity 300ms;
+    transition: height 400ms, margin 400ms, opacity 400ms ease-out;
     min-height: 100px;
     box-sizing: content-box;
 }
