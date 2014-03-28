@@ -266,6 +266,7 @@ function initDrag(where) {
         start: function(e, ui) {
 
             if ($(ui.helper).data("isNewItem")) {
+                ui.item.isNewItem = true;
                 updatePlaceholders(ui);
                 if (getBlueLineDelay() > 0) {
                     $(ui.placeholder).addClass("ui-sortable-placeholder-animated");
@@ -285,10 +286,21 @@ function initDrag(where) {
             $(".old-placeholder").remove();
 
             $("#sandbox").removeClass("while-dragging");
-            if ($(ui.item).is(".carousel")) {
-                var uniqId = "carousel-" + (Math.random() + '').replace('0.', '');
-                $(ui.item).attr("id", uniqId);
-                $(ui.item).find("[data-target]").attr("data-target", "#" + uniqId);
+
+            if (ui.item.isNewItem) {
+                if ($(ui.item).is(".customize")) {
+                    setTimeout(function(){
+                        $(ui.item).click();
+                        showSettingsPopup(null, $(ui.item));
+
+                    }, 0); // 0ms is enough for item to be inserted into DOM
+                }
+
+                if ($(ui.item).is(".carousel")) {
+                    var uniqId = "carousel-" + (Math.random() + '').replace('0.', '');
+                    $(ui.item).attr("id", uniqId);
+                    $(ui.item).find("[data-target]").attr("data-target", "#" + uniqId);
+                }
             }
 
             onAfterChange();
@@ -393,6 +405,10 @@ function initGridSettings(cellProportions) {
 }
 
 function showSettingsPopup(popupId, $block) {
+    if (!popupId) {
+        var firstClass = $block.attr("class").split(' ')[0];
+        popupId = "#" + firstClass + "-modal";
+    }
     var $popup = $(popupId);
     switch (popupId) {
         case '#custom-text-html-modal':
@@ -695,13 +711,14 @@ $(function() {
             });
             $newBlock.css({
                 "margin-left": "0%",
+                "margin-right": "0%",
                 opacity: 1
             });
 
             setTimeout(function() {
                 $block.remove();
                 $newBlock.css({
-                    "position": "",
+                    position: "",
                     width: ""
                 });
                 updateHeights(); // FIXME
@@ -765,7 +782,7 @@ $(function() {
             setTimeout(function() {
                 $block.remove();
                 $newBlock.css({
-                    "position": "",
+                    position: "",
                     width: ""
                 });
                 updateHeights(); // FIXME

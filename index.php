@@ -146,6 +146,47 @@ define("VERSION", uniqid());
 
                         <div class="draggable-block">
                             <div class="block-label">
+                                <img src="/img/icons/grid2-8-2.svg" width="16" height="16"> Grid 6/6
+                            </div>
+                            <div class="block-code">
+                                <div class="grid-row row">
+                                    <div class="sortable col-md-6"></div>
+                                    <div class="sortable col-md-6"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="draggable-block">
+                            <div class="block-label">
+                                <img src="/img/icons/grid2-8-2.svg" width="16" height="16"> Grid 3/9
+                            </div>
+                            <div class="block-code">
+                                <div class="grid-row row">
+                                    <div class="sortable col-md-3"></div>
+                                    <div class="sortable col-md-9"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="draggable-block">
+                            <div class="block-label">
+                                <img src="/img/icons/grid2-8-2.svg" width="16" height="16"> Grid 9/3
+                            </div>
+                            <div class="block-code">
+                                <div class="grid-row row">
+                                    <div class="sortable col-md-9"></div>
+                                    <div class="sortable col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-min-150">
+
+                        <div class="draggable-block">
+                            <div class="block-label">
                                 <img src="/img/icons/grid4-4-4.svg" width="16" height="16"> Grid 4/4/4
                             </div>
                             <div class="block-code">
@@ -159,17 +200,17 @@ define("VERSION", uniqid());
 
                         <div class="draggable-block">
                             <div class="block-label">
-                                <img src="/img/icons/grid3-3-3-3.svg" width="16" height="16"> Grid 3/3/3/3
+                                <img src="/img/icons/grid4-4-4.svg" width="16" height="16"> Grid 3/6/3
                             </div>
                             <div class="block-code">
                                 <div class="grid-row row">
                                     <div class="sortable col-md-3"></div>
-                                    <div class="sortable col-md-3"></div>
-                                    <div class="sortable col-md-3"></div>
+                                    <div class="sortable col-md-6"></div>
                                     <div class="sortable col-md-3"></div>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="draggable-block">
                             <div class="block-label">
@@ -186,21 +227,9 @@ define("VERSION", uniqid());
 
 
                     </div>
+
                     <div class="col-min-150">
 
-
-                        <div class="draggable-block">
-                            <div class="block-label">
-                                <img src="/img/icons/grid4-4-4.svg" width="16" height="16"> Grid 4/4/4
-                            </div>
-                            <div class="block-code">
-                                <div class="grid-row row">
-                                    <div class="sortable col-md-4"></div>
-                                    <div class="sortable col-md-4"></div>
-                                    <div class="sortable col-md-4"></div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="draggable-block">
                             <div class="block-label">
@@ -218,58 +247,13 @@ define("VERSION", uniqid());
 
                         <div class="draggable-block">
                             <div class="block-label">
-                                <img src="/img/icons/grid2-8-2.svg" width="16" height="16"> Grid 2/8/2
+                                <span class="glyphicon glyphicon-tasks"></span>
+                                Custom grid...
                             </div>
                             <div class="block-code">
-                                <div class="grid-row row">
-                                    <div class="sortable col-md-2"></div>
-                                    <div class="sortable col-md-8"></div>
-                                    <div class="sortable col-md-2"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-min-150">
-
-
-                        <div class="draggable-block">
-                            <div class="block-label">
-                                <img src="/img/icons/grid4-4-4.svg" width="16" height="16"> Grid 4/4/4
-                            </div>
-                            <div class="block-code">
-                                <div class="grid-row row">
-                                    <div class="sortable col-md-4"></div>
-                                    <div class="sortable col-md-4"></div>
-                                    <div class="sortable col-md-4"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="draggable-block">
-                            <div class="block-label">
-                                <img src="/img/icons/grid3-3-3-3.svg" width="16" height="16"> Grid 3/3/3/3
-                            </div>
-                            <div class="block-code">
-                                <div class="grid-row row">
-                                    <div class="sortable col-md-3"></div>
-                                    <div class="sortable col-md-3"></div>
-                                    <div class="sortable col-md-3"></div>
-                                    <div class="sortable col-md-3"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="draggable-block">
-                            <div class="block-label">
-                                <img src="/img/icons/grid2-8-2.svg" width="16" height="16"> Grid 2/8/2
-                            </div>
-                            <div class="block-code">
-                                <div class="grid-row row">
-                                    <div class="sortable col-md-2"></div>
-                                    <div class="sortable col-md-8"></div>
-                                    <div class="sortable col-md-2"></div>
+                                <div class="grid-row row customize">
+                                    <div class="sortable col-md-6"></div>
+                                    <div class="sortable col-md-6"></div>
                                 </div>
                             </div>
                         </div>
