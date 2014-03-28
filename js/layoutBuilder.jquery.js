@@ -148,11 +148,12 @@
 
             $(window)
                 .on("resize", function() {
-                    var value = Math.max(260, ($(this).width() - 1000) / 1.5);
+                    var value = Math.max(260, ($(this).width() - 900) / 1.5);
                     $("#left").css("width", value);
                     $("#right").css("padding-left", value);
                     $("#right .header").css("margin-left", value);
                     $(".help-text").css("left", value - 100);
+                    $("#left .contents").css("width", $(this).width() < 1600 ? "260" : "430");
                 })
                 .trigger("resize");
 

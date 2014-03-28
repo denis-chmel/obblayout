@@ -2,7 +2,6 @@ body {
     padding: 20px;
 }
 .shop-logo {
-    background: #EEE;
     padding: 5px;
     border-radius: 5px;
     color: #CCC;
@@ -31,9 +30,9 @@ body {
 .carousel {
     padding: 20px;
     border-radius: 6px;
-    background: #EEE;
     height: 460px;
 }
+
 .carousel .carousel-control {
     background: transparent;
     color: #CCC;
@@ -46,4 +45,10 @@ body {
 
 .carousel .carousel-indicators li.active {
     background-color: #CCC;
+}
+
+.carousel,
+.shop-logo {
+    background: url(../img/lines2.svg);
+    border: 1px solid #DDD;
 }

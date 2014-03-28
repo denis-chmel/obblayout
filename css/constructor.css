@@ -10,13 +10,9 @@ html, body {
     height: 100%;
     float: left;
 
-    background: -webkit-linear-gradient(left, rgba(0, 191, 255, 0.7) 0%, rgba(38, 154, 188, 0.7) 100%);
-    background: rgba(0,0,0, 0.6);
-    b1order-right: 5px solid #999;
-    background: rgba(255,255,255,0.5);
-    background: rgba(29, 115, 180, 0.8);
-    background: rgba(0, 100, 165, 0.65)  url(../img/glass.png) right top;
-    background: rgba(60, 60, 60, 0.6) url(../img/glass.png) right top;
+    background: url(../img/glass.png) right top;
+    background-color: rgba(29, 115, 180, 0.8);
+    background-color: rgba(30, 30, 30, 0.6);
     border-right: 6px solid rgba(255, 255, 255, 0.2);
 
     color: #FFF;
@@ -31,8 +27,8 @@ html, body {
 }
 
 #left .contents {
-    padding: 10px 20px 10px;
-    min-width: 260px;
+    padding: 20px;
+    width: 260px;
     float: right;
 }
 
@@ -115,7 +111,7 @@ main.sortable {
 .draggable-hovered .sortable,
 .selected .sortable,
 #sandbox.while-dragging .sortable {
-    border-color: #999;
+    border-color: #AAA;
 }
 
 .row > .sortable + .sortable {
@@ -128,12 +124,7 @@ main.sortable {
     width: 100%;
     position: absolute;
     left: 0;
-    border-top: 1px dotted #D3D3D3;
-}
-
-.show-grid .section-preset-switcher-for-main:before,
-.show-grid .section-preset-switcher-for-footer:before {
-    border-top: 1px dotted #999;
+    border-top: 1px dotted #AAA;
 }
 
 /*
@@ -175,6 +166,10 @@ main.sortable {
 .draggable {
     cursor: move;
     margin: 10px auto;
+}
+.draggable-block {
+    margin: 0;
+    padding: 5px 0;
 }
 .draggable:not(.placeholder-line) {
     min-height: 30px;
@@ -438,7 +433,9 @@ footer:empty,
     font-size: 22px;
     letter-spacing: 1px;
     color: #FFF;
-    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+
 }
 #logo .subpage {
     font-size: 16px;
@@ -522,11 +519,12 @@ textarea {
 }
 
 .section-preset-switcher {
-    display: none;
+    opacity: 0;
+    transition: opacity 1s;
 }
 
 .active-layout .section-preset-switcher {
-    display: block;
+    opacity: 1;
 }
 
 .section-preset-switcher-for-main,
@@ -614,11 +612,37 @@ textarea {
 
 .next-prev-buttons {
     position: absolute;
-    right: 25px;
+    right: 40px;
+    top: 15px;
+}
+.next-prev-buttons > * {
+    margin-left: 5px;
 }
 
 .layout-presets,
 #header-layout-presets,
 #footer-layout-presets {
     display: none;
+}
+
+.col-min-150 {
+    padding-right: 15px;
+    padding-left: 15px;
+    float: left;
+    min-width: 130px;
+}
+
+.grid-icon {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.grid-icon table {
+    width: 14px;
+    height: 14px;
+}
+
+.grid-icon td {
+    border: 1px dotted #999;
 }
