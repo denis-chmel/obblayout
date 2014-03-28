@@ -34,14 +34,14 @@ function focusCurrrentLayoutEditor() {
 
     var $currentLayout = $(".obb-page-" + currentLayout);
 
-    var layoutSelector = $(".layout");
+    var layoutSelector = $(".layouts .layout");
     var layoutsCount = $(layoutSelector).length;
     $(layoutSelector).each(function(i, item) {
         i -= $currentLayout.index();
         var newCss = {
             opacity: 0.4,
-            marginLeft: (i * 140) + "%",
-            marginRight: (i - layoutsCount) * 140 + "%"
+            marginLeft: (i * 150) + "%",
+            marginRight: (i - layoutsCount - 2) * 150 + "%"
         };
         $(item).css(newCss);
     });
@@ -51,6 +51,8 @@ function focusCurrrentLayoutEditor() {
     if (currentLayout !== 'front') {
         $currentLayout.find("header").html($(".obb-page-front header").html()); // FIXME
         $currentLayout.find("footer").html($(".obb-page-front footer").html()); // FIXME
+        $currentLayout.find(".sortable").removeClass("sortable");
+        initDrag();
     }
     updateHeights();
 }
@@ -197,6 +199,19 @@ function updatePlaceholders(ui) {
 }
 
 function initDrag(where) {
+
+    $(sortables).not(".block-controls").filter(function(){
+        if ($(this).is(".editing-disabled")) {
+            return false;
+        }
+        if ($(this).is("header") && $(this).closest(".locked-header").length) {
+            return false;
+        }
+        if ($(this).is("footer") && $(this).closest(".locked-footer").length) {
+            return false;
+        }
+        return true;
+    }).addClass("sortable").children().addClass("draggable");
 
     var $grids = $(where || ".grid-setup");
     $grids.each(function() {
@@ -347,11 +362,13 @@ function updateHeights(where) {
         }).height(maxHeight);
 
     });
+
+    setTimeout(function(){
+        $("#sandbox").height($(".active-layout").height());
+    }, 0);
 }
 
 function onAfterChange(skipHistory) {
-    $(sortables).not(".block-controls").addClass("sortable").children().addClass("draggable");
-
     setTimeout(function() {
         updateHeights();
     }, 1);
@@ -639,7 +656,7 @@ $(function() {
      */
 
     $($("#section-preset-switcher-tpl").html()).insertBefore(
-        $("header:visible, main:visible, footer:visible")
+        $("header:visible, main:visible:not(.disabled), footer:visible")
     );
 
     function getPresetsForBlock($block) {
@@ -656,6 +673,9 @@ $(function() {
         var $block = $(this).next();
 
         var $layouts = getPresetsForBlock($block);
+        if ($block.is(".editing-disabled")) {
+            $(this).addClass("editing-disabled");
+        }
         $(this).attr("data-current-layout", 0); // FIXME unhardcode
 
         $(this).addClass("section-preset-switcher-for-" + $block.prop("tagName").toLowerCase());
@@ -705,6 +725,7 @@ $(function() {
                 "margin-left": "-210%",
                 "margin-right": "210%",
                 "height": $newBlock.height(),
+                "overflow": "hidden", // in case new height less than content height (e.g. footer)
                 opacity: 1
             });
             $newBlock.css({
@@ -804,7 +825,8 @@ $(function() {
                 $("#sandbox").removeClass("show-grid");
         });
 
-    $("#pages-switcher a").click(function(){
+    $("#pages-switcher a").click(function(e){
+        e.preventDefault();
         $(this).addClass("active").siblings().removeClass("active");
         focusCurrrentLayoutEditor();
     });

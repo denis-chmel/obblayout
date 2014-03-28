@@ -13,8 +13,22 @@ $pages = array(
         "description" => "Page of a certain product",
         "layouts" => array(),
     ),
+    'cart' => array(
+        "description" => "User may get to here after adding products to cart. If you agree it maybe make sense to add links to related/hot/wholesale products in the footer.",
+        "layouts" => array(),
+    ),
+    'checkout' => array(
+        "description" => "To improve focus it make sense to remove everything that may distract user from purchase. The logic of assembling the content is too complicated and therefore not editable, but you may simplify header and/or footer a lot.",
+        "layouts" => array(),
+    ),
+    /*
+    'blog' => array(
+        "description" => "Page of a certain product",
+        "layouts" => array(),
+    ),
+    */
     'information' => array(
-        "description" => "This is a stucture for a set pages like contact us, about, terms & conditions, etc",
+        "description" => "This is a stucture for a set pages like contact us, about, terms & conditions, etc.",
         "layouts" => array(),
     ),
 );
@@ -80,7 +94,7 @@ define("VERSION", uniqid());
     <link href='http://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet' type='text/css'>
 
 </head>
-<body class="layout-constructor">
+<body>
 
 <div class="layout-constructor">
 
@@ -94,21 +108,14 @@ define("VERSION", uniqid());
         </div>
     </div>
 
-    <div id="left">
+    <div id="left" <?= isset($_GET["blue"]) ? ' style="background-color: rgba(0, 95, 160, 0.7)" ' : '' ?>>
 
         <div class="contents">
 
             <div id="logo">
 
-                <table>
-                    <tr valign="top">
-                        <td><span class="glyphicon glyphicon-th-large"></span></td>
-                        <td>
-                            Openbizbox
-                            <span class="subpage">Layout Builder</span>
-                        </td>
-                    </tr>
-                </table>
+                <img src="/img/logo.png">
+                <span class="subpage">Layout Builder</span>
 
             </div>
 
@@ -116,7 +123,7 @@ define("VERSION", uniqid());
                 <? foreach (array_keys($pages) as $i => $pageType): ?>
                     <a href="#" class="list-group-item <?= $i ? "" : " active " ?>" data-value="<?= $pageType ?>"><?= ucfirst($pageType) ?> page</a>
                 <? endforeach ?>
-                <a href="#" class="list-group-item" data-value="new">New page</a>
+                <? /* <a href="#" class="list-group-item" data-value="new">New page</a> */ ?>
             </div>
 
             <!--
@@ -256,23 +263,12 @@ define("VERSION", uniqid());
                 </div>
             </div>
 
-
-            <? foreach (array(1,2) as $i): ?>
             <h5>Blocks</h5>
 
             <div class="wrap">
 
                 <div id="draggable-blocks" class="row">
                     <div class="col-min-150">
-
-                        <div class="draggable-block">
-                            <div class="block-label">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Checkout button
-                            </div>
-                            <div class="block-code">
-                                <div class="btn btn-danger">Checkout</div>
-                            </div>
-                        </div>
 
                         <div class="draggable-block">
                             <div class="block-label">
@@ -346,6 +342,55 @@ define("VERSION", uniqid());
                             </div>
                         </div>
 
+                        <div class="draggable-block todo">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-remove"></span> Top featured products
+                            </div>
+                            <div class="block-code">
+                                <p>TODO</p>
+                            </div>
+                        </div>
+
+                        <div class="draggable-block todo">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-remove"></span> Top bestsellers
+                            </div>
+                            <div class="block-code">
+                                <p>TODO</p>
+                            </div>
+                        </div>
+
+                        <div class="draggable-block todo">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-remove"></span> Newest products
+                            </div>
+                            <div class="block-code">
+                                <p>TODO</p>
+                            </div>
+                        </div>
+
+                        <div class="draggable-block todo">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-remove"></span> Wholesale products
+                            </div>
+                            <div class="block-code">
+                                <p>TODO</p>
+                            </div>
+                        </div>
+
+                        <div class="draggable-block todo">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Shopping cart
+                            </div>
+                            <div class="block-code">
+                                <p>TODO</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-min-150">
+
                         <div class="draggable-block">
                             <div class="block-label">
                                 <span class="glyphicon glyphicon-search"></span> Search
@@ -361,9 +406,6 @@ define("VERSION", uniqid());
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="col-min-150">
 
                         <div class="draggable-block todo">
                             <div class="block-label">
@@ -421,18 +463,37 @@ define("VERSION", uniqid());
                         <div class="draggable-block">
                             <div class="block-label">
 
-                                <span class="glyphicon glyphicon-th-list"></span> Menu
+                                <span class="glyphicon glyphicon-th-list"></span> Categories navigation
                             </div>
 
                             <div class="block-code">
                                 <ul class="nav nav-pills">
-                                    <li class="active"><a href="#">Home</a></li>
-                                    <li><a href="#">Profile</a></li>
-                                    <li><a href="#">Messages</a></li>
-                                    <li><a href="#">Friends</a></li>
-                                    <li><a href="#">Photos</a></li>
-                                    <li><a href="#">Calendar</a></li>
+                                    <li class="active"><a href="#">Jewelry</a></li>
+                                    <li><a href="#">Electronics & Appliances</a></li>
+                                    <li><a href="#">Clothing</a></li>
+                                    <li><a href="#">Interior Design</a></li>
+                                    <li><a href="#">Bags & Wallets</a></li>
+                                    <li><a href="#">Shoes</a></li>
                                 </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="draggable-block todo">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-remove"></span> Currency switcher
+                            </div>
+                            <div class="block-code">
+                                <p>TODO</p>
+                            </div>
+                        </div>
+
+                        <div class="draggable-block todo">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-remove"></span> Localization switcher
+                            </div>
+                            <div class="block-code">
+                                <p>TODO</p>
                             </div>
                         </div>
 
@@ -471,6 +532,14 @@ define("VERSION", uniqid());
                             </div>
                         </div>
 
+                        <div class="draggable-block">
+                            <div class="block-label">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Checkout button
+                            </div>
+                            <div class="block-code">
+                                <div class="btn btn-danger">Checkout</div>
+                            </div>
+                        </div>
 
 
 
@@ -478,7 +547,7 @@ define("VERSION", uniqid());
                 </div>
 
             </div>
-            <? endforeach ?>
+
         </div>
 
     </div>
@@ -611,8 +680,6 @@ define("VERSION", uniqid());
 
                     <? foreach (array_keys($pages) as $i => $pageType): ?>
 
-                        <? if (!$pages[$pageType]["layouts"]) continue ?>
-
                             <div class="layout obb-page-<?= $pageType ?> <?= $i ? " locked-header locked-footer " : "" ?>" data-obb-page="<?= $pageType ?>">
 
                                 <div class="layout-presets">
@@ -630,16 +697,19 @@ define("VERSION", uniqid());
                                     </span>
                                 </h2>
 
-                                <p><?= $pages[$pageType]["description"] ?></p>
+                                <p style="max-width: 800px"><?= $pages[$pageType]["description"] ?></p>
 
-                                <? /*
-                                <? if ($i): ?>
-                                <p class="lock-warning">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                    The default header/footer are used. Unlock them if you want a custom for this page.
-                                </p>
-                                <? endif ?>
-                                */ ?>
+                                <? if (empty($pages[$pageType]["layouts"])): ?>
+
+                                    <div class="page-html">
+                                    <div class="container">
+                                        <header></header>
+                                        <main class="editing-disabled"></main>
+                                        <footer></footer>
+                                    </div>
+                                    </div>
+
+                                <? else: ?>
 
                                 <? $layout = $pages[$pageType]["layouts"][0]; ?>
                                 <div class="page-html">
@@ -691,11 +761,23 @@ define("VERSION", uniqid());
                                         </div>
                                     </footer>
                                     </div>
+
                                 </div>
+                                <? endif ?>
+
+                                <? /*
+                                <div id="copyright">
+                                    <div class="text-center text-muted credit">Content Copyright © Golden Planet ApS</div>
+                                    <div class="text-center text-muted credit">OpenBizBox System Copyright © <a target="_blank" href="http://www.goldenplanet.com/">Golden Planet</a>
+                                    </div>
+                                </div>
+                                */ ?>
+
                             </div>
 
                     <? endforeach ?>
 
+                    <? /*
                     <div class="layout obb-page-new">
 
                         <h2>
@@ -719,6 +801,7 @@ define("VERSION", uniqid());
                         </div>
                         </div>
                     </div>
+                    */ ?>
 
                 </div>
             </div>

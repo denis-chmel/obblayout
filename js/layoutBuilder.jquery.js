@@ -154,6 +154,7 @@
                     $("#right .header").css("margin-left", value);
                     $(".help-text").css("left", value - 100);
                     $("#left .contents").css("width", $(this).width() < 1600 ? "260" : "430");
+                    updateHeights();
                 })
                 .trigger("resize");
 
