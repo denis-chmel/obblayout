@@ -62,6 +62,11 @@ foreach (glob(__DIR__ . "/layouts/*", GLOB_ONLYDIR) as $dir) {
     }
 }
 
+$rgb = "";
+if (isset($_GET["rgb"])) {
+    $rgb = $_GET["rgb"];
+}
+
 define("VERSION", uniqid());
 
 ?>
@@ -80,8 +85,6 @@ define("VERSION", uniqid());
     <link rel="stylesheet" href="/js/jquery-ui/themes/smoothness/jquery-ui.css">
     <script src="/js/jquery-ui/ui/jquery-ui.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/extra-styles.css?<?= VERSION ?>"/>
-    <link rel="stylesheet" type="text/css" href="css/constructor.css?<?= VERSION ?>"/>
     <link rel="stylesheet" type="text/css" href="vendor/mCustomScrollbar/jquery.mCustomScrollbar.css"/>
 
     <script src="vendor/growl/jquery.growl.js"></script>
@@ -92,6 +95,28 @@ define("VERSION", uniqid());
 
     <script src="vendor/tinymce/js/tinymce/tinymce.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="css/extra-styles.css?<?= VERSION ?>"/>
+    <link rel="stylesheet" type="text/css" href="css/constructor.css?<?= VERSION ?>"/>
+
+    <? if ($rgb):  ?>
+        <style>
+            .block-controls,
+            #left {
+                background-color: rgba(<?= $rgb?>, 0.7) !important;
+            }
+            .block-name {
+                color: rgba(<?= $rgb?>, 0.8) !important;
+            }
+            .draggable-hovered {
+                outline-color: rgba(<?= $rgb?>, 0.7) !important;
+            }
+            .btn-info {
+                background-color: rgba(<?= $rgb?>, 0.6);
+                border-color: rgba(255,255,255, 0.5);
+            }
+        </style>
+    <? endif ?>
 
 </head>
 <body>
@@ -577,8 +602,8 @@ define("VERSION", uniqid());
                     <button class="btn btn-sm1 btn-info btn-saved-layouts-next">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
                     -->
                     <button type="button" class="btn btn-sm btn-info disabled btn-undo">Undo</button>
-                    <input id="btn-toggle-grid" data-on-color="info" type="checkbox" data-size="mini" data-label-text="<span class='grid-icon'><table><tr><td></td><td></td></tr><tr><td></td><td></td></tr></table></span>">
-                    <button type="button" class="btn btn-info" id="btn-help">Help</button>
+                    <input id="btn-toggle-grid" data-on-color="info" type="checkbox" data-size="" data-label-text="<span class='grid-icon'><table><tr><td></td><td></td></tr><tr><td></td><td></td></tr></table></span>">
+                    <button type="button" class="btn btn-sm btn-info" id="btn-help">Help</button>
 
 
                 </div>
@@ -1026,7 +1051,7 @@ EOF;
 
             // $("#sandbox").layoutBuilder();
             $("#left").mCustomScrollbar({
-                scrollInertia: 300
+                scrollInertia: 100
             });
 
         });

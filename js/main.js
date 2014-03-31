@@ -36,17 +36,19 @@ function focusCurrrentLayoutEditor() {
 
     var layoutSelector = $(".layouts .layout");
     var layoutsCount = $(layoutSelector).length;
+
+    $currentLayout.addClass("active-layout").siblings().removeClass("active-layout");
+
     $(layoutSelector).each(function(i, item) {
         i -= $currentLayout.index();
+        console.log(item,  item.className.indexOf("active-layout"));
         var newCss = {
-            opacity: 0.4,
+            opacity: item.className.indexOf("active-layout") >= 0 ? 1 : 0.4,
             marginLeft: (i * 150) + "%",
             marginRight: (i - layoutsCount - 2) * 150 + "%"
         };
         $(item).css(newCss);
     });
-    $currentLayout.css("opacity", 1);
-    $currentLayout.addClass("active-layout").siblings().removeClass("active-layout");
 
     if (currentLayout !== 'front') {
         $currentLayout.find("header").html($(".obb-page-front header").html()); // FIXME
@@ -716,7 +718,7 @@ $(function() {
                 position: "absolute",
                 width: $newBlock.width(),
                 "margin-left": "100%",
-                opacity: 0
+                opacity: 1 // 0?
             });
             updateHeights();
             $newBlock.removeClass("transition-none");
@@ -781,7 +783,7 @@ $(function() {
                 width: $block.width(),
                 "margin-left": "-110%",
                 "margin-right": "110%",
-                opacity: 0
+                opacity: 1 // 0?
             });
             updateHeights();
             $newBlock.removeClass("transition-none");
